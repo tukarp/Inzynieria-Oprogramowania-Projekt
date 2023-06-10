@@ -25,7 +25,8 @@ public:
 	Wideokonferencja(std::string nazwa, Prowadzacy *prowadzacy);
 	void dodajUczestnika(Student *student);
 	void usunUczestnika(std::string login);
-	void otworzMenu(Uzytkownik *Uzytkownik);
+	void otworzMenuStudenta(Uzytkownik *uzytkownik);
+	void otworzMenuProwadzacego(Uzytkownik *uzytkownik);
 private:
 	std::string nazwa;
 	Prowadzacy *prowadzacy;
