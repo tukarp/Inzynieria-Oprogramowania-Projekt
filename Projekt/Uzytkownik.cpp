@@ -61,5 +61,5 @@ void Uzytkownik::setEmail(std::string email) {
 }
 
 void Uzytkownik::printUzytkownik() {
-    std::cout << imie << " " << nazwisko << "\n";
+	std::cout << imie << " " << nazwisko << "\n";
 }

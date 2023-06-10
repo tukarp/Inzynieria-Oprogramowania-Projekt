@@ -12,6 +12,7 @@
 #if !defined(_UZYTKOWNIK_H)
 #define _UZYTKOWNIK_H
 
+#include <iostream>
 #include <string>
 
 class Uzytkownik {
@@ -27,7 +28,7 @@ public:
 	void setHaslo(std::string haslo);
 	std::string getEmail();
 	void setEmail(std::string email);
-    void printUzytkownik();
+	void printUzytkownik();
 private:
 	std::string imie;
 	std::string nazwisko;

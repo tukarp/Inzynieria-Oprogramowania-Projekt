@@ -64,3 +64,62 @@ void Kurs::wyswietlStroneKursu() {
         std::cout << i + 1 << ". " << uczestincy[i]->getImie() << " " << uczestincy[i]->getNazwisko() << "\n";
     }
 }
+
+void Kurs::otworzMenuStudenta(Uzytkownik *uzytkownik) {
+	while (true) {
+		std::string userInput;
+		std::cout << "Jestes na stronie kursu: " << this->nazwa << "\n";
+		std::cout << "Wybierz opcje:\n";
+		std::cout << "1. Wyswietl strone kursu\n";
+		std::cout << "2. Wyswietl materialy\n";
+		std::cout << "3. Dolacz do wideokonferencji\n";
+		std::cin >> userInput;
+
+		if (userInput == "1") {
+			wyswietlStroneKursu();
+		} else if (userInput == "2") {
+			for (int i = 0; i < materialy.size(); i++) {
+				materialy.at(i)->printData();
+			}
+		} else if (userInput == "3") {
+			if (wideokonferencja != nullptr) {
+				wideokonferencja->dodajUczestnika((Student *)uzytkownik);
+				wideokonferencja->otworzMenuStudenta(uzytkownik);
+			} else {
+				std::cout << "Wideokonferencja nie jest utworzona";
+			}
+		} else {
+			std::cout << "Niepoprawna opcja!\n";
+		}
+	}
+}
+
+void Kurs::otworzMenuProwadzacego(Uzytkownik *uzytkownik) {
+	while (true) {
+		std::string userInput;
+		std::cout << "Jestes na stronie kursu: " << this->nazwa << "\n";
+		std::cout << "Wybierz opcje:\n";
+		std::cout << "1. Wyswietl strone kursu\n";
+		std::cout << "2. Wyswietl materialy\n";
+		std::cout << "3. Utworz wideokonferencje\n";
+		std::cin >> userInput;
+
+		if (userInput == "1") {
+			wyswietlStroneKursu();
+		} else if (userInput == "2") {
+			for (int i = 0; i < materialy.size(); i++) {
+				materialy.at(i)->printData();
+			}
+		} else if (userInput == "3") {
+			if (wideokonferencja == nullptr) {
+				wideokonferencja = new Wideokonferencja("Wideokonferencja",
+				(Prowadzacy *)uzytkownik);
+				wideokonferencja->otworzMenuProwadzacego(uzytkownik);
+			} else {
+				std::cout << "Wideokonferencja nie jest utworzona";
+			}
+		} else {
+			std::cout << "Niepoprawna opcja!\n";
+		}
+	}
+}

@@ -33,6 +33,8 @@ public:
 	void zakonczWideokonferencje();
 	void usunUczestnika(std::string login);
 	void wyswietlStroneKursu();
+	void otworzMenuStudenta(Uzytkownik *uzytkownik);
+	void otworzMenuProwadzacego(Uzytkownik *uzytkownik);
 private:
 	std::string nazwa;
 	std::vector <Material *> materialy;
