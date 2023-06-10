@@ -1,7 +1,5 @@
 //
 //
-//
-//
 //  @ Project : Inżynieria Oprogramowania - Projekt
 //  @ File Name : main.cpp
 //  @ Date : 10.06.2023
@@ -9,12 +7,14 @@
 //
 //
 
+// Deklaracja zależności i bibliotek
 #include "System.h"
 
-using namespace std;
-
+// Funkcja main
 int main() {
+    // Utworzenie obiektu systemu
     System system = System("System Obslugi Studiow");
+    // Uruchomienie systemu
     system.boot();
 
     return 0;

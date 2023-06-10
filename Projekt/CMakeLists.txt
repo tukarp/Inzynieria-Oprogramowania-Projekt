@@ -3,4 +3,4 @@ project(Test)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(Test main.cpp Kurs.cpp Material.cpp Prowadzacy.cpp Student.cpp System.cpp Uzytkownik.cpp Wideokonferencja.cpp)
+add_executable(Test main.cpp Course.cpp Material.cpp Lecturer.cpp Student.cpp System.cpp User.cpp VideoConference.cpp)

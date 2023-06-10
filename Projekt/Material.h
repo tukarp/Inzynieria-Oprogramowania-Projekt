@@ -12,25 +12,36 @@
 #if !defined(_MATERIAL_H)
 #define _MATERIAL_H
 
-#include "Uzytkownik.h"
+// Deklaracja zależności i bibliotek
+#include "User.h"
 #include <string>
 #include <iostream>
 #include <thread>
 #include <chrono>
 
+// Deklaracja klasy Material
 class Material {
 public:
-	Material(std::string nazwa, int rozmiar, Uzytkownik *dodanyPrzez);
-	std::string getNazwa();
-	int getRozmiar();
-	Uzytkownik * getDodanyPrzez();
-	void printData();
-	void otworzMenu();
-	void loadingBar();
+	Material(std::string name, std::string description, std::string fileName, int fileSize, User * addedBy);  // Konstruktor klasy Material
+	std::string getName();  // Accessor pola name
+    void setName(std::string name);  // Mutator pola name
+    std::string getDescription();  // Accessor pola description
+    void setDescription(std::string description);  // Mutator pola description
+    std::string getFileName();  // Accessor pola fileName
+    void setFileName(std::string fileName);  // Mutator pola fileName
+    int getFileSize();  // Accessor pola fileSize
+    void setFileSize(int fileSize);  // Mutator pola fileSize
+    User * getAddedBy();  // Accessor pola addedBy
+    void setAddedBy(User * addedBy);  // Mutator pola addedBy
+	void printMaterial();  // Metoda wypisująca informacje o materiale
+	void materialsMenu();  // Metoda otwierająca menu materiału
+	void downloadFile();  // Metoda symulująca pobieranie pliku
 private:
-	std::string nazwa;
-	int rozmiar;
-	Uzytkownik * dodanyPrzez;
+	std::string name;  // Nazwa materiału
+    std::string description;  // Opis materiału
+    std::string fileName;  // Nazwa pliku
+	int fileSize;  // Rozmiar pliku
+	User * addedBy;  // Użytkownik dodający materiał
 };
 
 #endif  //_MATERIAL_H

@@ -12,34 +12,36 @@
 #if !defined(_SYSTEM_H)
 #define _SYSTEM_H
 
+// Deklaracja zależności i bibliotek
 #include <string>
 #include <vector>
-#include "Uzytkownik.h"
-#include "Kurs.h"
+#include "User.h"
+#include "Course.h"
 
+// Deklaracja klasy User
 class System {
 public:
-	System(std::string nazwa);
-    std::string getNazwa();
-	void login(Uzytkownik * uzytkownik);
-	void rejestracja(Uzytkownik * uzytkownik);
-    int getKursySize();
-	void dodajKurs(Kurs * kurs);
-	void usunKurs(std::string nazwa);
-	void usunUzytkownika(std::string login);
-    void printKursy();
-	void printUzytkownik(Uzytkownik* uzytkownik);
-    void boot();
-    void bootStudent();
-    void bootProwadzacy();
-    void obslugaKursowStudenta(Student * student);
-    void obslugaKursowProwadzacego(Prowadzacy * prowadzacy);
-    void wczytajUzytkownikow(const std::string& fileName);
-    void wczytajKursy(const std::string& fileName);
+	System(std::string name);  // Konstruktor klasy System
+    std::string getName();  // Akcesor pola name
+    bool authentication(User * user, std::string login, std::string password);  // Metoda autoryzująca użytkownika
+	void login(User * user);  // Metoda logująca użytkownika
+	void registerUser(User * user);  // Metoda rejestrująca użytkownika
+    void deleteUser(std::string login);  // Metoda usuwająca użytkownika z wektora users
+	void addCourse(Course * course);  // Metoda dodająca kurs do wektora courses
+    int getCourseSize();  // Metoda zwracająca rozmiar wektora courses
+    void printCourses();  // Metoda wyświetlająca kursy
+	void deleteCourse(std::string courseName);  // Metoda usuwająca kurs z wektora courses
+    void boot();  // Metoda uruchamiająca system
+    void studentSystem();  // Metoda uruchamiająca system w wersji studenckiej
+    void lecturerSystem();  // Metoda uruchamiająca system w werjsi wykładowcy
+    void studentCourseMenu(Student * student);  // Metoda otwierająca menu kursów dla studenta
+    void lecturerCourseMenu(Lecturer * lecturer);  // Metoda otwierająca menu kursów dla wykładowcy
+    void loadUsersFromCSV(const std::string& fileName);  // Metoda wczytująca użytkowników z pliku CSV
+    void loadCoursesFromCSV(const std::string& fileName);  // Metoda wczytująca kursy z pliku CSV
 private:
-    std::string nazwa;
-    std::vector <Kurs *> kursy;
-    std::vector <Uzytkownik *> uzytkownicy;
+    std::string name;  // Nazwa systemu
+    std::vector <Course *> courses;  // Wektor kursów
+    std::vector <User *> users;  // Wektor użytkowników
 };
 
 #endif  //_SYSTEM_H

@@ -12,21 +12,25 @@
 #if !defined(_STUDENT_H)
 #define _STUDENT_H
 
+// Deklaracja zależności i bibliotek
 #include <string>
 #include <vector>
-#include "Uzytkownik.h"
-#include "Kurs.h"
+#include "User.h"
+#include "Course.h"
 
-class Kurs;
-class Student : public Uzytkownik {
-    using Uzytkownik::Uzytkownik;
+// Deklaracja klas
+class Course;
+
+// Deklaracja klasy Student dziedziczącej po klasie User
+class Student : public User {
+    using User::User;  // Dziedziczenie konstruktorów klasy User
 public:
-	void dodajKurs(Kurs *kurs);
-	void usunKurs(std::string nazwa);
-    Kurs * getKurs(int index);
-    void printKursy();
+	void addCourse(Course * course);  // Metoda dodająca kurs do wektora kursów
+	void deleteCourse(std::string courseName);  // Metoda usuwająca kurs z wektora kursów
+    Course * getCourseAtIndex(int courseIndex);  // Metoda zwracająca wskaźnik na kurs o podanym indeksie
+    void printCourses();  // Metoda wyświetlająca courses
 private:
-	std::vector <Kurs *> kursy;
+	std::vector <Course *> courses;  // Wektor kursów
 };
 
 #endif  //_STUDENT_H
