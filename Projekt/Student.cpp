@@ -36,7 +36,7 @@ Course * Student::getCourseAtIndex(int courseIndex) {
     return courses[courseIndex];
 }
 
-// Metoda wyświetlająca courses
+// Metoda wyświetlająca wektor kursów
 void Student::printCourses() {
     // Wyświetl nagłówek kursów studenta
     std::cout << "---------------------------------------------------------------------------------------\n";

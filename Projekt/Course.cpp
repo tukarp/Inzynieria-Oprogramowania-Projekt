@@ -119,11 +119,11 @@ void Course::openStudentCourseMenu(Student * student) {
         std::cout << "---------------------------------" << getName() << "---------------------------------------\n";
         std::cout << "---------------------------------------------------------------------------------------\n";
         // Wyświetl opcje
-        std::cout <<    "Wybierz opcje:"                << "\n";
-        std::cout << "1. Wyswietl strone kursu"         << "\n";
-        std::cout << "2. Otworz materialy"              << "\n";
-        std::cout << "3. Dolacz do wideokonferencji"    << "\n";
-        std::cout << "4. Wroc"                          << "\n";
+        std::cout << "Wybierz opcje:"  << "\n";
+        std::cout << "1. Wyswietl strone kursu" << "\n";
+        std::cout << "2. Otworz materialy" << "\n";
+        std::cout << "3. Dolacz do wideokonferencji" << "\n";
+        std::cout << "4. Wroc" << "\n";
 
         // Pobierz wybór użytkownika
         std::cin >> userInput;
@@ -174,11 +174,11 @@ void Course::openLecturerCourseMenu(Lecturer * lecturer) {
         std::cout << "---------------------------------" << getName() << "---------------------------------------\n";
         std::cout << "---------------------------------------------------------------------------------------\n";
         // Wyświetl opcje
-        std::cout <<    "Wybierz opcje:"               << "\n";
-        std::cout << "1. Wyswietl strone kursu"         << "\n";
-        std::cout << "2. Otworz materialy"              << "\n";
-        std::cout << "3. Utworz wideokonferencje"       << "\n";
-        std::cout << "4. Wroc"                          << "\n";
+        std::cout << "Wybierz opcje:" << "\n";
+        std::cout << "1. Wyswietl strone kursu" << "\n";
+        std::cout << "2. Otworz materialy" << "\n";
+        std::cout << "3. Utworz wideokonferencje" << "\n";
+        std::cout << "4. Wroc"  << "\n";
 
         // Pobierz wybór użytkownika
         std::cin >> userInput;
@@ -231,10 +231,10 @@ void Course::openMaterialsMenu(User * user) {
         }
 
         // Wyświetl opcje
-        std::cout <<     "Wybierz opcje:"           << "\n";
-        std::cout << "1. Otworz material"           << "\n";
-        std::cout << "2. Dodaj material"            << "\n";
-        std::cout << "3. Wroc"                      << "\n";
+        std::cout << "Wybierz opcje:" << "\n";
+        std::cout << "1. Otworz material" << "\n";
+        std::cout << "2. Dodaj material"  << "\n";
+        std::cout << "3. Wroc" << "\n";
 
         // Pobierz wybór użytkownika
         std::cin >> userInput;

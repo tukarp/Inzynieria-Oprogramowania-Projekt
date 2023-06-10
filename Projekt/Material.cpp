@@ -87,11 +87,11 @@ void Material::materialsMenu() {
     // Petla wyswietlajaca menu materialu
 	while(true) {
 		// Wyswietl opcje
-		std::cout << "Material: " << this->name << "\n";
-		std::cout << "Wybierz opcje:"           << "\n";
-		std::cout << "1. Wyswietl dane"         << "\n";
-		std::cout << "2. Pobierz plik"          << "\n";
-		std::cout << "3. Wroc"                  << "\n";
+		std::cout << "Material: " << name << "\n";
+		std::cout << "Wybierz opcje:" << "\n";
+		std::cout << "1. Wyswietl dane" << "\n";
+		std::cout << "2. Pobierz plik" << "\n";
+		std::cout << "3. Wroc" << "\n";
 
         // Pobierz wybor uzytkownika
 		std::cin >> userInput;

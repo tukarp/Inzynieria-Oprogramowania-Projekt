@@ -73,7 +73,7 @@ void System::login(User * user) {
     // W przeciwnym wypadku
     } else {
         // Wyświetl informacje o niepoprawnym loginie lub haśle
-        std::cout << "Niepoprawny login lub password!\n";
+        std::cout << "Niepoprawny login lub haslo!" << "\n";
         // Wywołaj metodę rejestracji użytkownika
         registerUser(user);
     }
@@ -235,9 +235,9 @@ void System::boot() {
     std::cout << "-------------------------------" << getName() << "----------------------------------\n";
     std::cout << "---------------------------------------------------------------------------------------\n";
     // Wyświetl opcje
-    std::cout << "Wybierz opcje:" <<    "\n";
-    std::cout << "1. System Obslugi Studiow dla Studentow" <<        "\n";
-    std::cout << "2. System Obslugi Studiow dla Wykladowcow" <<      "\n";
+    std::cout << "Wybierz opcje:" << "\n";
+    std::cout << "1. System Obslugi Studiow dla Studentow" << "\n";
+    std::cout << "2. System Obslugi Studiow dla Wykladowcow" << "\n";
 
     // Pętla wybrania
     while(true) {
@@ -272,10 +272,10 @@ void System::studentSystem() {
     // Pętla do wyboru opcji systemu studenta
     while(true) {
         // Wyświetl opcje
-        std::cout << "Wybierz opcje:" <<                "\n";
-        std::cout << "1. Kursy" <<                      "\n";
-        std::cout << "2. Wyswietl swoj profil" <<       "\n";
-        std::cout << "3. Wyloguj sie" <<                "\n";
+        std::cout << "Wybierz opcje:" << "\n";
+        std::cout << "1. Kursy" << "\n";
+        std::cout << "2. Wyswietl swoj profil" << "\n";
+        std::cout << "3. Wyloguj sie" << "\n";
 
         // Pobierz dane użytkownika
         std::cin >> userInput;
@@ -315,10 +315,10 @@ void System::lecturerSystem() {
     // Pętla do wyboru opcji systemu studenta
     while(true) {
         // Wyświetl opcje
-        std::cout << "Wybierz opcje:" <<                "\n";
-        std::cout << "1. Kursy" <<                      "\n";
-        std::cout << "2. Wyswietl swoj profil" <<       "\n";
-        std::cout << "3. Wyloguj sie" <<                "\n";
+        std::cout << "Wybierz opcje:" << "\n";
+        std::cout << "1. Kursy" << "\n";
+        std::cout << "2. Wyswietl swoj profil" << "\n";
+        std::cout << "3. Wyloguj sie" << "\n";
 
         // Pobierz dane użytkownika
         std::cin >> userInput;
@@ -351,13 +351,17 @@ void System::studentCourseMenu(Student * student) {
 
     // Pętla do wyboru opcji systemu studenta
     while(true) {
+        // Wyświetl nagłówek menu kursów
+        std::cout << "---------------------------------------------------------------------------------------\n";
+        std::cout << "--------------------------------------Menu Kursow--------------------------------------\n";
+        std::cout << "---------------------------------------------------------------------------------------\n";
         // Wyświetl opcje
-        std:: cout << "Wybierz opcje:" <<                   "\n";
-        std:: cout << "1. Wybierz ze swoich kursow" <<      "\n";
-        std:: cout << "2. Zapisz sie do kursu" <<           "\n";
-        std:: cout << "3. Wypisz sie z kursu" <<            "\n";
-        std:: cout << "4. Wyswietl swoje kursy" <<        "\n";
-        std:: cout << "5. Wyswietl wszystkie kursy" <<    "\n";
+        std:: cout << "Wybierz opcje:" << "\n";
+        std:: cout << "1. Wybierz ze swoich kursow" << "\n";
+        std:: cout << "2. Zapisz sie do kursu" << "\n";
+        std:: cout << "3. Wypisz sie z kursu" << "\n";
+        std:: cout << "4. Wyswietl swoje kursy" << "\n";
+        std:: cout << "5. Wyswietl wszystkie kursy" << "\n";
         std:: cout << "6. Wroc" << "\n";
 
         // Pobierz dane użytkownika
@@ -400,6 +404,7 @@ void System::studentCourseMenu(Student * student) {
             std::cout << "Wybierz kurs: ";
             // Pobierz dane użytkownika
             std::cin >> userInput;
+
             // Jeżeli wybrany kurs istnieje
             if(std::stoi(userInput) - 1 < getCourseSize()) {
                 // Dodaj kurs do kursów studenta
@@ -461,21 +466,25 @@ void System::studentCourseMenu(Student * student) {
     }
 }
 
-// Metoda obsługi kursów studenta
+// Metoda obsługi kursów wykładowcy
 void System::lecturerCourseMenu(Lecturer * lecturer) {
     // Utwórz zmienną przechowującą dane użytkownika
     std::string userInput;
 
-    // Pętla do wyboru opcji systemu studenta
+    // Pętla do wyboru opcji systemu wykładowcy
     while(true) {
+        // Wyświetl nagłówek menu kursów
+        std::cout << "---------------------------------------------------------------------------------------\n";
+        std::cout << "--------------------------------------Menu Kursow--------------------------------------\n";
+        std::cout << "---------------------------------------------------------------------------------------\n";
         // Wyświetl opcje
-        std:: cout << "Wybierz opcje:" <<                   "\n";
-        std:: cout << "1. Wybierz ze swoich kursow" <<      "\n";
-        std:: cout << "2. Utworz kurs" <<                   "\n";
-        std:: cout << "3. Wypisz sie z kursu" <<            "\n";
-        std:: cout << "4. Wyswietl swoje kursy" <<          "\n";
-        std:: cout << "5. Wyswietl wszystkie kursy" <<      "\n";
-        std:: cout << "6. Wroc" <<                          "\n";
+        std:: cout << "Wybierz opcje:" << "\n";
+        std:: cout << "1. Wybierz ze swoich kursow" << "\n";
+        std:: cout << "2. Utworz kurs" << "\n";
+        std:: cout << "3. Wypisz sie z kursu" << "\n";
+        std:: cout << "4. Wyswietl swoje kursy" << "\n";
+        std:: cout << "5. Wyswietl wszystkie kursy" << "\n";
+        std:: cout << "6. Wroc" << "\n";
 
         // Pobierz dane użytkownika
         std::cin >> userInput;

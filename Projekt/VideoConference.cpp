@@ -50,9 +50,9 @@ void VideoConference::openStudentVideoConferenceMenu(Student * student) {
         std::cout << "----------" << "Wideokonferencja - " << name << "----------\n";
         std::cout << "---------------------------------------------------------------------------------------\n";
         // Wyświetl opcje
-		std::cout << "Wybierz opcje:"               << "\n";
-		std::cout << "1. Wyswietl uczestnikow"      << "\n";
-		std::cout << "2. Wyjdz"                     << "\n";
+		std::cout << "Wybierz opcje:" << "\n";
+		std::cout << "1. Wyswietl uczestnikow" << "\n";
+		std::cout << "2. Wyjdz" << "\n";
 
         // Pobierz wybór użytkownika
 		std::cin >> userInput;
@@ -99,9 +99,9 @@ void VideoConference::openLecturerVideoConferenceMenu(Lecturer * lecturer) {
         std::cout << "----------" << "Wideokonferencja - " << name << "---------------------------------------\n";
         std::cout << "---------------------------------------------------------------------------------------\n";
         // Wyświetl opcje
-        std::cout << "Wybierz opcje:"               << "\n";
-        std::cout << "1. Wyswietl uczestnikow"      << "\n";
-        std::cout << "2. Zakoncz wideokonferencje"  << "\n";
+        std::cout << "Wybierz opcje:" << "\n";
+        std::cout << "1. Wyswietl uczestnikow" << "\n";
+        std::cout << "2. Zakoncz wideokonferencje" << "\n";
 
         // Pobierz wybór użytkownika
         std::cin >> userInput;
