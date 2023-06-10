@@ -11,19 +11,30 @@
 
 #include "Wideokonferencja.h"
 
-Wideokonferencja::Wideokonferencja(std::string nazwa, Prowadzacy * prowadzacy) {
-    this->nazwa = nazwa;
-    this->prowadzacy = prowadzacy;
+Wideokonferencja::Wideokonferencja(std::string nazwa, Prowadzacy *prowadzacy) {
+	this->nazwa = nazwa;
+	this->prowadzacy = prowadzacy;
 }
 
-void Wideokonferencja::dodajUczestnika(Student * student) {
-    uczestnicy.push_back(student);
+void Wideokonferencja::dodajUczestnika(Student *student) {
+	uczestnicy.push_back(student);
 }
 
 void Wideokonferencja::usunUczestnika(std::string login) {
-    for (int i = 0; i < uczestnicy.size(); i++) {
-        if (uczestnicy[i]->getLogin() == login) {
-            uczestnicy.erase(uczestnicy.begin() + i);
-        }
-    }
+	for (int i = 0; i < uczestnicy.size(); i++) {
+		if (uczestnicy[i]->getLogin() == login) {
+			uczestnicy.erase(uczestnicy.begin() + i);
+		}
+	}
+
+}
+
+void Wideokonferencja::otworzMenu(Uzytkownik *Uzytkownik) {
+	std::string userInput;
+	std::cout << "Wideokonferencja: " << this->nazwa << "\n";
+	std::cout << "Wybierz opcje:\n";
+	std::cout << "1. Wyswietl uczestnikow\n";
+	std::cout << "2. Wyjdz\n";
+	std::cin << userInput;
+	if (userInput == 1)
 }

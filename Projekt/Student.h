@@ -16,13 +16,13 @@
 #include <vector>
 #include "Uzytkownik.h"
 #include "Kurs.h"
-
+class Kurs;
 class Student : public Uzytkownik {
 public:
-	void dodajKurs(Kurs * kurs);
+	void dodajKurs(Kurs *kurs);
 	void usunKurs(std::string nazwa);
 private:
-    std::vector <Kurs *> kursy;
+	std::vector <Kurs *> kursy;
 };
 
 #endif  //_STUDENT_H

@@ -17,9 +17,11 @@
 #include "Uzytkownik.h"
 #include "Kurs.h"
 
+class Kurs;
 class Prowadzacy : public Uzytkownik {
+	using Uzytkownik::Uzytkownik;
 public:
-	void dodajKurs(Kurs * kurs);
+	void dodajKurs(Kurs *kurs);
 	void usunKurs(std::string nazwa);
 private:
 	std::vector <Kurs *> kursy;

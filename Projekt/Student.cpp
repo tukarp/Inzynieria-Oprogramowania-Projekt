@@ -11,14 +11,14 @@
 
 #include "Student.h"
 
-void Student::dodajKurs(Kurs * kurs) {
-    kursy.push_back(kurs);
+void Student::dodajKurs(Kurs *kurs) {
+	kursy.push_back(kurs);
 }
 
 void Student::usunKurs(std::string nazwa) {
-    for (int i = 0; i < kursy.size(); i++) {
-        if (kursy[i]->getNazwa() == nazwa) {
-            kursy.erase(kursy.begin() + i);
-        }
-    }
+	for (int i = 0; i < kursy.size(); i++) {
+		if (kursy[i]->getNazwa() == nazwa) {
+			kursy.erase(kursy.begin() + i);
+		}
+	}
 }

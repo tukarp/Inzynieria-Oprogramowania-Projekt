@@ -17,22 +17,22 @@
 class Uzytkownik {
 public:
 	Uzytkownik(std::string imie, std::string nazwisko, std::string login, std::string haslo, std::string email);
-    std::string getImie();
-    void setImie(std::string imie);
-    std::string getNazwisko();
-    void setNazwisko(std::string nazwisko);
-    std::string getLogin();
-    void setLogin(std::string login);
-    std::string getHaslo();
-    void setHaslo(std::string haslo);
-    std::string getEmail();
-    void setEmail(std::string email);
+	std::string getImie();
+	void setImie(std::string imie);
+	std::string getNazwisko();
+	void setNazwisko(std::string nazwisko);
+	std::string getLogin();
+	void setLogin(std::string login);
+	std::string getHaslo();
+	void setHaslo(std::string haslo);
+	std::string getEmail();
+	void setEmail(std::string email);
 private:
-    std::string imie;
-    std::string nazwisko;
-    std::string login;
-    std::string haslo;
-    std::string email;
+	std::string imie;
+	std::string nazwisko;
+	std::string login;
+	std::string haslo;
+	std::string email;
 };
 
 #endif  //_UZYTKOWNIK_H

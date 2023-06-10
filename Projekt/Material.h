@@ -14,19 +14,19 @@
 
 #include "Uzytkownik.h"
 #include <string>
+#include <iostream>
 
 class Material {
 public:
-	Material(std::string nazwa, std::string data, int rozmiar, Uzytkownik* dodanyPrzez);
-    std::string getNazwa();
-    std::string getData();
+	Material(std::string nazwa, int rozmiar, Uzytkownik *dodanyPrzez);
+	std::string getNazwa();
 	int getRozmiar();
-	Uzytkownik* getDodanyPrzez();
+	Uzytkownik *getDodanyPrzez();
+	void printData();
 private:
-    std::string nazwa;
-    std::string data;
+	std::string nazwa;
 	int rozmiar;
-	Uzytkownik* dodanyPrzez;
+	Uzytkownik *dodanyPrzez;
 };
 
 #endif  //_MATERIAL_H

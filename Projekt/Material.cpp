@@ -11,26 +11,26 @@
 
 #include "Material.h"
 
-Material::Material(std::string nazwa, std::string data, int rozmiar, Uzytkownik* dodanyPrzez) {
-    this->nazwa = nazwa;
-    this->data = data;
-    this->rozmiar = rozmiar;
-    this->dodanyPrzez = dodanyPrzez;
+Material::Material(std::string nazwa, int rozmiar, Uzytkownik *dodanyPrzez) {
+	this->nazwa = nazwa;
+	this->rozmiar = rozmiar;
+	this->dodanyPrzez = dodanyPrzez;
 }
 
 std::string Material::getNazwa() {
-    return nazwa;
-}
-
-std::string Material::getData() {
-    std::cout << "--"
+	return nazwa;
 }
 
 int Material::getRozmiar() {
-
+	return rozmiar;
 }
 
-Uzytkownik* Material::getDodanyPrzez() {
-
+Uzytkownik *Material::getDodanyPrzez() {
+	return dodanyPrzez;
 }
 
+void Material::printData() {
+	std::cout << "Nazwa: " << this->nazwa << "\n" <<
+		"Rozmiar: " << this->rozmiar << "\n" <<
+		"Dodany przez: " << this->dodanyPrzez << "\n";
+}

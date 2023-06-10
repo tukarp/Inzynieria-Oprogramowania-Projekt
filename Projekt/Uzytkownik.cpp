@@ -12,49 +12,49 @@
 #include "Uzytkownik.h"
 
 Uzytkownik::Uzytkownik(std::string imie, std::string nazwisko, std::string login, std::string haslo, std::string email) {
-    this->imie = imie;
-    this->nazwisko = nazwisko;
-    this->login = login;
-    this->haslo = haslo;
-    this->email = email;
+	this->imie = imie;
+	this->nazwisko = nazwisko;
+	this->login = login;
+	this->haslo = haslo;
+	this->email = email;
 }
 
 std::string Uzytkownik::getImie() {
-    return imie;
+	return imie;
 }
 
 void Uzytkownik::setImie(std::string imie) {
-    this->imie = imie;
+	this->imie = imie;
 }
 
 std::string Uzytkownik::getNazwisko() {
-    return nazwisko;
+	return nazwisko;
 }
 
 void Uzytkownik::setNazwisko(std::string nazwisko) {
-    this->nazwisko = nazwisko;
+	this->nazwisko = nazwisko;
 }
 
 std::string Uzytkownik::getLogin() {
-    return login;
+	return login;
 }
 
 void Uzytkownik::setLogin(std::string login) {
-    this->login = login;
+	this->login = login;
 }
 
 std::string Uzytkownik::getHaslo() {
-    return haslo;
+	return haslo;
 }
 
 void Uzytkownik::setHaslo(std::string haslo) {
-    this->haslo = haslo;
+	this->haslo = haslo;
 }
 
 std::string Uzytkownik::getEmail() {
-    return email;
+	return email;
 }
 
 void Uzytkownik::setEmail(std::string email) {
-    this->email = email;
+	this->email = email;
 }
