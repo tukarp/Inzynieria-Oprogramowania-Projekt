@@ -25,7 +25,7 @@ int Material::getRozmiar() {
 	return rozmiar;
 }
 
-Uzytkownik *Material::getDodanyPrzez() {
+Uzytkownik * Material::getDodanyPrzez() {
 	return dodanyPrzez;
 }
 

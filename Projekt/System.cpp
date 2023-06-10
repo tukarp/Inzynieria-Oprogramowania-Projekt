@@ -114,14 +114,13 @@ void System::printUzytkownik(Uzytkownik * uzytkownik) {
 
 void System::bootStudent() {
     std::cout << "---------------------------------------------------------------------------------------\n";
-    std::cout << "--------------------------" << getNazwa() << "---------------------------------------\n";
+    std::cout << "--------------------------------" << getNazwa() << "-----------------------------------\n";
     std::cout << "---------------------------------------------------------------------------------------\n";
     Student student = Student("", "", "", "", "");
     login((Uzytkownik *) &student);
 
     std::string userInput;
-    while (true) {
-        std::cout << "Witaj w systemie obslugi studiow!\n";
+    while(true) {
         std::cout << "Wybierz opcje:\n";
         std::cout << "1. Kursy\n";
         std::cout << "2. Wyswietl swoj profil\n";
@@ -129,57 +128,67 @@ void System::bootStudent() {
         std::cin >> userInput;
 
         if(userInput == "1") {
-            while(true) {
-                std::cout << "Witaj w systemie obslugi studiow!\n";
-                std::cout << "Wybierz opcje:\n";
-                std::cout << "1. Kursy\n";
-                std::cout << "2. Wyswietl swoj profil\n";
-                std::cout << "3. Wyloguj sie\n";
-                std::cin >> userInput;
-                if(userInput == "1") {
-                    while(true) {
-                        std::cout << "Wybierz opcje:\n";
-                        std:: cout << "1. Wejdź do kursu\n";
-                        std:: cout << "2. Zapisz sie na kurs\n";
-                        std:: cout << "3. Wypisz sie z kursu\n";
-                        std:: cout << "4. Wyswietl swoje kursy\n";
-                        std:: cout << "5. Wyswietl wszystkie kursy\n";
-                        std:: cout << "6. Wroc\n";
-                        std::cin >> userInput;
+            obslugaKursowStudenta(&student);
+        } else if(userInput == "2") {
+            printUzytkownik((Uzytkownik *) &student);
+        } else if(userInput == "3") {
+            return;
+        } else {
+            std::cout << "Niepoprawna opcja!\n";
+        }
+    }
+}
 
-                        if(userInput == "1") {
-                            student.printKursy();
-                            std::cout << "Wybierz kurs: ";
-                            std::cin >> userInput;
-                            student.getKurs(std::stoi(userInput) - 1)->wyswietlStroneKursu();
-                        } else if(userInput == "2") {
-                            printKursy();
-                            std::cout << "Wybierz kurs: ";
-                            std::cin >> userInput;
-                            student.dodajKurs(kursy[std::stoi(userInput) - 1]);
-                        } else if(userInput == "3") {
-                            student.printKursy();
-                            std::cout << "Wybierz kurs: ";
-                            std::cin >> userInput;
-                            student.usunKurs(kursy[std::stoi(userInput) - 1]->getNazwa());
-                        } else if(userInput == "4") {
-                            student.printKursy();
-                        } else if(userInput == "5") {
-                            printKursy();
-                        } else if(userInput == "6") {
-                            break;
-                        } else {
-                            std::cout << "Niepoprawna opcja!\n";
-                        }
-                    }
-                } else if(userInput == "2") {
-                    printUzytkownik((Uzytkownik *) &student);
-                } else if(userInput == "3") {
-                    return;
-                } else {
-                    std::cout << "Niepoprawna opcja!\n";
-                }
+void System::obslugaKursowStudenta(Student * student) {
+    std::string userInput;
+    while(true) {
+        std:: cout << "Wybierz opcje:\n";
+        std:: cout << "1. Wejdz do kursu\n";
+        std:: cout << "2. Zapisz sie na kurs\n";
+        std:: cout << "3. Wypisz sie z kursu\n";
+        std:: cout << "4. Wyswietl swoje kursy\n";
+        std:: cout << "5. Wyswietl wszystkie kursy\n";
+        std:: cout << "6. Wroc\n";
+        std::cin >> userInput;
+
+        if(userInput == "1") {
+            student->printKursy();
+            std::cout << "Wybierz kurs: ";
+            std::cin >> userInput;
+            if(std::stoi(userInput) - 1 < student->getKursySize()) {
+                student->getKurs(std::stoi(userInput) - 1)->wyswietlStroneKursu();
+            } else {
+                std::cout << "Ten kurs nie istnieje!\n";
+                break;
             }
+        } else if(userInput == "2") {
+            printKursy();
+            std::cout << "Wybierz kurs: ";
+            std::cin >> userInput;
+            if(std::stoi(userInput) - 1 < student->getKursySize()) {
+                student->dodajKurs(kursy[std::stoi(userInput) - 1]);
+            } else {
+                std::cout << "Ten kurs nie istnieje!\n";
+                break;
+            }
+        } else if(userInput == "3") {
+            student->printKursy();
+            std::cout << "Wybierz kurs: ";
+            std::cin >> userInput;
+            if(std::stoi(userInput) - 1 < student->getKursySize()) {
+                student->usunKurs(kursy[std::stoi(userInput) - 1]->getNazwa());
+            } else {
+                std::cout << "Ten kurs nie istnieje!\n";
+                break;
+            }
+        } else if(userInput == "4") {
+            student->printKursy();
+        } else if(userInput == "5") {
+            printKursy();
+        } else if(userInput == "6") {
+            break;
+        } else {
+            std::cout << "Niepoprawna opcja!\n";
         }
     }
 }

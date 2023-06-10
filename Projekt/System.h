@@ -29,6 +29,7 @@ public:
     void printKursy();
 	void printUzytkownik(Uzytkownik* uzytkownik);
     void bootStudent();
+    void obslugaKursowStudenta(Student * student);
     void bootProwadzacy();
 private:
     std::string nazwa;

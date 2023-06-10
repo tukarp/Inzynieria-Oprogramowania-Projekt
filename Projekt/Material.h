@@ -21,12 +21,12 @@ public:
 	Material(std::string nazwa, int rozmiar, Uzytkownik *dodanyPrzez);
 	std::string getNazwa();
 	int getRozmiar();
-	Uzytkownik *getDodanyPrzez();
+	Uzytkownik * getDodanyPrzez();
 	void printData();
 private:
 	std::string nazwa;
 	int rozmiar;
-	Uzytkownik *dodanyPrzez;
+	Uzytkownik * dodanyPrzez;
 };
 
 #endif  //_MATERIAL_H
