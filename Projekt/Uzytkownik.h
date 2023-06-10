@@ -18,6 +18,7 @@
 class Uzytkownik {
 public:
 	Uzytkownik(std::string imie, std::string nazwisko, std::string login, std::string haslo, std::string email);
+    Uzytkownik(std::string imie, std::string nazwisko);
 	std::string getImie();
 	void setImie(std::string imie);
 	std::string getNazwisko();

@@ -20,12 +20,17 @@ Uzytkownik::Uzytkownik(std::string imie, std::string nazwisko, std::string login
 	this->email = email;
 }
 
-std::string Uzytkownik::getImie() {
-	return imie;
+Uzytkownik::Uzytkownik(std::string imie, std::string nazwisko) {
+    this->imie = imie;
+    this->nazwisko = nazwisko;
 }
 
 void Uzytkownik::setImie(std::string imie) {
 	this->imie = imie;
+}
+
+std::string Uzytkownik::getImie() {
+    return imie;
 }
 
 std::string Uzytkownik::getNazwisko() {

@@ -23,6 +23,9 @@ class Prowadzacy : public Uzytkownik {
 public:
 	void dodajKurs(Kurs *kurs);
 	void usunKurs(std::string nazwa);
+    Kurs * getKurs(int index);
+    int getKursySize();
+    void printKursy();
 private:
 	std::vector <Kurs *> kursy;
 };

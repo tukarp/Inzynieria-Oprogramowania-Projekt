@@ -28,9 +28,13 @@ public:
 	void usunUzytkownika(std::string login);
     void printKursy();
 	void printUzytkownik(Uzytkownik* uzytkownik);
+    void boot();
     void bootStudent();
-    void obslugaKursowStudenta(Student * student);
     void bootProwadzacy();
+    void obslugaKursowStudenta(Student * student);
+    void obslugaKursowProwadzacego(Prowadzacy * prowadzacy);
+    void wczytajUzytkownikow(const std::string& fileName);
+    void wczytajKursy(const std::string& fileName);
 private:
     std::string nazwa;
     std::vector <Kurs*> kursy;

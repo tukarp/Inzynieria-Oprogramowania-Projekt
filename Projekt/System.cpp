@@ -10,6 +10,8 @@
 //
 
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include "System.h"
 
 System::System(std::string nazwa) {
@@ -112,13 +114,77 @@ void System::printUzytkownik(Uzytkownik * uzytkownik) {
     std::cout << "Email: " << uzytkownik->getEmail() << "\n";
 }
 
-void System::bootStudent() {
+void System::wczytajUzytkownikow(const std::string& fileName) {
+    std::ifstream file(fileName);
+
+    if(!file.is_open()) {
+        std::cout << "Nie mozna otworzyc pliku: " << fileName << std::endl;
+        return;
+    }
+
+    std::string line;
+    while (std::getline(file, line)) {
+        std::stringstream ss(line);
+        std::string imie, nazwisko, login, haslo, email;
+        if((std::getline(ss, imie, ' ') &&
+            std::getline(ss, nazwisko, ',') &&
+            std::getline(ss, login, ',')) &&
+            std::getline(ss, haslo, ',') &&
+            std::getline(ss, email, ',')) {
+                uzytkownicy.push_back(new Uzytkownik(imie, nazwisko, login, haslo, email));
+        }
+    }
+    file.close();
+}
+
+void System::wczytajKursy(const std::string& fileName) {
+    std::ifstream file(fileName);
+
+    if(!file.is_open()) {
+        std::cout << "Nie mozna otworzyc pliku: " << fileName << std::endl;
+        return;
+    }
+
+    std::string line;
+    while (std::getline(file, line)) {
+        std::stringstream ss(line);
+        std::string nazwaKursu, imieProwadzacego, nazwiskoProwadzacego;
+        if(std::getline(ss, nazwaKursu, ',') && std::getline(ss, imieProwadzacego, ' ') && std::getline(ss, nazwiskoProwadzacego, ' ')) {
+            kursy.push_back(new Kurs(nazwaKursu, new Prowadzacy(imieProwadzacego, nazwiskoProwadzacego)));
+        }
+    }
+    file.close();
+}
+
+void System::boot() {
     std::cout << "---------------------------------------------------------------------------------------\n";
     std::cout << "--------------------------------" << getNazwa() << "-----------------------------------\n";
     std::cout << "---------------------------------------------------------------------------------------\n";
-    Student student = Student("", "", "", "", "");
-    login((Uzytkownik *) &student);
+    wczytajKursy("P:\\Zadania\\C++\\Inzynieria-Oprogramowania-Projekt\\Projekt\\kursy.csv");
+    wczytajUzytkownikow("P:\\Zadania\\C++\\Inzynieria-Oprogramowania-Projekt\\Projekt\\uzytkownicy.csv");
+    std::string userInput;
 
+    get
+
+
+    std::cout << "Kim jestes:\n";
+    std::cout << "1.Student\n";
+    std::cout << "2.Prowadzacy\n";
+    while(true) {
+        std::cin >> userInput;
+        if(userInput == "1" || userInput == "Student" || userInput == "student") {
+            bootStudent();
+        } else if(userInput == "2" || userInput == "Prowadzacy" || userInput == "prowadzacy") {
+            bootProwadzacy();
+        } else {
+            std::cout << "Niepoprawna opcja!\n";
+        }
+    }
+}
+
+void System::bootStudent() {
+    Student * student = new Student("", "", "", "", "");
+    login(student);
     std::string userInput;
     while(true) {
         std::cout << "Wybierz opcje:\n";
@@ -126,13 +192,34 @@ void System::bootStudent() {
         std::cout << "2. Wyswietl swoj profil\n";
         std::cout << "3. Wyloguj sie\n";
         std::cin >> userInput;
-
         if(userInput == "1") {
-            obslugaKursowStudenta(&student);
+            obslugaKursowStudenta(student);
         } else if(userInput == "2") {
-            printUzytkownik((Uzytkownik *) &student);
+            printUzytkownik(student);
         } else if(userInput == "3") {
-            return;
+            exit(0);
+        } else {
+            std::cout << "Niepoprawna opcja!\n";
+        }
+    }
+}
+
+void System::bootProwadzacy() {
+    Prowadzacy * prowadzacy = new Prowadzacy("", "", "", "", "");
+    login(prowadzacy);
+    std::string userInput;
+    while(true) {
+        std::cout << "Wybierz opcje:\n";
+        std::cout << "1. Kursy\n";
+        std::cout << "2. Wyswietl swoj profil\n";
+        std::cout << "3. Wyloguj sie\n";
+        std::cin >> userInput;
+        if(userInput == "1") {
+            obslugaKursowProwadzacego(prowadzacy);
+        } else if(userInput == "2") {
+            printUzytkownik( prowadzacy);
+        } else if(userInput == "3") {
+            exit(0);
         } else {
             std::cout << "Niepoprawna opcja!\n";
         }
@@ -193,6 +280,56 @@ void System::obslugaKursowStudenta(Student * student) {
     }
 }
 
-void System::bootProwadzacy() {
+void System::obslugaKursowProwadzacego(Prowadzacy * prowadzacy) {
+    std::string userInput;
+    while (true) {
+        std::cout << "Wybierz opcje:\n";
+        std::cout << "1. Wejdz do kursu\n";
+        std::cout << "2. Zapisz sie na kurs\n";
+        std::cout << "3. Wypisz sie z kursu\n";
+        std::cout << "4. Wyswietl swoje kursy\n";
+        std::cout << "5. Wyswietl wszystkie kursy\n";
+        std::cout << "6. Wroc\n";
+        std::cin >> userInput;
 
+        if (userInput == "1") {
+            prowadzacy->printKursy();
+            std::cout << "Wybierz kurs: ";
+            std::cin >> userInput;
+            if (std::stoi(userInput) - 1 < prowadzacy->getKursySize()) {
+                prowadzacy->getKurs(std::stoi(userInput) - 1)->wyswietlStroneKursu();
+            } else {
+                std::cout << "Ten kurs nie istnieje!\n";
+                break;
+            }
+        } else if (userInput == "2") {
+            printKursy();
+            std::cout << "Wybierz kurs: ";
+            std::cin >> userInput;
+            if (std::stoi(userInput) - 1 < prowadzacy->getKursySize()) {
+                prowadzacy->dodajKurs(kursy[std::stoi(userInput) - 1]);
+            } else {
+                std::cout << "Ten kurs nie istnieje!\n";
+                break;
+            }
+        } else if (userInput == "3") {
+            prowadzacy->printKursy();
+            std::cout << "Wybierz kurs: ";
+            std::cin >> userInput;
+            if (std::stoi(userInput) - 1 < prowadzacy->getKursySize()) {
+                prowadzacy->usunKurs(kursy[std::stoi(userInput) - 1]->getNazwa());
+            } else {
+                std::cout << "Ten kurs nie istnieje!\n";
+                break;
+            }
+        } else if (userInput == "4") {
+            prowadzacy->printKursy();
+        } else if (userInput == "5") {
+            printKursy();
+        } else if (userInput == "6") {
+            break;
+        } else {
+            std::cout << "Niepoprawna opcja!\n";
+        }
+    }
 }

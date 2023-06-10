@@ -12,7 +12,7 @@
 #include <iostream>
 #include "Kurs.h"
 
-Kurs::Kurs(std::string nazwa, Prowadzacy *prowadzacy) {
+Kurs::Kurs(std::string nazwa, Prowadzacy * prowadzacy) {
 	this->nazwa = nazwa;
 	this->prowadzacy = prowadzacy;
 }
