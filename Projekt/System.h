@@ -37,8 +37,8 @@ public:
     void wczytajKursy(const std::string& fileName);
 private:
     std::string nazwa;
-    std::vector <Kurs*> kursy;
-    std::vector <Uzytkownik*> uzytkownicy;
+    std::vector <Kurs *> kursy;
+    std::vector <Uzytkownik *> uzytkownicy;
 };
 
 #endif  //_SYSTEM_H
