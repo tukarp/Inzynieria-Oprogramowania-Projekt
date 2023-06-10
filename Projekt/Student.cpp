@@ -23,6 +23,10 @@ void Student::usunKurs(std::string nazwa) {
 	}
 }
 
+Kurs * Student::getKurs(int index) {
+    return kursy[index];
+}
+
 void Student::printKursy() {
     std::cout << "---------------------------------------------------------------------------------------\n";
     std::cout << "-----------------------------------Twoje Kursy-----------------------------------------\n";

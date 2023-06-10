@@ -19,9 +19,11 @@
 
 class Kurs;
 class Student : public Uzytkownik {
+    using Uzytkownik::Uzytkownik;
 public:
 	void dodajKurs(Kurs *kurs);
 	void usunKurs(std::string nazwa);
+    Kurs * getKurs(int index);
     void printKursy();
 private:
 	std::vector <Kurs *> kursy;

@@ -112,7 +112,7 @@ void System::bootStudent() {
     std::cout << "---------------------------------------------------------------------------------------\n";
     std::cout << "-------------------------------System Obsugi Studiów-----------------------------------\n";
     std::cout << "---------------------------------------------------------------------------------------\n";
-    Student student = Student("student", "student", "Jan", "Kowalski");
+    Student student = Student("", "", "", "", "");
     login((Uzytkownik *) &student);
 
     std::string userInput;
@@ -147,7 +147,7 @@ void System::bootStudent() {
                             student.printKursy();
                             std::cout << "Wybierz kurs: ";
                             std::cin >> userInput;
-                            student->kursy[std::stoi(userInput) - 1]->boot();
+                            student.getKurs(kursy[std::stoi(userInput) - 1]->getNazwa())->boot();
                         } else if(userInput == "2") {
                             printKursy();
                             std::cout << "Wybierz kurs: ";
