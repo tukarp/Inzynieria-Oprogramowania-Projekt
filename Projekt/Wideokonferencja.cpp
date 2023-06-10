@@ -24,17 +24,34 @@ void Wideokonferencja::usunUczestnika(std::string login) {
 	for (int i = 0; i < uczestnicy.size(); i++) {
 		if (uczestnicy[i]->getLogin() == login) {
 			uczestnicy.erase(uczestnicy.begin() + i);
+			break;
 		}
 	}
 
 }
 
-void Wideokonferencja::otworzMenu(Uzytkownik *Uzytkownik) {
-	std::string userInput;
-	std::cout << "Wideokonferencja: " << this->nazwa << "\n";
-	std::cout << "Wybierz opcje:\n";
-	std::cout << "1. Wyswietl uczestnikow\n";
-	std::cout << "2. Wyjdz\n";
-	std::cin << userInput;
-	if (userInput == 1)
+void Wideokonferencja::otworzMenu(Uzytkownik *uzytkownik) {
+	while (true) {
+		std::string userInput;
+		std::cout << "Wideokonferencja: " << this->nazwa << "\n";
+		std::cout << "Wybierz opcje:\n";
+		std::cout << "1. Wyswietl uczestnikow\n";
+		std::cout << "2. Wyjdz\n";
+		std::cin >> userInput;
+		if (userInput == "1") {
+			for (int i = 0; i < uczestnicy.size(); i++) {
+				std::cout << uczestnicy.at(i)->getImie() << " " <<
+					uczestnicy.at(i)->getNazwisko() << "\n";
+			}
+		} else if (userInput == "2") {
+			for (int i = 0; i < uczestnicy.size(); i++) {
+				if (uczestnicy[i] == uzytkownik) {
+					uczestnicy.erase(uczestnicy.begin() + i);
+					break;
+				}
+			}
+			break;
+		}
+	}
 }
+
