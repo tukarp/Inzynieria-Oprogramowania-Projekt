@@ -15,6 +15,8 @@
 #include "Uzytkownik.h"
 #include <string>
 #include <iostream>
+#include <thread>
+#include <chrono>
 
 class Material {
 public:
@@ -23,6 +25,8 @@ public:
 	int getRozmiar();
 	Uzytkownik *getDodanyPrzez();
 	void printData();
+	void otworzMenu();
+	void loadingBar();
 private:
 	std::string nazwa;
 	int rozmiar;
