@@ -12,20 +12,23 @@
 #if !defined(_WIDEOKONFERENCJA_H)
 #define _WIDEOKONFERENCJA_H
 
+#include <iostream>
 #include <string>
 #include <vector>
 #include "Prowadzacy.h"
 #include "Student.h"
-
+class Prowadzacy;
+class Student;
 class Wideokonferencja {
 public:
-	Wideokonferencja(std::string nazwa, Prowadzacy* prowadzacy);
-    void dodajUczestnika(Student * student);
+	Wideokonferencja(std::string nazwa, Prowadzacy *prowadzacy);
+	void dodajUczestnika(Student *student);
 	void usunUczestnika(std::string login);
+	void otworzMenu(Uzytkownik *Uzytkownik);
 private:
-    std::string nazwa;
-	Prowadzacy* prowadzacy;
-    std::vector <Student *> uczestnicy;
+	std::string nazwa;
+	Prowadzacy *prowadzacy;
+	std::vector <Student *> uczestnicy;
 };
 
 #endif  //_WIDEOKONFERENCJA_H

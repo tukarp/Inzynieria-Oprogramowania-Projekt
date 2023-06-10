@@ -10,11 +10,18 @@
 //
 
 #include <iostream>
+#include "System.h"
+#include "Kurs.h"
+#include "Wideokonferencja.h"
+#include "Uzytkownik.h"
+
 
 using namespace std;
 
 int main() {
-    cout << "Hello, World!" << endl;
-
-    return 0;
+	Uzytkownik *prowadzacy = new Prowadzacy("Marek", "Nowak", "mnowak123", "haslo123", "mnowak@gmail.com");
+	System *system = new System("Uczelnia");
+	system->dodajKurs(new Kurs("Programowanie", (Prowadzacy *)prowadzacy));
+	system->getKursy().at(0)->utworzWideokonferencje("Wideokonferencja1");
+	return 0;
 }

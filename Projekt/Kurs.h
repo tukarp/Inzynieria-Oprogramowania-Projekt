@@ -18,23 +18,25 @@
 #include "Prowadzacy.h"
 #include "Material.h"
 #include "Wideokonferencja.h"
-
+class Prowadzacy;
+class Student;
+class Wideokonferencja;
 class Kurs {
 public:
-	Kurs(std::string nazwa, Prowadzacy* prowadzacy);
-    std::string getNazwa();
-	void dodajUczestnika(Student * student);
-	void dodajMaterial(Material * material);
+	Kurs(std::string nazwa, Prowadzacy *prowadzacy);
+	std::string getNazwa();
+	void dodajUczestnika(Student *student);
+	void dodajMaterial(Material *material);
 	void utworzWideokonferencje(std::string nazwa);
 	void usunMaterial(std::string nazwa);
 	void zakonczWideokonferencje();
 	void usunUczestnika(std::string login);
 private:
 	std::string nazwa;
-    std::vector <Material *> materialy;
+	std::vector <Material *> materialy;
 	std::vector <Student *> uczestincy;
-	Prowadzacy* prowadzacy;
-	Wideokonferencja * wideokonferencja;
+	Prowadzacy *prowadzacy;
+	Wideokonferencja *wideokonferencja;
 };
 
 #endif  //_KURS_H
