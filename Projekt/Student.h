@@ -21,6 +21,7 @@ class Student : public Uzytkownik {
 public:
 	void dodajKurs(Kurs *kurs);
 	void usunKurs(std::string nazwa);
+    void printKursy();
 private:
 	std::vector <Kurs *> kursy;
 };

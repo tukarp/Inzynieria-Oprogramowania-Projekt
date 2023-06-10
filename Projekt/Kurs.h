@@ -31,6 +31,7 @@ public:
 	void usunMaterial(std::string nazwa);
 	void zakonczWideokonferencje();
 	void usunUczestnika(std::string login);
+	void wyswietlStroneKursu();
 private:
 	std::string nazwa;
 	std::vector <Material *> materialy;

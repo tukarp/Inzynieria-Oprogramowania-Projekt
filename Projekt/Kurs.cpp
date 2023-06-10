@@ -54,3 +54,13 @@ void Kurs::usunUczestnika(std::string login) {
 	}
 }
 
+void Kurs::wyswietlStroneKursu() {
+    std::cout << "---------------------------------------------------------------------------------------\n";
+    std::cout << "--------------------------" << getNazwa() << "---------------------------------------\n";
+    std::cout << "---------------------------------------------------------------------------------------\n";
+    std::cout << "Prowadzacy: " << prowadzacy->getImie() << " " << prowadzacy->getNazwisko() << "\n";
+    std::cout << "Uczestnicy: \n";
+    for(int i = 0; i < uczestincy.size(); i++) {
+        std::cout << i + 1 << ". " << uczestincy[i]->getImie() << " " << uczestincy[i]->getNazwisko() << "\n";
+    }
+}

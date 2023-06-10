@@ -20,17 +20,19 @@
 class System {
 public:
 	System(std::string nazwa);
-	void login(Uzytkownik *uzytkownik);
-	void rejestracja(Uzytkownik *uzytkownik);
-	void dodajKurs(Kurs *kurs);
+	void login(Uzytkownik * uzytkownik);
+	void rejestracja(Uzytkownik * uzytkownik);
+	void dodajKurs(Kurs * kurs);
 	void usunKurs(std::string nazwa);
 	void usunUzytkownika(std::string login);
-	std::vector <Kurs *> getKursy();
-	void printUzytkownik(Uzytkownik *uzytkownik);
+    void printKursy();
+	void printUzytkownik(Uzytkownik* uzytkownik);
+    void bootStudent();
+    void bootProwadzacy();
 private:
-	std::string nazwa;
-	std::vector <Kurs *> kursy;
-	std::vector <Uzytkownik *> uzytkownicy;
+    std::string nazwa;
+    std::vector <Kurs*> kursy;
+    std::vector <Uzytkownik*> uzytkownicy;
 };
 
 #endif  //_SYSTEM_H
