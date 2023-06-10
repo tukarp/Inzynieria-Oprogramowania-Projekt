@@ -68,7 +68,9 @@ void Kurs::wyswietlStroneKursu() {
 void Kurs::otworzMenuStudenta(Uzytkownik *uzytkownik) {
 	while (true) {
 		std::string userInput;
-		std::cout << "Jestes na stronie kursu: " << this->nazwa << "\n";
+        std::cout << "---------------------------------------------------------------------------------------\n";
+        std::cout << "--------------------------" << getNazwa() << "---------------------------------------\n";
+        std::cout << "---------------------------------------------------------------------------------------\n";
 		std::cout << "Wybierz opcje:\n";
 		std::cout << "1. Wyswietl strone kursu\n";
 		std::cout << "2. Otworz materialy\n";
@@ -86,14 +88,14 @@ void Kurs::otworzMenuStudenta(Uzytkownik *uzytkownik) {
 			if (std::stoi(userInput) > 0 && std::stoi(userInput) < materialy.size()) {
 				materialy.at(std::stoi(userInput))->otworzMenu();
 			} else {
-				std::cout << "Niepoprawna opcja";
+				std::cout << "Niepoprawna opcja\n";
 			}
 		} else if (userInput == "3") {
 			if (wideokonferencja != nullptr) {
 				wideokonferencja->dodajUczestnika((Student *)uzytkownik);
 				wideokonferencja->otworzMenuStudenta(uzytkownik);
 			} else {
-				std::cout << "Wideokonferencja nie jest utworzona";
+				std::cout << "Wideokonferencja nie jest utworzona\n";
 			}
 		} else if (userInput == "4") {
 			break;

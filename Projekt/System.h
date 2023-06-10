@@ -23,6 +23,7 @@ public:
     std::string getNazwa();
 	void login(Uzytkownik * uzytkownik);
 	void rejestracja(Uzytkownik * uzytkownik);
+    int getKursySize();
 	void dodajKurs(Kurs * kurs);
 	void usunKurs(std::string nazwa);
 	void usunUzytkownika(std::string login);

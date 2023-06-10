@@ -27,10 +27,6 @@ Kurs * Prowadzacy::getKurs(int index) {
     return kursy[index];
 }
 
-int Prowadzacy::getKursySize() {
-    return kursy.size();
-}
-
 void Prowadzacy::printKursy() {
     std::cout << "---------------------------------------------------------------------------------------\n";
     std::cout << "-----------------------------------Twoje Kursy-----------------------------------------\n";

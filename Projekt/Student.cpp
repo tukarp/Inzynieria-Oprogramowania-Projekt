@@ -27,15 +27,11 @@ Kurs * Student::getKurs(int index) {
     return kursy[index];
 }
 
-int Student::getKursySize() {
-    return kursy.size();
-}
-
 void Student::printKursy() {
     std::cout << "---------------------------------------------------------------------------------------\n";
     std::cout << "-----------------------------------Twoje Kursy-----------------------------------------\n";
     std::cout << "---------------------------------------------------------------------------------------\n";
     for(int i = 0; i < kursy.size(); i++) {
-        std::cout << kursy[i]->getNazwa() << "\n";
+        std::cout << i + 1 << ". " << kursy[i]->getNazwa() << "\n";
     }
 }

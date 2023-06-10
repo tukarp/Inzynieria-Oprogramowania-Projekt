@@ -22,6 +22,10 @@ std::string System::getNazwa() {
     return nazwa;
 }
 
+int System::getKursySize() {
+    return kursy.size();
+}
+
 void System::login(Uzytkownik * uzytkownik) {
     std::cout << "---------------------------------------------------------------------------------------\n";
     std::cout << "--------------------------------------Logowanie----------------------------------------\n";
@@ -36,7 +40,7 @@ void System::login(Uzytkownik * uzytkownik) {
     std::cin >> hasloUzytkownika;
 
     for(int i = 0; i < uzytkownicy.size(); i++) {
-        if(uzytkownicy[i]->getLogin() == loginUzytkownika && uzytkownicy[i]->getHaslo() == hasloUzytkownika) {
+        if((uzytkownicy[i]->getLogin() == loginUzytkownika && uzytkownicy[i]->getHaslo() == hasloUzytkownika)) {
             std::cout << "Zalogowano pomyslnie!\n";
             return;
         }
@@ -164,9 +168,6 @@ void System::boot() {
     wczytajUzytkownikow("P:\\Zadania\\C++\\Inzynieria-Oprogramowania-Projekt\\Projekt\\uzytkownicy.csv");
     std::string userInput;
 
-    get
-
-
     std::cout << "Kim jestes:\n";
     std::cout << "1.Student\n";
     std::cout << "2.Prowadzacy\n";
@@ -183,7 +184,7 @@ void System::boot() {
 }
 
 void System::bootStudent() {
-    Student * student = new Student("", "", "", "", "");
+    Student * student = new Student("123", "123", "123", "123", "123");
     login(student);
     std::string userInput;
     while(true) {
@@ -242,8 +243,8 @@ void System::obslugaKursowStudenta(Student * student) {
             student->printKursy();
             std::cout << "Wybierz kurs: ";
             std::cin >> userInput;
-            if(std::stoi(userInput) - 1 < student->getKursySize()) {
-                student->getKurs(std::stoi(userInput) - 1)->wyswietlStroneKursu();
+            if(std::stoi(userInput) - 1 < getKursySize()) {
+                student->getKurs(std::stoi(userInput) - 1)->otworzMenuStudenta(student);
             } else {
                 std::cout << "Ten kurs nie istnieje!\n";
                 break;
@@ -252,8 +253,9 @@ void System::obslugaKursowStudenta(Student * student) {
             printKursy();
             std::cout << "Wybierz kurs: ";
             std::cin >> userInput;
-            if(std::stoi(userInput) - 1 < student->getKursySize()) {
+            if(std::stoi(userInput) - 1 < getKursySize()) {
                 student->dodajKurs(kursy[std::stoi(userInput) - 1]);
+                kursy[std::stoi(userInput) - 1]->dodajUczestnika(student);
             } else {
                 std::cout << "Ten kurs nie istnieje!\n";
                 break;
@@ -262,8 +264,9 @@ void System::obslugaKursowStudenta(Student * student) {
             student->printKursy();
             std::cout << "Wybierz kurs: ";
             std::cin >> userInput;
-            if(std::stoi(userInput) - 1 < student->getKursySize()) {
+            if(std::stoi(userInput) - 1 < getKursySize()) {
                 student->usunKurs(kursy[std::stoi(userInput) - 1]->getNazwa());
+                kursy[std::stoi(userInput) - 1]->usunUczestnika(student->getLogin());
             } else {
                 std::cout << "Ten kurs nie istnieje!\n";
                 break;
@@ -282,51 +285,53 @@ void System::obslugaKursowStudenta(Student * student) {
 
 void System::obslugaKursowProwadzacego(Prowadzacy * prowadzacy) {
     std::string userInput;
-    while (true) {
-        std::cout << "Wybierz opcje:\n";
-        std::cout << "1. Wejdz do kursu\n";
-        std::cout << "2. Zapisz sie na kurs\n";
-        std::cout << "3. Wypisz sie z kursu\n";
-        std::cout << "4. Wyswietl swoje kursy\n";
-        std::cout << "5. Wyswietl wszystkie kursy\n";
-        std::cout << "6. Wroc\n";
+    while(true) {
+        std:: cout << "Wybierz opcje:\n";
+        std:: cout << "1. Wejdz do kursu\n";
+        std:: cout << "2. Zapisz sie na kurs\n";
+        std:: cout << "3. Wypisz sie z kursu\n";
+        std:: cout << "4. Wyswietl swoje kursy\n";
+        std:: cout << "5. Wyswietl wszystkie kursy\n";
+        std:: cout << "6. Wroc\n";
         std::cin >> userInput;
 
-        if (userInput == "1") {
+        if(userInput == "1") {
             prowadzacy->printKursy();
             std::cout << "Wybierz kurs: ";
             std::cin >> userInput;
-            if (std::stoi(userInput) - 1 < prowadzacy->getKursySize()) {
-                prowadzacy->getKurs(std::stoi(userInput) - 1)->wyswietlStroneKursu();
+            if(std::stoi(userInput) < getKursySize()) {
+                prowadzacy->getKurs(std::stoi(userInput))->otworzMenuProwadzacego(prowadzacy);
             } else {
                 std::cout << "Ten kurs nie istnieje!\n";
                 break;
             }
-        } else if (userInput == "2") {
+        } else if(userInput == "2") {
             printKursy();
             std::cout << "Wybierz kurs: ";
             std::cin >> userInput;
-            if (std::stoi(userInput) - 1 < prowadzacy->getKursySize()) {
+            if(std::stoi(userInput) - 1 < getKursySize()) {
                 prowadzacy->dodajKurs(kursy[std::stoi(userInput) - 1]);
+
             } else {
                 std::cout << "Ten kurs nie istnieje!\n";
                 break;
             }
-        } else if (userInput == "3") {
+        } else if(userInput == "3") {
             prowadzacy->printKursy();
             std::cout << "Wybierz kurs: ";
             std::cin >> userInput;
-            if (std::stoi(userInput) - 1 < prowadzacy->getKursySize()) {
+            if(std::stoi(userInput) - 1 < getKursySize()) {
                 prowadzacy->usunKurs(kursy[std::stoi(userInput) - 1]->getNazwa());
+                kursy[std::stoi(userInput) - 1]->usunUczestnika(prowadzacy->getLogin());
             } else {
                 std::cout << "Ten kurs nie istnieje!\n";
                 break;
             }
-        } else if (userInput == "4") {
+        } else if(userInput == "4") {
             prowadzacy->printKursy();
-        } else if (userInput == "5") {
+        } else if(userInput == "5") {
             printKursy();
-        } else if (userInput == "6") {
+        } else if(userInput == "6") {
             break;
         } else {
             std::cout << "Niepoprawna opcja!\n";
