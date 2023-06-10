@@ -30,7 +30,7 @@ void Wideokonferencja::usunUczestnika(std::string login) {
 
 }
 
-void Wideokonferencja::otworzMenu(Uzytkownik *uzytkownik) {
+void Wideokonferencja::otworzMenuStudenta(Uzytkownik *uzytkownik) {
 	while (true) {
 		std::string userInput;
 		std::cout << "Wideokonferencja: " << this->nazwa << "\n";
@@ -51,7 +51,32 @@ void Wideokonferencja::otworzMenu(Uzytkownik *uzytkownik) {
 				}
 			}
 			break;
+		} else {
+			std::cout << "Niepoprawna opcja";
 		}
 	}
 }
+
+void Wideokonferencja::otworzMenuProwadzacego(Uzytkownik *uzytkownik) {
+	while (true) {
+		std::string userInput;
+		std::cout << "Wideokonferencja: " << this->nazwa << "\n";
+		std::cout << "Wybierz opcje:\n";
+		std::cout << "1. Wyswietl uczestnikow\n";
+		std::cout << "2. Zakoncz\n";
+		std::cin >> userInput;
+		if (userInput == "1") {
+			for (int i = 0; i < uczestnicy.size(); i++) {
+				std::cout << uczestnicy.at(i)->getImie() << " " <<
+					uczestnicy.at(i)->getNazwisko() << "\n";
+			}
+		} else if (userInput == "2") {
+			uczestnicy.clear();
+			break;
+		} else {
+			std::cout << "Niepoprawna opcja";
+		}
+	}
+}
+
 
