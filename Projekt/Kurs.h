@@ -18,6 +18,7 @@
 #include "Prowadzacy.h"
 #include "Material.h"
 #include "Wideokonferencja.h"
+
 class Prowadzacy;
 class Student;
 class Wideokonferencja;
@@ -36,8 +37,8 @@ private:
 	std::string nazwa;
 	std::vector <Material *> materialy;
 	std::vector <Student *> uczestincy;
-	Prowadzacy *prowadzacy;
-	Wideokonferencja *wideokonferencja;
+	Prowadzacy * prowadzacy;
+	Wideokonferencja * wideokonferencja;
 };
 
 #endif  //_KURS_H

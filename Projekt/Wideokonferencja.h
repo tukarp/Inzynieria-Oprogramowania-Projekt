@@ -17,6 +17,7 @@
 #include <vector>
 #include "Prowadzacy.h"
 #include "Student.h"
+
 class Prowadzacy;
 class Student;
 class Wideokonferencja {

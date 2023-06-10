@@ -27,7 +27,6 @@ void Wideokonferencja::usunUczestnika(std::string login) {
 			break;
 		}
 	}
-
 }
 
 void Wideokonferencja::otworzMenuStudenta(Uzytkownik *uzytkownik) {
@@ -78,5 +77,3 @@ void Wideokonferencja::otworzMenuProwadzacego(Uzytkownik *uzytkownik) {
 		}
 	}
 }
-
-

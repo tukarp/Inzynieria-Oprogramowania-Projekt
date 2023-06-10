@@ -112,7 +112,7 @@ void System::bootStudent() {
     std::cout << "---------------------------------------------------------------------------------------\n";
     std::cout << "-------------------------------System Obsugi Studiów-----------------------------------\n";
     std::cout << "---------------------------------------------------------------------------------------\n";
-    Student student = Student();
+    Student student = Student("student", "student", "Jan", "Kowalski");
     login((Uzytkownik *) &student);
 
     std::string userInput;
