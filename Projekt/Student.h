@@ -16,6 +16,7 @@
 #include <vector>
 #include "Uzytkownik.h"
 #include "Kurs.h"
+
 class Kurs;
 class Student : public Uzytkownik {
 public:

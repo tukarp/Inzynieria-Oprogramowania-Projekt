@@ -25,33 +25,33 @@ void Kurs::dodajUczestnika(Student *student) {
 	uczestincy.push_back(student);
 }
 
+void Kurs::usunUczestnika(std::string login) {
+    for (int i = 0; i < uczestincy.size(); i++) {
+        if (uczestincy[i]->getLogin() == login) {
+            uczestincy.erase(uczestincy.begin() + i);
+        }
+    }
+}
+
 void Kurs::dodajMaterial(Material *material) {
 	materialy.push_back(material);
+}
+
+void Kurs::usunMaterial(std::string nazwa) {
+    for (int i = 0; i < materialy.size(); i++) {
+        if (materialy[i]->getNazwa() == nazwa) {
+            materialy.erase(materialy.begin() + i);
+        }
+    }
 }
 
 void Kurs::utworzWideokonferencje(std::string nazwa) {
 	this->nazwa = nazwa;
 }
 
-void Kurs::usunMaterial(std::string nazwa) {
-	for (int i = 0; i < materialy.size(); i++) {
-		if (materialy[i]->getNazwa() == nazwa) {
-			materialy.erase(materialy.begin() + i);
-		}
-	}
-}
-
 void Kurs::zakonczWideokonferencje() {
 	std::cout << "Zakonczono wideokonferencje\n";
 	wideokonferencja = nullptr;
-}
-
-void Kurs::usunUczestnika(std::string login) {
-	for (int i = 0; i < uczestincy.size(); i++) {
-		if (uczestincy[i]->getLogin() == login) {
-			uczestincy.erase(uczestincy.begin() + i);
-		}
-	}
 }
 
 void Kurs::wyswietlStroneKursu() {
