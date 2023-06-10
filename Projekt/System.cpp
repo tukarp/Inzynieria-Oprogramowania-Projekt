@@ -16,6 +16,10 @@ System::System(std::string nazwa) {
     this->nazwa = nazwa;
 }
 
+std::string System::getNazwa() {
+    return nazwa;
+}
+
 void System::login(Uzytkownik * uzytkownik) {
     std::cout << "---------------------------------------------------------------------------------------\n";
     std::cout << "--------------------------------------Logowanie----------------------------------------\n";
@@ -29,8 +33,8 @@ void System::login(Uzytkownik * uzytkownik) {
     std::cout << "Haslo: ";
     std::cin >> hasloUzytkownika;
 
-    for (int i = 0; i < uzytkownicy.size(); i++) {
-        if (uzytkownicy[i]->getLogin() == loginUzytkownika && uzytkownicy[i]->getHaslo() == hasloUzytkownika) {
+    for(int i = 0; i < uzytkownicy.size(); i++) {
+        if(uzytkownicy[i]->getLogin() == loginUzytkownika && uzytkownicy[i]->getHaslo() == hasloUzytkownika) {
             std::cout << "Zalogowano pomyslnie!\n";
             return;
         }
@@ -110,7 +114,7 @@ void System::printUzytkownik(Uzytkownik * uzytkownik) {
 
 void System::bootStudent() {
     std::cout << "---------------------------------------------------------------------------------------\n";
-    std::cout << "-------------------------------System Obsugi Studiów-----------------------------------\n";
+    std::cout << "--------------------------" << getNazwa() << "---------------------------------------\n";
     std::cout << "---------------------------------------------------------------------------------------\n";
     Student student = Student("", "", "", "", "");
     login((Uzytkownik *) &student);
@@ -147,7 +151,7 @@ void System::bootStudent() {
                             student.printKursy();
                             std::cout << "Wybierz kurs: ";
                             std::cin >> userInput;
-                            student.getKurs(kursy[std::stoi(userInput) - 1]->getNazwa())->boot();
+                            student.getKurs(std::stoi(userInput) - 1)->wyswietlStroneKursu();
                         } else if(userInput == "2") {
                             printKursy();
                             std::cout << "Wybierz kurs: ";

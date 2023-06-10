@@ -14,7 +14,7 @@
 using namespace std;
 
 int main() {
-    System system = System("System Obsługi Studiów");
+    System system = System("System Obslugi Studiow");
     system.bootStudent();
 
     return 0;

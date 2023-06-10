@@ -29,7 +29,7 @@ public:
 	void otworzMenuProwadzacego(Uzytkownik *uzytkownik);
 private:
 	std::string nazwa;
-	Prowadzacy *prowadzacy;
+	Prowadzacy * prowadzacy;
 	std::vector <Student *> uczestnicy;
 };
 

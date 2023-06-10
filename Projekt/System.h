@@ -20,6 +20,7 @@
 class System {
 public:
 	System(std::string nazwa);
+    std::string getNazwa();
 	void login(Uzytkownik * uzytkownik);
 	void rejestracja(Uzytkownik * uzytkownik);
 	void dodajKurs(Kurs * kurs);
