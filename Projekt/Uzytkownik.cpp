@@ -9,6 +9,7 @@
 //
 //
 
+#include <iostream>
 #include "Uzytkownik.h"
 
 Uzytkownik::Uzytkownik(std::string imie, std::string nazwisko, std::string login, std::string haslo, std::string email) {
@@ -57,4 +58,8 @@ std::string Uzytkownik::getEmail() {
 
 void Uzytkownik::setEmail(std::string email) {
 	this->email = email;
+}
+
+void Uzytkownik::printUzytkownik() {
+    std::cout << imie << " " << nazwisko << "\n";
 }

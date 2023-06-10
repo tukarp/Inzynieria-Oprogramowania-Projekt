@@ -27,6 +27,7 @@ public:
 	void setHaslo(std::string haslo);
 	std::string getEmail();
 	void setEmail(std::string email);
+    void printUzytkownik();
 private:
 	std::string imie;
 	std::string nazwisko;
