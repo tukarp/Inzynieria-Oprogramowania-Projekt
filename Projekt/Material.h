@@ -23,16 +23,17 @@
 class Material {
 public:
 	Material(std::string name, std::string description, std::string fileName, int fileSize, User * addedBy);  // Konstruktor klasy Material
-	std::string getName();  // Accessor pola name
+	std::string getName();  // Akcesor pola name
     void setName(std::string name);  // Mutator pola name
-    std::string getDescription();  // Accessor pola description
+    std::string getDescription();  // Akcesor pola description
     void setDescription(std::string description);  // Mutator pola description
-    std::string getFileName();  // Accessor pola fileName
+    std::string getFileName();  // Akcesor pola fileName
     void setFileName(std::string fileName);  // Mutator pola fileName
-    int getFileSize();  // Accessor pola fileSize
+    int getFileSize();  // Akcesor pola fileSize
     void setFileSize(int fileSize);  // Mutator pola fileSize
-    User * getAddedBy();  // Accessor pola addedBy
+    User * getAddedBy();  // Akcesor pola addedBy
     void setAddedBy(User * addedBy);  // Mutator pola addedBy
+    void displayHeader(const std::string& name);  // Metoda wyświetlająca nagłówek
 	void printMaterial();  // Metoda wypisująca informacje o materiale
 	void materialsMenu();  // Metoda otwierająca menu materiału
 	void downloadFile();  // Metoda symulująca pobieranie pliku

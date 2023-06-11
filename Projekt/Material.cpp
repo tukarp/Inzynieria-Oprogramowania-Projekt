@@ -19,7 +19,7 @@ Material::Material(std::string name, std::string description, std::string fileNa
 	this->addedBy = addedBy;
 }
 
-// Accessor pola name
+// Akcesor pola name
 std::string Material::getName() {
 	return name;
 }
@@ -29,7 +29,7 @@ void Material::setName(std::string name) {
     this->name = name;
 }
 
-// Accessor pola description
+// Akcesor pola description
 std::string Material::getDescription() {
     return description;
 }
@@ -39,7 +39,7 @@ void Material::setDescription(std::string description) {
     this->description = description;
 }
 
-// Accessor pola fileName
+// Akcesor pola fileName
 std::string Material::getFileName() {
     return fileName;
 }
@@ -49,7 +49,7 @@ void Material::setFileName(std::string fileName) {
     this->fileName = fileName;
 }
 
-// Accessor pola fileSize
+// Akcesor pola fileSize
 int Material::getFileSize() {
     return fileSize;
 }
@@ -59,7 +59,7 @@ void Material::setFileSize(int fileSize) {
     this->fileSize = fileSize;
 }
 
-// Accessor pola addedBy
+// Akcesor pola addedBy
 User * Material::getAddedBy() {
     return addedBy;
 }
@@ -69,46 +69,59 @@ void Material::setAddedBy(User * addedBy) {
     this->addedBy = addedBy;
 }
 
+// Metoda wyświetlająca nagłówek
+void Material::displayHeader(const std::string& name) {
+    const int totalWidth = 90;  // Szerokość całego wyświetlanego napisu
+    const int nameWidth = name.length();  // Szerokość nazwy kursu
+    const int paddingWidth = (totalWidth - nameWidth) / 2;  // Szerokość wypełnienia
+    // Wyświetl nagłówek
+    std::cout << "---------------------------------------------------------------------------------------\n";
+    std::cout << std::string(paddingWidth, ' ') << name << '\n';
+    std::cout << "---------------------------------------------------------------------------------------\n";
+}
+
 // Metoda wyswietlajaca dane materialu
 void Material::printMaterial() {
     // Wyswietl dane materialu
-    std::cout << "Nazwa: " << this->name << "\n";  // Nazwa materialu
-    std::cout << "Opis: " << this->description << "\n";  // Opis materialu
+    displayHeader("Material " + getName());  // Nazwa materiału
+    std::cout << "Opis: " << this->description << "\n";  // Opis materiału
     std::cout << "Nazwa pliku: " << this->fileName << "\n";  // Nazwa pliku
     std::cout << "Rozmiar pliku: " << this->fileSize << " MB\n";  // Rozmiar pliku
     std::cout << "Dodany przez: " << this->addedBy->getFirstName() << " " << this->addedBy->getLastName() << "\n";  // Dodany przez
 }
 
-// Metoda wyswietlajaca menu materialu
+// Metoda wyswietlajaca menu materiału
 void Material::materialsMenu() {
     // Utwórz zmienną przechowującą wybór użytkownika
     std::string userInput;
 
-    // Petla wyswietlajaca menu materialu
+    // Petla wyświetlająca menu materiału
 	while(true) {
+        // Wyswietl nagłówek
+        displayHeader("Material " + getName());
+
 		// Wyswietl opcje
-		std::cout << "Material: " << name << "\n";
 		std::cout << "Wybierz opcje:" << "\n";
 		std::cout << "1. Wyswietl dane" << "\n";
 		std::cout << "2. Pobierz plik" << "\n";
 		std::cout << "3. Wroc" << "\n";
 
-        // Pobierz wybor uzytkownika
+        // Pobierz wybór użytkownika
 		std::cin >> userInput;
 
-        // Sprawdz wybor uzytkownika
+        // Sprawdź wybór użytkownika
         // Jeżeli wybór to 1
 		if(userInput == "1") {
-            // Wyswietl dane materiału
-            this->printMaterial();
+            // Wyświetl dane materiału
+            printMaterial();
         // Jeżeli wybór to 2
 		} else if(userInput == "2") {
             // Pobierz plik
 			downloadFile();
         // Jeżeli wybór to 3
 		} else if (userInput == "3") {
-            // Wyjdź z pętli
-			break;
+            // Zakończ pętlę
+            break;
         // W przeciwnym wypadku
 		} else {
             // Wyswietl komunikat o błędzie

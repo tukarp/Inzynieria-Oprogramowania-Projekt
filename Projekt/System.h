@@ -23,14 +23,15 @@ class System {
 public:
 	System(std::string name);  // Konstruktor klasy System
     std::string getName();  // Akcesor pola name
+    void displayHeader(const std::string& name);  // Metoda wyświetlająca nagłówek
     bool authentication(User * user, std::string login, std::string password);  // Metoda autoryzująca użytkownika
 	void login(User * user);  // Metoda logująca użytkownika
 	void registerUser(User * user);  // Metoda rejestrująca użytkownika
     void deleteUser(std::string login);  // Metoda usuwająca użytkownika z wektora users
-	void addCourse(Course * course);  // Metoda dodająca kurs do wektora courses
-    int getCourseSize();  // Metoda zwracająca rozmiar wektora courses
+	void addCourse(Course * course);  // Metoda dodająca kurs do wektora kursów
+    int getCoursesSize();  // Akcesor rozmiaru wektora kursów
     void printCourses();  // Metoda wyświetlająca kursy
-	void deleteCourse(std::string courseName);  // Metoda usuwająca kurs z wektora courses
+	void deleteCourse(std::string courseName);  // Metoda usuwająca kurs z systemu
     void boot();  // Metoda uruchamiająca system
     void studentSystem();  // Metoda uruchamiająca system w wersji studenckiej
     void lecturerSystem();  // Metoda uruchamiająca system w werjsi wykładowcy

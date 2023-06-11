@@ -25,6 +25,18 @@ std::string System::getName() {
     return name;
 }
 
+// Metoda wyświetlająca nagłówek
+void System::displayHeader(const std::string& name) {
+    const int totalWidth = 90;  // Szerokość całego wyświetlanego napisu
+    const int nameWidth = name.length();  // Szerokość nazwy kursu
+    const int paddingWidth = (totalWidth - nameWidth) / 2;  // Szerokość wypełnienia
+    // Wyświetl nagłówek
+    std::cout << "---------------------------------------------------------------------------------------\n";
+    std::cout << std::string(paddingWidth, ' ') << name << '\n';
+    std::cout << "---------------------------------------------------------------------------------------\n";
+}
+
+// Metoda autoryzująca użytkownika
 bool System::authentication(User * user, std::string login, std::string password) {
     // Dla każdego użytkownika w wektorze users
     for(int i = 0; i < users.size(); i++) {
@@ -52,9 +64,8 @@ void System::login(User * user) {
     std::string hasloUzytkownika;
 
     // Wyświetl nagłówek logowania
-    std::cout << "---------------------------------------------------------------------------------------\n";
-    std::cout << "--------------------------------------Logowanie----------------------------------------\n";
-    std::cout << "---------------------------------------------------------------------------------------\n";
+    displayHeader("Logowanie");
+
     // Zaloguj użytkownika
     std::cout << "Login: ";         // Wyświetl informacje o podaniu loginu
     std::cin >> loginUzytkownika;   // Pobierz login od użytkownika
@@ -65,9 +76,8 @@ void System::login(User * user) {
     // Jeżeli autoryzacja użytkownika przebiegła pomyślnie
     if(authentication(user, loginUzytkownika, hasloUzytkownika)) {
         // Wyświetl nagłówek o zalogowaniu
-        std::cout << "---------------------------------------------------------------------------------------\n";
-        std::cout << "-------------------------------------Zalogowano----------------------------------------\n";
-        std::cout << "---------------------------------------------------------------------------------------\n";
+        displayHeader("Zalogowano");
+
         // Zakończ działanie metody logowania
         return;
     // W przeciwnym wypadku
@@ -85,9 +95,8 @@ void System::registerUser(User * user) {
     std::string userInput;
 
     // Wyświetl nagłówek rejestracji
-    std::cout << "---------------------------------------------------------------------------------------\n";
-    std::cout << "-------------------------------------Rejestracja---------------------------------------\n";
-    std::cout << "---------------------------------------------------------------------------------------\n";
+    displayHeader("Rejestracja");
+
     // Zarejestruj użytkownika
     std::cout << "Login: ";         // Wyświetl informacje o podaniu loginu
     std::cin >> userInput;          // Pobierz login od użytkownika
@@ -110,24 +119,23 @@ void System::registerUser(User * user) {
     user->setEmail(userInput);      // Ustaw email użytkownika
 }
 
-// Metoda dodająca kursy do systemu
+// Metoda dodająca kurs do wektora kursów
 void System::addCourse(Course * course) {
     // Dodaj kurs do wektora kursów
     courses.push_back(course);
 }
 
-// Akcesor liczby użytkowników
-int System::getCourseSize() {
+// Akcesor rozmiaru wektora kursów
+int System::getCoursesSize() {
     // Zwróć rozmiar wektora kursów
     return courses.size();
 }
 
-// Akcesor liczby użytkowników
+// Metoda wyświetlająca kursy
 void System::printCourses() {
     // Wyświetl nazwy kursów
-    std::cout << "---------------------------------------------------------------------------------------\n";
-    std::cout << "---------------------------------------Kursy-------------------------------------------\n";
-    std::cout << "---------------------------------------------------------------------------------------\n";
+    displayHeader("Kursy");
+
     // Dla każdego kursu w wektorze kursów
     for(int i = 0; i < courses.size(); i++) {
         // Wyświetl numer kursu i nazwę kursu
@@ -135,7 +143,7 @@ void System::printCourses() {
     }
 }
 
-// Metoda dodająca użytkownika do systemu
+// Metoda usuwająca kurs z systemu
 void System::deleteCourse(std::string courseName) {
     // Przeszuakj wektor kursów
     for(int i = 0; i < courses.size(); i++) {
@@ -147,7 +155,7 @@ void System::deleteCourse(std::string courseName) {
     }
 }
 
-// Metoda usuwająca użytkownika z systemu
+// Metoda usuwająca kurs z systemu
 void System::deleteUser(std::string login) {
     // Przeszukaj wektor użytkowników
     for(int i = 0; i < users.size(); i++) {
@@ -224,41 +232,16 @@ void System::loadCoursesFromCSV(const std::string& fileName) {
     file.close();
 }
 
-// Metoda zapisująca użytkowników do pliku CSV
+// Metoda uruchamiająca system
 void System::boot() {
-    std::string userInput;  // Utwórz zmienną przechowującą dane użytkownika
     loadUsersFromCSV("P:\\Zadania\\C++\\Inzynieria-Oprogramowania-Projekt\\Projekt\\users.csv");  // Wczytaj użytkowników z pliku CSV
     loadCoursesFromCSV("P:\\Zadania\\C++\\Inzynieria-Oprogramowania-Projekt\\Projekt\\courses.csv");  // Wczytaj kursy z pliku CSV
 
     // Wyświetl nagłówek systemu
-    std::cout << "---------------------------------------------------------------------------------------\n";
-    std::cout << "-------------------------------" << getName() << "----------------------------------\n";
-    std::cout << "---------------------------------------------------------------------------------------\n";
-    // Wyświetl opcje
-    std::cout << "Wybierz opcje:" << "\n";
-    std::cout << "1. System Obslugi Studiow dla Studentow" << "\n";
-    std::cout << "2. System Obslugi Studiow dla Wykladowcow" << "\n";
-
-    // Pętla wybrania
-    while(true) {
-        // Pobierz dane użytkownika
-        std::cin >> userInput;
-        // Jeżeli użytkownik wybrał opcję 1
-        if(userInput == "1") {
-            // Wywołaj metodę systemu studenta
-            studentSystem();
-        // Jeżeli użytkownik wybrał opcję 2
-        } else if(userInput == "2") {
-            // Wywołaj metodę systemu wykładowcy
-            lecturerSystem();
-        // Jeżeli użytkownik wybrał inną opcję
-        } else {
-            std::cout << "Niepoprawna opcja!" << "\n";
-        }
-    }
+    displayHeader(getName());
 }
 
-// Metoda logowania użytkownika
+// Metoda uruchamiająca system w wersji studenckiej
 void System::studentSystem() {
     // Utwórz zmienną przechowującą dane użytkownika
     std::string userInput;
@@ -277,7 +260,7 @@ void System::studentSystem() {
         std::cout << "2. Wyswietl swoj profil" << "\n";
         std::cout << "3. Wyloguj sie" << "\n";
 
-        // Pobierz dane użytkownika
+        // Pobierz wybór użytkownika
         std::cin >> userInput;
 
         // Wykonaj akcję w zależności od wyboru użytkownika
@@ -301,7 +284,7 @@ void System::studentSystem() {
     }
 }
 
-// Metoda menu kursów wykładowcy
+// Metoda uruchamiająca system w werjsi wykładowcy
 void System::lecturerSystem() {
     // Utwórz zmienną przechowującą dane użytkownika
     std::string userInput;
@@ -320,7 +303,7 @@ void System::lecturerSystem() {
         std::cout << "2. Wyswietl swoj profil" << "\n";
         std::cout << "3. Wyloguj sie" << "\n";
 
-        // Pobierz dane użytkownika
+        // Pobierz wybór użytkownika
         std::cin >> userInput;
 
         // Wykonaj akcję w zależności od wyboru użytkownika
@@ -344,7 +327,7 @@ void System::lecturerSystem() {
     }
 }
 
-// Metoda obsługi kursów studenta
+// Metoda otwierająca menu kursów dla studenta
 void System::studentCourseMenu(Student * student) {
     // Utwórz zmienną przechowującą dane użytkownika
     std::string userInput;
@@ -352,9 +335,8 @@ void System::studentCourseMenu(Student * student) {
     // Pętla do wyboru opcji systemu studenta
     while(true) {
         // Wyświetl nagłówek menu kursów
-        std::cout << "---------------------------------------------------------------------------------------\n";
-        std::cout << "--------------------------------------Menu Kursow--------------------------------------\n";
-        std::cout << "---------------------------------------------------------------------------------------\n";
+        displayHeader("Menu Kursow");
+
         // Wyświetl opcje
         std:: cout << "Wybierz opcje:" << "\n";
         std:: cout << "1. Wybierz ze swoich kursow" << "\n";
@@ -364,7 +346,7 @@ void System::studentCourseMenu(Student * student) {
         std:: cout << "5. Wyswietl wszystkie kursy" << "\n";
         std:: cout << "6. Wroc" << "\n";
 
-        // Pobierz dane użytkownika
+        // Pobierz wybór użytkownika
         std::cin >> userInput;
 
         // Wykonaj akcję w zależności od wyboru użytkownika
@@ -373,48 +355,44 @@ void System::studentCourseMenu(Student * student) {
             // Wyświetl kursy studenta
             student->printCourses();
             // Wyświetl opcję powrotu
-            std::cout << getCourseSize() + 1 << ". Wroc" << "\n";
+            std::cout << student->getCoursesSize() + 1 << ". Wroc" << "\n";
 
             std::cout << "Wybierz kurs: ";  // Wyświetl komunikat o wyborze kursu
-            std::cin >> userInput;  // Pobierz dane użytkownika
+            std::cin >> userInput;  // Pobierz wybór użytkownika
 
             // Jeżeli wybrany kurs istnieje
-            if(std::stoi(userInput) - 1 < getCourseSize()) {
+            if(std::stoi(userInput) - 1 < student->getCoursesSize()) {
                 // Wywołaj menu kursu studenta o podanym indeksie
                 student->getCourseAtIndex(std::stoi(userInput) - 1)->openStudentCourseMenu(student);
             // W przeciwnym wypadku
-            } else if(std::stoi(userInput) == getCourseSize()) {
-                // Wyjdź z pętli
-                break;
+            } else if(std::stoi(userInput) - 1  == student->getCoursesSize()) {
+                // Nic nie wyświetlaj, ponieważ użytkownik wraca do menu kursów
             // W przeciwnym wypadku
             } else {
                 // Wyświetl komunikat o niepoprawnym wyborze
                 std::cout << "Podany kurs nie istnieje!" << "\n";
-                // Przerwij pętlę
-                break;
             }
         // Jeżeli użytkownik wybrał opcję 2
         } else if(userInput == "2") {
             // Wyświetl wszystkie kursy
             printCourses();
             // Wyświetl opcję powrotu
-            std::cout << getCourseSize() + 1 << ". Wroc" << "\n";
+            std::cout << getCoursesSize() + 1 << ". Wroc" << "\n";
 
             // Wyświetl komunikat o wyborze kursu
             std::cout << "Wybierz kurs: ";
-            // Pobierz dane użytkownika
+            // Pobierz wybór użytkownika
             std::cin >> userInput;
 
             // Jeżeli wybrany kurs istnieje
-            if(std::stoi(userInput) - 1 < getCourseSize()) {
+            if(std::stoi(userInput) - 1 < getCoursesSize()) {
                 // Dodaj kurs do kursów studenta
                 student->addCourse(courses[std::stoi(userInput) - 1]);
                 // Dodaj studenta do uczestników kursu
                 courses[std::stoi(userInput) - 1]->addUser(student);
             // Jeżeli użytkownik wybrał opcję powrotu
-            } else if(std::stoi(userInput) == getCourseSize()) {
-                // Wyjdź z pętli
-                break;
+            } else if(std::stoi(userInput) - 1 == getCoursesSize()) {
+                // Nic nie wyświetlaj, ponieważ użytkownik wraca do menu kursów
             // W przeciwnym wypadku
             } else {
                 // Wyświetl komunikat o niepoprawnym wyborze
@@ -425,23 +403,22 @@ void System::studentCourseMenu(Student * student) {
             // Wyświetl kursy studenta
             student->printCourses();
             // Wyświetl opcję powrotu
-            std::cout << getCourseSize() + 1 << ". Wroc" << "\n";
+            std::cout << student->getCoursesSize() + 1 << ". Wroc" << "\n";
 
             // Wyświetl komunikat o wyborze kursu
             std::cout << "Wybierz kurs: ";
-            // Pobierz dane użytkownika
+            // Pobierz wybór użytkownika
             std::cin >> userInput;
 
             // Jeżeli wybrany kurs istnieje
-            if(std::stoi(userInput) - 1 < getCourseSize()) {
+            if(std::stoi(userInput) - 1 < student->getCoursesSize()) {
                 // Usuń kurs z kursów studenta
                 student->deleteCourse(courses[std::stoi(userInput) - 1]->getName());
                 // Usuń studenta z uczestników kursu
                 courses[std::stoi(userInput) - 1]->deleteUser(student->getLogin());
             // Jeżeli użytkownik wybrał opcję powrotu
-            } else if(std::stoi(userInput) + 1 == getCourseSize()) {
-                // Wyjdź z pętli
-                break;
+            } else if(std::stoi(userInput) - 1 == student->getCoursesSize()) {
+                // Nic nie wyświetlaj, ponieważ użytkownik wraca do menu kursów
             } else {
                 // Wyświetl komunikat o niepoprawnym wyborze
                 std::cout << "Podany kurs nie istnieje!" << "\n";
@@ -452,10 +429,12 @@ void System::studentCourseMenu(Student * student) {
             student->printCourses();
         // Jeżeli użytkownik wybrał opcję 5
         } else if(userInput == "5") {
-        // Wyświetl wszystkie kursy
+            // Wyświetl wszystkie kursy
             printCourses();
         // Jeżeli użytkownik wybrał opcję 6
         } else if(userInput == "6") {
+            // Wyświetl komunikat o opuszczeniu menu kursów
+            std::cout << "Opusciles menu kursow!" << "\n";
             // Wyjdź z pętli
             break;
         // W przeciwnym wypadku
@@ -466,7 +445,7 @@ void System::studentCourseMenu(Student * student) {
     }
 }
 
-// Metoda obsługi kursów wykładowcy
+// Metoda otwierająca menu kursów dla wykładowcy
 void System::lecturerCourseMenu(Lecturer * lecturer) {
     // Utwórz zmienną przechowującą dane użytkownika
     std::string userInput;
@@ -474,19 +453,18 @@ void System::lecturerCourseMenu(Lecturer * lecturer) {
     // Pętla do wyboru opcji systemu wykładowcy
     while(true) {
         // Wyświetl nagłówek menu kursów
-        std::cout << "---------------------------------------------------------------------------------------\n";
-        std::cout << "--------------------------------------Menu Kursow--------------------------------------\n";
-        std::cout << "---------------------------------------------------------------------------------------\n";
+        displayHeader("Menu Kursow");
+
         // Wyświetl opcje
         std:: cout << "Wybierz opcje:" << "\n";
         std:: cout << "1. Wybierz ze swoich kursow" << "\n";
         std:: cout << "2. Utworz kurs" << "\n";
-        std:: cout << "3. Wypisz sie z kursu" << "\n";
+        std:: cout << "3. Zamknij kurs" << "\n";
         std:: cout << "4. Wyswietl swoje kursy" << "\n";
         std:: cout << "5. Wyswietl wszystkie kursy" << "\n";
         std:: cout << "6. Wroc" << "\n";
 
-        // Pobierz dane użytkownika
+        // Pobierz wybór użytkownika
         std::cin >> userInput;
 
         // Wykonaj akcję w zależności od wyboru użytkownika
@@ -495,27 +473,24 @@ void System::lecturerCourseMenu(Lecturer * lecturer) {
             // Wyświetl kursy wykładowcy
             lecturer->printCourses();
             // Wyświetl opcję powrotu
-            std::cout << getCourseSize() + 1 << ". Wroc" << "\n";
+            std::cout << lecturer->getCoursesSize() + 1 << ". Wroc" << "\n";
 
             std::cout << "Wybierz kurs: ";  // Wyświetl komunikat o wyborze kursu
-            std::cin >> userInput;  // Pobierz dane użytkownika
+            std::cin >> userInput;  // Pobierz wybór użytkownika
 
             // Jeżeli wybrany kurs istnieje
-            if(std::stoi(userInput) - 1 < getCourseSize()) {
+            if(std::stoi(userInput) - 1 < lecturer->getCoursesSize()) {
                 // Wywołaj menu kursu wykładowcy o podanym indeksie
                 lecturer->getCourseAtIndex(std::stoi(userInput) - 1)->openLecturerCourseMenu(lecturer);
             // Jeżeli użytkownik wybrał opcję powrotu
-            } else if(std::stoi(userInput) + 1 == getCourseSize()) {
-                // Wyjdź z pętli
-                break;
-                // W przeciwnym wypadku
-            }else {
+            } else if(std::stoi(userInput) - 1 == lecturer->getCoursesSize()) {
+                // Nic nie wyświetlaj, ponieważ użytkownik wraca do menu kursów
+            // W przeciwnym wypadku
+            } else {
                 // Wyświetl komunikat o niepoprawnym wyborze
                 std::cout << "Podany kurs nie istnieje!" << "\n";
-                // Przerwij pętlę
-                break;
             }
-            // Jeżeli użytkownik wybrał opcję 2
+        // Jeżeli użytkownik wybrał opcję 2
         } else if(userInput == "2") {
             // Wyświetl komunikat o podaniu nazwy kursu
             std::cout << "Podaj nazwe kursu: ";
@@ -526,51 +501,56 @@ void System::lecturerCourseMenu(Lecturer * lecturer) {
             Course * newCourse = new Course(userInput, lecturer);
             // Dodaj kurs do listy kursów systemu
             addCourse(newCourse);
-            // Dodaj kurs do listy kursów wykładowcy2
-
+            // Dodaj kurs do listy kursów wykładowcy
             lecturer->addCourse(newCourse);
+
             // Wyświetl komunikat o utworzeniu kursu
             std::cout << "Kurs zostal utworzony!" << "\n";
-
-            // Jeżeli użytkownik wybrał opcję 3
+        // Jeżeli użytkownik wybrał opcję 3
         } else if(userInput == "3") {
             // Wyświetl kursy wykładowcy
             lecturer->printCourses();
             // Wyświetl opcję powrotu
-            std::cout << getCourseSize() + 1 << ". Wroc" << "\n";
+            std::cout << lecturer->getCoursesSize() - 1 << ". Wroc" << "\n";
 
             // Wyświetl komunikat o wyborze kursu
             std::cout << "Wybierz kurs: ";
-            // Pobierz dane użytkownika
+            // Pobierz wybór użytkownika
             std::cin >> userInput;
 
             // Jeżeli wybrany kurs istnieje
-            if(std::stoi(userInput) - 1 < getCourseSize()) {
-                // Usuń kurs z kursów wykładowcy
-                lecturer->deleteCourse(courses[std::stoi(userInput) - 1]->getName());
-                // Usuń wykładowcę z uczestników kursu
-                courses[std::stoi(userInput) - 1]->deleteUser(lecturer->getLogin());
-                // Jeżeli użytkownik wybrał opcję powrotu
-            } else if(std::stoi(userInput) + 1 == getCourseSize()) {
-                // Wyjdź z pętli
-                break;
+            if(std::stoi(userInput) - 1 < lecturer->getCoursesSize()) {
+                for(int i = 0; i < lecturer->getCoursesSize(); i++) {
+                    if(lecturer->getCourseAtIndex(i)->getName() == lecturer->getCourseAtIndex(std::stoi(userInput) - 1)->getName()) {
+                        // Usuń kurs z listy kursów wykładowcy
+                        lecturer->deleteCourse(lecturer->getCourseAtIndex(i)->getName());
+                        // Usuń kurs z listy kursów systemu
+                        deleteCourse(lecturer->getCourseAtIndex(i)->getName());
+                        // Wyświetl komunikat o usunięciu kursu
+                        std::cout << "Kurs zostal zamkniety!" << "\n";
+                    }
+                }  // Jeżeli użytkownik wybrał opcję powrotu
+            } else if(std::stoi(userInput) - 1 < lecturer->getCoursesSize()) {
+                // Nic nie wyświetlaj, ponieważ użytkownik wraca do menu kursów
             } else {
                 // Wyświetl komunikat o niepoprawnym wyborze
                 std::cout << "Podany kurs nie istnieje!" << "\n";
             }
-            // Jeżeli użytkownik wybrał opcję 4
+        // Jeżeli użytkownik wybrał opcję 4
         } else if(userInput == "4") {
-            // Wyświetl kursy studenta
+            // Wyświetl kursy wykładowcy
             lecturer->printCourses();
-            // Jeżeli użytkownik wybrał opcję 5
+        // Jeżeli użytkownik wybrał opcję 5
         } else if(userInput == "5") {
             // Wyświetl wszystkie kursy
             printCourses();
-            // Jeżeli użytkownik wybrał opcję 6
+        // Jeżeli użytkownik wybrał opcję 6
         } else if(userInput == "6") {
+            // Wyświetl komunikat o opuszczeniu menu kursów
+            std::cout << "Opusciles menu kursow!" << "\n";
             // Wyjdź z pętli
             break;
-            // W przeciwnym wypadku
+        // W przeciwnym wypadku
         } else {
             // Wyświetl komunikat o niepoprawnym wyborze
             std::cout << "Niepoprawna opcja!" << "\n";

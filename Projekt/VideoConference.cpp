@@ -38,17 +38,27 @@ void VideoConference::deleteStudent(std::string login) {
 	}
 }
 
-// Metoda zwracająca nazwę konferencji
+// Metoda wyświetlająca nagłówek
+void VideoConference::displayHeader(const std::string& name) {
+    const int totalWidth = 90;  // Szerokość całego wyświetlanego napisu
+    const int nameWidth = name.length();  // Szerokość nazwy kursu
+    const int paddingWidth = (totalWidth - nameWidth) / 2;  // Szerokość wypełnienia
+    // Wyświetl nagłówek
+    std::cout << "---------------------------------------------------------------------------------------\n";
+    std::cout << std::string(paddingWidth, ' ') << name << '\n';
+    std::cout << "---------------------------------------------------------------------------------------\n";
+}
+
+// Metoda otwierająca menu konferencji dla studenta
 void VideoConference::openStudentVideoConferenceMenu(Student * student) {
     // Utwórz zmienną przechowującą wybór użytkownika
     std::string userInput;
 
     // Pętla menu wideokonferencji studenta
 	while(true) {
-        // Wyświetl nagłówek menu kursu studenta
-        std::cout << "---------------------------------------------------------------------------------------\n";
-        std::cout << "----------" << "Wideokonferencja - " << name << "----------\n";
-        std::cout << "---------------------------------------------------------------------------------------\n";
+        // Wyświetl nagłówek menu wideokonferencji studenta
+        displayHeader("Wideokonferencja - " + name);
+
         // Wyświetl opcje
 		std::cout << "Wybierz opcje:" << "\n";
 		std::cout << "1. Wyswietl uczestnikow" << "\n";
@@ -60,11 +70,23 @@ void VideoConference::openStudentVideoConferenceMenu(Student * student) {
         // Wykonaj akcję w zależności od wyboru użytkownika
         // Jeżeli wybór to 1
 		if(userInput == "1") {
-            // Przeszukaj wektor studentów
-			for(int i = 0; i < students.size(); i++) {
-                // Wyświetl imiona i nazwiska studentów w wideokonferencji
-				std::cout << students.at(i)->getFirstName() << " " << students.at(i)->getLastName() << "\n";
-			}
+            // Wyświetl nagłówek uczestników wideokonferencji
+            displayHeader("Uczestnicy Wideokonferencji - " + name);
+
+            // Wyświetl wykładowcę
+            std::cout << "Wykladowca: " << lecturer->getFirstName() << " " << lecturer->getLastName() << "\n";
+
+            // Jeżeli wektor studentów nie jest pusty
+            if(!students.empty()) {
+                // Przeszukaj wektor studentów
+                for(int i = 0; i < students.size(); i++) {
+                    // Wyświetl imiona i nazwiska studentów w wideokonferencji
+                    std::cout << i + 1 << ". " << students.at(i)->getFirstName() << " " << students.at(i)->getLastName() << "\n";
+                }
+            } else {
+                // Wyświetl komunikat o braku uczestników
+                std::cout << "Brak uczestnikow!" << "\n";
+            }
         // Jeżeli wybór to 2
 		} else if(userInput == "2") {
             // Przeszukaj wektor studentów
@@ -73,6 +95,8 @@ void VideoConference::openStudentVideoConferenceMenu(Student * student) {
 				if(students[i] == student) {
                     // Usuń studenta z wektora
                     deleteStudent(student->getLogin());
+                    // Wyświetl komunikat o wyjściu z wideokonferencji
+                    std::cout << "Wyjscie z wideokonferencji!" << "\n";
                     // Zakończ pętlę
 					break;
 				}
@@ -87,17 +111,16 @@ void VideoConference::openStudentVideoConferenceMenu(Student * student) {
 	}
 }
 
-// Metoda zwracająca nazwę konferencji
+// Metoda otwierająca menu konferencji dla wykładowcy
 void VideoConference::openLecturerVideoConferenceMenu(Lecturer * lecturer) {
     // Utwórz zmienną przechowującą wybór użytkownika
     std::string userInput;
 
     // Pętla menu wideokonferencji wykładowcy
     while(true) {
-        // Wyświetl nagłówek menu kursu wykładowcy
-        std::cout << "---------------------------------------------------------------------------------------\n";
-        std::cout << "----------" << "Wideokonferencja - " << name << "---------------------------------------\n";
-        std::cout << "---------------------------------------------------------------------------------------\n";
+        // Wyświetl nagłówek menu wideokonferencji wykładowcy
+        displayHeader("Wideokonferencja - " + name);
+
         // Wyświetl opcje
         std::cout << "Wybierz opcje:" << "\n";
         std::cout << "1. Wyswietl uczestnikow" << "\n";
@@ -109,11 +132,22 @@ void VideoConference::openLecturerVideoConferenceMenu(Lecturer * lecturer) {
         // Wykonaj akcję w zależności od wyboru użytkownika
         // Jeżeli wybór to 1
         if(userInput == "1") {
-            // Przeszukaj wektor studentów
-            for(int i = 0; i < students.size(); i++) {
-                // Wyświetl imiona i nazwiska studentów w wideokonferencji
-                std::cout << students.at(i)->getFirstName() << "\n";
-                std::cout << students.at(i)->getLastName() << "\n";
+            // Wyświetl nagłówek uczestników wideokonferencji
+            displayHeader("Uczestnicy Wideokonferencji - " + name);
+
+            // Wyświetl wykładowcę
+            std::cout << "Wykladowca: " << lecturer->getFirstName() << " " << lecturer->getLastName() << "\n";
+
+            // Jeżeli wektor studentów nie jest pusty
+            if(!students.empty()) {
+                // Przeszukaj wektor studentów
+                for(int i = 0; i < students.size(); i++) {
+                    // Wyświetl imiona i nazwiska studentów w wideokonferencji
+                    std::cout << i + 1 << ". " << students.at(i)->getFirstName() << " " << students.at(i)->getLastName() << "\n";
+                }
+            } else {
+                // Wyświetl komunikat o braku uczestników
+                std::cout << "Brak uczestnikow!" << "\n";
             }
             // Jeżeli wybór to 2
         } else if(userInput == "2") {
@@ -122,10 +156,14 @@ void VideoConference::openLecturerVideoConferenceMenu(Lecturer * lecturer) {
                 // Usuń studenta z wektora studentów po zakończeniu wideokonferencji
                 deleteStudent(students[i]->getLogin());
             }
-            // W przeciwnym wypadku
+            // Wyświetl komunikat o zakończeniu wideokonferencji
+            std::cout << "Zakonczono wideokonferencje!" << "\n";
+            // Wyjdź z wideokonferencji
+            break;
         } else {
             // Wyświetl komunikat o niepoprawnym wyborze
             std::cout << "Niepoprawna opcja!" << "\n";
         }
     }
 }
+

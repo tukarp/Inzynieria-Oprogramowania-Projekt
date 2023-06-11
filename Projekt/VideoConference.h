@@ -29,6 +29,7 @@ public:
 	VideoConference(std::string name, Lecturer * lecturer);  // Konstruktor
 	void addStudent(Student * student);  // Metoda dodająca studenta do konferencji
 	void deleteStudent(std::string login);  // Metoda usuwająca studenta z konferencji
+    void displayHeader(const std::string& name);  // Metoda wyświetlająca nagłówek
 	void openStudentVideoConferenceMenu(Student * student);  // Metoda otwierająca menu konferencji dla studenta
 	void openLecturerVideoConferenceMenu(Lecturer * lecturer);  // Metoda otwierająca menu konferencji dla wykładowcy
 private:

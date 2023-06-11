@@ -31,22 +31,22 @@ User::User(std::string firstName, std::string lastName) {
 // Pusty konstruktor klasy User
 User::User() {}
 
+// Akcesor pola firstName
+std::string User::getFirstName() {
+    return firstName;
+}
+
 // Mutator pola firstName
 void User::setFirstName(std::string firstName) {
 	this->firstName = firstName;
 }
 
-// Akcessor pola firstName
-std::string User::getFirstName() {
-    return firstName;
-}
-
-// Mutator pola lastName
+// Akcesor pola lastName
 std::string User::getLastName() {
 	return lastName;
 }
 
-// Akcesor pola lastName
+// Mutator pola lastName
 void User::setLastName(std::string lastName) {
 	this->lastName = lastName;
 }
@@ -83,14 +83,20 @@ void User::setEmail(std::string email) {
 
 // Metoda wyświetlająca dane użytkownika
 void User::printUser() {
-    // Wyświetl nagłówek danych użytkownika
-    std::cout << "---------------------------------------------------------------------------------------\n";
-    std::cout << "---------------------------------------Uzytkownik--------------------------------------\n";
-    std::cout << "---------------------------------------------------------------------------------------\n";
-    // Utwórz ukrytą kopię hasła użytkownika
-    std::string hiddenUserPassword = getPassword();
+    // Utwórz zmienne do wyświetlenia nagłówka danych użytkownika
+    const std::string name = "Uzytkownik";  // Nazwa wyświetlanego napisu
+    const int totalWidth = 90;  // Szerokość całego wyświetlanego napisu
+    const int nameWidth = name.length();  // Szerokość nazwy kursu
+    const int paddingWidth = (totalWidth - nameWidth) / 2;  // Szerokość wypełnienia
+    std::string hiddenUserPassword = getPassword();  // Utwórz ukrytą kopię hasła użytkownika
+
     // Zamień każdy znak hasła na znak '*'
     hiddenUserPassword.replace(0, hiddenUserPassword.length(), hiddenUserPassword.length(), '*');
+
+    // Wyświetl nagłówek
+    std::cout << "---------------------------------------------------------------------------------------\n";
+    std::cout << std::string(paddingWidth, ' ') << name << '\n';
+    std::cout << "---------------------------------------------------------------------------------------\n";
     // Wyświetl dane użytkownika
     std::cout << "Login: " << getLogin() << "\n";  // Wyświetl login użytkownika
     std::cout << "Haslo: " << hiddenUserPassword << "\n";  // Wyświetl ukryte hasło użytkownika

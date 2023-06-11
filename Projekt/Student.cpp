@@ -18,6 +18,12 @@ void Student::addCourse(Course * course) {
 	courses.push_back(course);
 }
 
+// Akcesor rozmiaru wektora kursów
+int Student::getCoursesSize() {
+    // Zwróć rozmiar wektora kursów
+    return courses.size();
+}
+
 // Metoda usuwająca kurs z wektora kursów
 void Student::deleteCourse(std::string courseName) {
     // Przeszukajwektor kursów
@@ -36,11 +42,16 @@ Course * Student::getCourseAtIndex(int courseIndex) {
     return courses[courseIndex];
 }
 
-// Metoda wyświetlająca wektor kursów
+// Metoda wyświetlająca kursy studenta
 void Student::printCourses() {
-    // Wyświetl nagłówek kursów studenta
+    const std::string headerName = "Twoje Kursy";
+    const int totalWidth = 90;  // Szerokość całego wyświetlanego napisu
+    const int nameWidth = headerName.length();  // Szerokość nazwy kursu
+    const int paddingWidth = (totalWidth - nameWidth) / 2;  // Szerokość wypełnienia
+
+    // Wyświetl nagłówek
     std::cout << "---------------------------------------------------------------------------------------\n";
-    std::cout << "-----------------------------------Twoje Kursy-----------------------------------------\n";
+    std::cout << std::string(paddingWidth, ' ') << headerName << '\n';
     std::cout << "---------------------------------------------------------------------------------------\n";
     // Przeszukaj wektor kursów
     for(int i = 0; i < courses.size(); i++) {

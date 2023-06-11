@@ -13,13 +13,13 @@
 #include <iostream>
 #include "Course.h"
 
-// Konstruktor klasy Course
+// Konstruktor klasy Course przyjmujący nazwę kursu i wykładowcę prowadzącego kurs
 Course::Course(std::string name, Lecturer * lecturer) {
 	this->name = name;
 	this->lecturer = lecturer;
 }
 
-// Konstruktor klasy Course
+// Konstruktor klasy Course przyjmujący nazwę kursu, wykładowcę prowadzącego kurs i informację o tym, czy wideokonferencja została utworzona
 Course::Course(std::string name, Lecturer * lecturer, std::string isVideoConferenceCreated) {
     this->name = name;
     this->lecturer = lecturer;
@@ -78,23 +78,38 @@ void Course::deleteMaterial(std::string name) {
 
 // Metoda tworząca wideokonferencję
 void Course::createVideoConference(std::string name) {
+    // Utwórz wideokonferencję
     this->videoConference = new VideoConference(name, lecturer);
 }
 
 // Metoda kończąca wideokonferencję
 void Course::endVideoConference() {
     // Wyświetl komunikat o zakończeniu wideokonferencji
-	std::cout << "Zakonczono wideokonferencje" << "\n";
+	std::cout << "Zakonczono wideokonferencje!" << "\n";
+    // Usuń studentów z wideokonferencji
+    for(int i = 0; i < students.size(); i++) {
+        videoConference->deleteStudent(students[i]->getLogin());
+    }
     // Usuń wskaźnik na wideokonferencję
     videoConference = nullptr;
+}
+
+// Metoda wyświetlająca nagłówek
+void Course::displayHeader(const std::string& name) {
+    const int totalWidth = 90;  // Szerokość całego wyświetlanego napisu
+    const int nameWidth = name.length();  // Szerokość nazwy kursu
+    const int paddingWidth = (totalWidth - nameWidth) / 2;  // Szerokość wypełnienia
+    // Wyświetl nagłówek
+    std::cout << "---------------------------------------------------------------------------------------\n";
+    std::cout << std::string(paddingWidth, ' ') << name << '\n';
+    std::cout << "---------------------------------------------------------------------------------------\n";
 }
 
 // Metoda wyświetlająca stronę kursu
 void Course::viewCoursePage() {
     // Wyświetl nagłówek strony głównej kursu
-	std::cout << "---------------------------------------------------------------------------------------\n";
-	std::cout << "---------------------------------" << getName() << "---------------------------------------\n";
-	std::cout << "---------------------------------------------------------------------------------------\n";
+    displayHeader(getName());
+
     // Wyświetl wykładowcę
 	std::cout << "Lecturer: " << lecturer->getFirstName() << " " << lecturer->getLastName() << "\n";
 
@@ -114,10 +129,9 @@ void Course::openStudentCourseMenu(Student * student) {
 
     // Pętla menu kursu
     while(true) {
-        // Wyświetl nagłówek menu kursu studenta
-        std::cout << "---------------------------------------------------------------------------------------\n";
-        std::cout << "---------------------------------" << getName() << "---------------------------------------\n";
-        std::cout << "---------------------------------------------------------------------------------------\n";
+        // Wyświetl nagłówek strony głównej kursu
+        displayHeader(getName());
+
         // Wyświetl opcje
         std::cout << "Wybierz opcje:"  << "\n";
         std::cout << "1. Wyswietl strone kursu" << "\n";
@@ -151,8 +165,10 @@ void Course::openStudentCourseMenu(Student * student) {
                 std::cout << "Wideokonferencja nie jest utworzona!" << "\n";
             }
         // Jeżeli wybór jest równy 4
-        } else if (userInput == "4") {
-            // Zakończ pętlę
+        } else if(userInput == "4") {
+            // Wyświetl komunikat o opuszczeniu menu kursu
+            std::cout << "Opusciles menu kursu " << getName() << "!" << "\n";
+            // Wyjdź z pętli
             break;
         // W przeciwnym wypadku
         } else {
@@ -162,17 +178,16 @@ void Course::openStudentCourseMenu(Student * student) {
     }
 }
 
-// Metoda otwierająca menu materiałów kursu dla studenta
+// Metoda otwierająca menu materiałów kursu dla wykładowcy
 void Course::openLecturerCourseMenu(Lecturer * lecturer) {
     // Utwórz zmienną przechowującą wybór użytkownika
     std::string userInput;
 
     // Pętla menu kursu
     while(true) {
-        // Wyświetl nagłówek menu kursu wykładowcy
-        std::cout << "---------------------------------------------------------------------------------------\n";
-        std::cout << "---------------------------------" << getName() << "---------------------------------------\n";
-        std::cout << "---------------------------------------------------------------------------------------\n";
+        // Wyświetl nagłówek strony głównej kursu
+        displayHeader(getName());
+
         // Wyświetl opcje
         std::cout << "Wybierz opcje:" << "\n";
         std::cout << "1. Wyswietl strone kursu" << "\n";
@@ -188,11 +203,11 @@ void Course::openLecturerCourseMenu(Lecturer * lecturer) {
         if(userInput == "1") {
             // Wyświetl stronę kursu
             viewCoursePage();
-            // Jeżeli wybór to 2
+        // Jeżeli wybór to 2
         } else if(userInput == "2") {
             // Otwórz menu materiałów kursu
             openMaterialsMenu(lecturer);
-            // Jeżeli wybór to 3
+        // Jeżeli wybór to 3
         } else if(userInput == "3") {
             // Jeżeli wideokonferencja istnieje
             if(videoConference == nullptr) {
@@ -202,12 +217,18 @@ void Course::openLecturerCourseMenu(Lecturer * lecturer) {
                 videoConference->openLecturerVideoConferenceMenu(lecturer);
             // W przeciwnym wypadku
             } else {
-                // Wyświetl komunikat o braaku wideokonferencji
-                std::cout << "Wideokonferencja jest juz utworzona!" << "\n";
+                // Zakończ wideokonferencję
+                endVideoConference();
+                // Utwórz nową wideokonferencję
+                createVideoConference(getName());
+                // Otwórz menu wideokonferencji
+                videoConference->openLecturerVideoConferenceMenu(lecturer);
             }
             // Jeżeli wybór to 4
         } else if (userInput == "4") {
-            // Zakończ pętlę
+            // Wyświetl komunikat o opuszczeniu menu kursu
+            std::cout << "Opusciles menu kursu " << getName() << "!" << "\n";
+            // Wyjdź z pętli
             break;
             // W przeciwnym wypadku
         } else {
@@ -217,13 +238,16 @@ void Course::openLecturerCourseMenu(Lecturer * lecturer) {
     }
 }
 
-// Metoda otwierająca menu materiałów kursu dla studenta
+// Metoda otwierająca menu materiałów kursu
 void Course::openMaterialsMenu(User * user) {
     // Utwórz zmienną przechowującą wybór użytkownika
     std::string userInput;
 
     // Pętla menu materiałów kursu
     while(true) {
+        // Wyświetl nagłówek menu materiałów kursu
+        displayHeader("Materialy kursu " + getName());
+
         // Dla każdego materiału
         for(int i = 0; i < materials.size(); i++) {
             // Wyświetl numer i nazwę materiału
@@ -232,8 +256,8 @@ void Course::openMaterialsMenu(User * user) {
 
         // Wyświetl opcje
         std::cout << "Wybierz opcje:" << "\n";
-        std::cout << "1. Otworz material" << "\n";
-        std::cout << "2. Dodaj material"  << "\n";
+        std::cout << "1. Otworz materialy" << "\n";
+        std::cout << "2. Dodaj materialy"  << "\n";
         std::cout << "3. Wroc" << "\n";
 
         // Pobierz wybór użytkownika
@@ -242,27 +266,42 @@ void Course::openMaterialsMenu(User * user) {
         // Wykonaj akcję w zależności od wyboru użytkownika
         // Jeżeli wybór to równy 1
         if(userInput == "1") {
-            // Wyświetl nagłówek menu materiałów kursu
-            std::cout << "---------------------------------------------------------------------------------------\n";
-            std::cout << "---------------------------------------Materialy---------------------------------------\n";
-            std::cout << "---------------------------------------------------------------------------------------\n";
-            // Przeszuakj wektor materiałów
-            for(int i = 0; i < materials.size(); i++) {
-                // Wyświetl numer i nazwę materiału
-                std::cout << i + 1 << ". " << materials.at(i)->getName() << "\n";
-            }
+            // Jeżeli materiały kursu nie są puste
+            if(!materials.empty()) {
+                // Wyświetl nagłówek menu materiałów kursu
+                displayHeader("Materialy kursu " + getName());
 
-            // Pobierz wybór użytkownika
-            std::cin >> userInput;
+                // Przeszuakj wektor materiałów
+                for(int i = 0; i < materials.size(); i++) {
+                    // Wyświetl numer i nazwę materiału
+                    std::cout << i + 1 << ". " << materials.at(i)->getName() << "\n";
+                }
 
-            // Wykonaj akcję w zależności od wyboru użytkownika
-            // Jeżeli wybór jest równy 1
-            if(std::stoi(userInput) - 1 < materials.size()) {
-                // Otwórz menu materiału
-                materials.at(std::stoi(userInput) - 1)->materialsMenu();
+                // Wyświetl opcję powrotu
+                std::cout << materials.size() + 1 << ". Wroc" << "\n";
+
+                // Pobierz wybór użytkownika
+                std::cin >> userInput;
+
+                // Wykonaj akcję w zależności od wyboru użytkownika
+                // Jeżeli wybór jest równy 1
+                if(std::stoi(userInput) - 1 < materials.size()) {
+                    // Otwórz menu materiału
+                    materials.at(std::stoi(userInput) - 1)->materialsMenu();
+                } else if((std::stoi(userInput) - 1) == materials.size()) {
+                    // Wyświetl komunikat o opuszczeniu menu materiałów
+                    std::cout << "Opusciles menu materialow!" << "\n";
+                    // Wyjdź z pętli
+                    break;
+                    // W przeciwnym wypadku
+                } else {
+                    // Wyświetl komunikat o niepoprawnym wyborze
+                    std::cout << "Niepoprawna opcja!" << "\n";
+                }
+            // Jeżeli materiały kursu są puste
             } else {
-                // Wyświetl komunikat o niepoprawnym wyborze
-                std::cout << "Niepoprawna opcja!" << "\n";
+                // Wyświetl komunikat o braku materiałów
+                std::cout << "Brak materialow!" << "\n";
             }
         // Jeżeli wybór to 2
         } else if(userInput == "2") {
@@ -272,7 +311,7 @@ void Course::openMaterialsMenu(User * user) {
             std::string materialName;           // Nazwa
             std::string materialDescription;    // Opis
             std::string materialFileName;       // Nazwa pliku
-            int materialFileSize;               // Rozmiar pliku
+            std::string materialFileSize;       // Rozmiar pliku
             User * addedBy = user;              // Materiał dodany przez
 
             // Pobierz dane materiału
@@ -292,12 +331,22 @@ void Course::openMaterialsMenu(User * user) {
             std::cout << "Podaj rozmiar pliku[kB]: ";
             std::cin >> materialFileSize;
 
+            // Jeżeli któryś z parametrów jest pusty
+            if(materialName.empty() || materialDescription.empty() || materialFileName.empty() || materialFileSize.empty()) {
+                // Wyświetl komunikat o niepoprawnych danych
+                std::cout << "Niepoprawne dane!" << "\n";
+                // Wyjdź z pętli
+                break;
+            }
+
             // Dodaj materiał
             materials.push_back(new Material(materialName,materialDescription,
-                                             materialFileName, materialFileSize, addedBy));
+                                             materialFileName, std::stoi(materialFileSize), addedBy));
         // Jeżeli wybór to 2
         } else if(userInput == "3") {
-            // Zakończ pętlę
+            // Wyświetl komunikat o opuszczeniu menu kursów
+            std::cout << "Opusciles menu materialow!" << "\n";
+            // Wyjdź z pętli
             break;
         // W przeciwnym wypadku
         } else {

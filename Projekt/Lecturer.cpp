@@ -18,6 +18,12 @@ void Lecturer::addCourse(Course * course) {
     courses.push_back(course);
 }
 
+// Akcesor rozmiaru wektora kursów
+int Lecturer::getCoursesSize() {
+    // Zwróć rozmiar wektora kursów
+    return courses.size();
+}
+
 // Metoda usuwająca kurs z wektora kursów
 void Lecturer::deleteCourse(std::string courseName) {
     // Przeszukaj wektor kursów
@@ -36,11 +42,16 @@ Course * Lecturer::getCourseAtIndex(int courseIndex) {
     return courses[courseIndex];
 }
 
-// Metoda wyświetlająca courses
+// Metoda wyświetlająca kursy wykładowcy
 void Lecturer::printCourses() {
-    // Wyświetl nagłówek kursów prowadzącego
+    const std::string headerName = "Twoje Kursy";
+    const int totalWidth = 90;  // Szerokość całego wyświetlanego napisu
+    const int nameWidth = headerName.length();  // Szerokość nazwy kursu
+    const int paddingWidth = (totalWidth - nameWidth) / 2;  // Szerokość wypełnienia
+
+    // Wyświetl nagłówek
     std::cout << "---------------------------------------------------------------------------------------\n";
-    std::cout << "-----------------------------------Twoje Kursy-----------------------------------------\n";
+    std::cout << std::string(paddingWidth, ' ') << headerName << '\n';
     std::cout << "---------------------------------------------------------------------------------------\n";
     // Przeszukaj wektor kursów
     for(int i = 0; i < courses.size(); i++) {

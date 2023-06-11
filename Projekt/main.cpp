@@ -17,5 +17,31 @@ int main() {
     // Uruchomienie systemu
     system.boot();
 
+    // Zmienna przechowująca wybór użytkownika
+    std::string userInput;
+
+    // Wyświetl opcje
+    std::cout << "Wybierz opcje:" << "\n";
+    std::cout << "1. System Obslugi Studiow dla Studentow" << "\n";
+    std::cout << "2. System Obslugi Studiow dla Wykladowcow" << "\n";
+
+    // Pętla wyboru wersji systemu
+    while(true) {
+        // Pobierz wybór użytkownika
+        std::cin >> userInput;
+        // Jeżeli użytkownik wybrał opcję 1
+        if(userInput == "1") {
+            // Wywołaj metodę systemu studenta
+            system.studentSystem();
+            // Jeżeli użytkownik wybrał opcję 2
+        } else if(userInput == "2") {
+            // Wywołaj metodę systemu wykładowcy
+            system.lecturerSystem();
+            // Jeżeli użytkownik wybrał inną opcję
+        } else {
+            std::cout << "Niepoprawna opcja!" << "\n";
+        }
+    }
+
     return 0;
 }

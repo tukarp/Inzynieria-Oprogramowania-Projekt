@@ -22,15 +22,15 @@ public:
 	User(std::string firstName, std::string lastName, std::string login, std::string password, std::string email);  // Konstruktor klasy User z polami firstName, lastName, login, password i email
     User(std::string firstName, std::string lastName);  // Konstruktor klasy User z polami firstName i lastName
     User();  // Pusty konstruktor klasy User
-	std::string getFirstName();  // Accessor pola firstName
+	std::string getFirstName();  // Akcesor pola firstName
 	void setFirstName(std::string firstName);  // Mutator pola firstName
-	std::string getLastName();  // Accessor pola lastName
+	std::string getLastName();  // Akcesor pola lastName
 	void setLastName(std::string lastName);  // Mutator pola lastName
-	std::string getLogin();  // Accessor pola login
+	std::string getLogin();  // Akcesor pola login
 	void setLogin(std::string login);  // Mutator pola login
-	std::string getPassword();  // Accessor pola password
+	std::string getPassword();  // Akcesor pola password
 	void setPassword(std::string password);  // Mutator pola password
-	std::string getEmail();  // Accessor pola email
+	std::string getEmail();  // Akcesor pola email
 	void setEmail(std::string email);  // Mutator pola email
 	void printUser();  // Metoda wyświetlająca dane użytkownika
 private:
