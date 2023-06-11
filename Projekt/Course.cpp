@@ -40,6 +40,16 @@ void Course::setName(std::string name) {
     this->name = name;
 }
 
+// Akcesor pola lecturer
+Lecturer * Course::getLecturer() {
+    return lecturer;
+}
+
+// Mutator pola lecturer
+void Course::setLecturer(Lecturer * lecturer) {
+    this->lecturer = lecturer;
+}
+
 // Metoda dodająca studenta do wektora kursu
 void Course::addUser(Student *student) {
     // Dodanie studenta do wektora students
@@ -100,9 +110,9 @@ void Course::displayHeader(const std::string& name) {
     const int nameWidth = name.length();  // Szerokość nazwy kursu
     const int paddingWidth = (totalWidth - nameWidth) / 2;  // Szerokość wypełnienia
     // Wyświetl nagłówek
-    std::cout << "---------------------------------------------------------------------------------------\n";
-    std::cout << std::string(paddingWidth, ' ') << name << '\n';
-    std::cout << "---------------------------------------------------------------------------------------\n";
+    std::cout << "==========================================================================================\n";
+    std::cout << std::string(paddingWidth, ' ') << name << "\n";
+    std::cout << "==========================================================================================\n";
 }
 
 // Metoda wyświetlająca stronę kursu

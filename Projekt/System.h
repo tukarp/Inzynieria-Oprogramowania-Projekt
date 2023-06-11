@@ -38,7 +38,9 @@ public:
     void studentCourseMenu(Student * student);  // Metoda otwierająca menu kursów dla studenta
     void lecturerCourseMenu(Lecturer * lecturer);  // Metoda otwierająca menu kursów dla wykładowcy
     void loadUsersFromCSV(const std::string& fileName);  // Metoda wczytująca użytkowników z pliku CSV
+    void saveUsersToCSV(const std::string& fileName);  // Metoda zapisująca użytkowników do pliku CSV
     void loadCoursesFromCSV(const std::string& fileName);  // Metoda wczytująca kursy z pliku CSV
+    void saveCoursesToCSV(const std::string& fileName);  // Metoda zapisująca kursy do pliku CSV
 private:
     std::string name;  // Nazwa systemu
     std::vector <Course *> courses;  // Wektor kursów

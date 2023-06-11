@@ -50,9 +50,9 @@ void Student::printCourses() {
     const int paddingWidth = (totalWidth - nameWidth) / 2;  // Szerokość wypełnienia
 
     // Wyświetl nagłówek
-    std::cout << "---------------------------------------------------------------------------------------\n";
-    std::cout << std::string(paddingWidth, ' ') << headerName << '\n';
-    std::cout << "---------------------------------------------------------------------------------------\n";
+    std::cout << "==========================================================================================\n";
+    std::cout << std::string(paddingWidth, ' ') << headerName << "\n";;
+    std::cout << "==========================================================================================\n";
     // Przeszukaj wektor kursów
     for(int i = 0; i < courses.size(); i++) {
         // Wyświetl nazwę kursu

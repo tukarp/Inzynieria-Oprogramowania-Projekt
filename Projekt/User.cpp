@@ -94,9 +94,9 @@ void User::printUser() {
     hiddenUserPassword.replace(0, hiddenUserPassword.length(), hiddenUserPassword.length(), '*');
 
     // Wyświetl nagłówek
-    std::cout << "---------------------------------------------------------------------------------------\n";
-    std::cout << std::string(paddingWidth, ' ') << name << '\n';
-    std::cout << "---------------------------------------------------------------------------------------\n";
+    std::cout << "==========================================================================================\n";
+    std::cout << std::string(paddingWidth, ' ') << name << "\n";;
+    std::cout << "==========================================================================================\n";
     // Wyświetl dane użytkownika
     std::cout << "Login: " << getLogin() << "\n";  // Wyświetl login użytkownika
     std::cout << "Haslo: " << hiddenUserPassword << "\n";  // Wyświetl ukryte hasło użytkownika

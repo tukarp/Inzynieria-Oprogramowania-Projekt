@@ -32,7 +32,9 @@ public:
     Course(std::string name, Lecturer * lecturer, std::string isVideoConferenceCreated);  // Konstruktor klasy Course przyjmujący nazwę kursu, wykładowcę prowadzącego kurs i informację o tym, czy wideokonferencja została utworzona
     std::string getName();  // Accessor pola name
     void setName(std::string name);  // Mutator pola name
-	void addUser(Student * student);  // Metoda dodająca studenta do kursu
+    Lecturer * getLecturer();  // Akcesor pola lecturer
+    void setLecturer(Lecturer * lecturer);  // Mutator pola lecturer
+    void addUser(Student * student);  // Metoda dodająca studenta do kursu
     void deleteUser(std::string login);  // Metoda usuwająca studenta z kursu
 	void addMaterial(Material * material);  // Metoda dodająca materiał do kursu
     void deleteMaterial(std::string name);  // Metoda usuwająca materiał z kursu

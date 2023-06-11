@@ -44,9 +44,9 @@ void VideoConference::displayHeader(const std::string& name) {
     const int nameWidth = name.length();  // Szerokość nazwy kursu
     const int paddingWidth = (totalWidth - nameWidth) / 2;  // Szerokość wypełnienia
     // Wyświetl nagłówek
-    std::cout << "---------------------------------------------------------------------------------------\n";
-    std::cout << std::string(paddingWidth, ' ') << name << '\n';
-    std::cout << "---------------------------------------------------------------------------------------\n";
+    std::cout << "==========================================================================================\n";
+    std::cout << std::string(paddingWidth, ' ') << name << "\n";;
+    std::cout << "==========================================================================================\n";
 }
 
 // Metoda otwierająca menu konferencji dla studenta

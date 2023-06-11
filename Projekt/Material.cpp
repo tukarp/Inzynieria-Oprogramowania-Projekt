@@ -75,9 +75,9 @@ void Material::displayHeader(const std::string& name) {
     const int nameWidth = name.length();  // Szerokość nazwy kursu
     const int paddingWidth = (totalWidth - nameWidth) / 2;  // Szerokość wypełnienia
     // Wyświetl nagłówek
-    std::cout << "---------------------------------------------------------------------------------------\n";
-    std::cout << std::string(paddingWidth, ' ') << name << '\n';
-    std::cout << "---------------------------------------------------------------------------------------\n";
+    std::cout << "==========================================================================================\n";
+    std::cout << std::string(paddingWidth, ' ') << name << "\n";;
+    std::cout << "==========================================================================================\n";
 }
 
 // Metoda wyswietlajaca dane materialu
@@ -167,8 +167,15 @@ void Material::downloadFile() {
         // Uśpij wątek na czas zmiennej duration w milisekundach
 		std::this_thread::sleep_for(std::chrono::milliseconds(duration));
 	}
-    // Wyswietl nową linię
-	std::cout << std::endl;
+    // Wyswietl koniec paska postępu
+    std::cout << "[";
+    // Iteruj od 0 do barWidth
+    for (int j = 0; j < barWidth; ++j) {
+        // Wyswietl zank paska postępu
+        std::cout << "=";
+    }
+    // Wyswietl koniec paska postępu
+    std::cout << "] 100%" << std::endl;
     // Wyswietl komunikat o pobraniu pliku
-	std::cout << "Pobrano plik!" << "\n";
+    std::cout << "Pobrano plik!" << std::endl;
 }

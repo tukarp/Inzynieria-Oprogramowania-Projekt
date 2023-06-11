@@ -15,6 +15,21 @@
 #include <sstream>
 #include "System.h"
 
+// Logo systemu
+const std::string logo = R"(
+  ___         _                ___  _       _           _   ___ _           _ _
+ / __|_  _ __| |_ ___ _ __    / _ \| |__ __| |_  _ __ _(_) / __| |_ _  _ __| (_)_____ __ __
+ \__ \ || (_-<  _/ -_) '  \  | (_) | '_ (_-< | || / _` | | \__ \  _| || / _` | / _ \ V  V /
+ |___/\_, /__/\__\___|_|_|_|  \___/|_.__/__/_|\_,_\__, |_| |___/\__|\_,_\__,_|_\___/\_/\_/
+      |__/                                        |___/
+)";
+
+// Ścieżka do pliku z kursami
+const std::string coursesFilePath = "P:\\Zadania\\C++\\Inzynieria-Oprogramowania-Projekt\\Projekt\\courses.csv"; ;/*"courses.txt";*/
+
+// Ścieżka do pliku z użytkownikami
+const std::string usersFilePath = "P:\\Zadania\\C++\\Inzynieria-Oprogramowania-Projekt\\Projekt\\users.csv"; /*"users.txt";*/
+
 // Konstruktor klasy System
 System::System(std::string name) {
     this->name = name;
@@ -31,9 +46,9 @@ void System::displayHeader(const std::string& name) {
     const int nameWidth = name.length();  // Szerokość nazwy kursu
     const int paddingWidth = (totalWidth - nameWidth) / 2;  // Szerokość wypełnienia
     // Wyświetl nagłówek
-    std::cout << "---------------------------------------------------------------------------------------\n";
-    std::cout << std::string(paddingWidth, ' ') << name << '\n';
-    std::cout << "---------------------------------------------------------------------------------------\n";
+    std::cout << "==========================================================================================\n";
+    std::cout << std::string(paddingWidth, ' ') << name << "\n";
+    std::cout << "==========================================================================================\n";
 }
 
 // Metoda autoryzująca użytkownika
@@ -77,7 +92,6 @@ void System::login(User * user) {
     if(authentication(user, loginUzytkownika, hasloUzytkownika)) {
         // Wyświetl nagłówek o zalogowaniu
         displayHeader("Zalogowano");
-
         // Zakończ działanie metody logowania
         return;
     // W przeciwnym wypadku
@@ -117,6 +131,11 @@ void System::registerUser(User * user) {
     std::cout << "Email: ";         // Wyświetl informacje o podaniu emaila
     std::cin >> userInput;          // Pobierz email od użytkownika
     user->setEmail(userInput);      // Ustaw email użytkownika
+
+    // Dodaj użytkownika do wektora użytkowników
+    users.push_back(user);
+    // Zapisz użytkownika do pliku użytkowników w formacie CSV
+    saveUsersToCSV(usersFilePath);
 }
 
 // Metoda dodająca kurs do wektora kursów
@@ -201,6 +220,35 @@ void System::loadUsersFromCSV(const std::string& fileName) {
     file.close();
 }
 
+// Metoda zapisująca użytkowników do pliku CSV
+void System::saveUsersToCSV(const std::string& fileName) {
+    // Otwórz plik do zapisu
+    std::ofstream file(fileName);
+
+    // Jeżeli nie udało się otworzyć pliku
+    if (!file.is_open()) {
+        // Wyświetl informacje o błędzie
+        std::cout << "Blad podczas otwierania pliku: " << fileName << std::endl;
+        // Zakończ działanie metody
+        return;
+    }
+
+    // Dla każdego kursu w wektorze studentów
+    for(const auto& user : users) {
+        // Pobierz dane studenta do zapisu do pliku
+        const std::string& userFirstName = user->getFirstName();  // Imię studenta
+        const std::string& userLastName = user->getLastName();  // Nazwisko studenta
+        const std::string& userLogin = user->getLogin();  // Login studenta
+        const std::string& userPassword = user->getPassword();  // Hasło studenta
+        const std::string& userEmail = user->getEmail();  // Email studenta
+        // Zapisz dane kursu do pliku w formacie CSV
+        file << userFirstName << " " << userLastName << "," << userLogin << "," << userPassword << "," << userEmail << ",\n";
+    }
+
+    // Zamknij plik
+    file.close();
+}
+
 // Metoda wczytująca kursy z pliku CSV
 void System::loadCoursesFromCSV(const std::string& fileName) {
     // Utwórz zmienne do odczytu danych z pliku
@@ -232,13 +280,47 @@ void System::loadCoursesFromCSV(const std::string& fileName) {
     file.close();
 }
 
+// Metoda zapisująca kursy do pliku CSV
+void System::saveCoursesToCSV(const std::string& fileName) {
+    // Otwórz plik do zapisu
+    std::ofstream file(fileName);
+
+    // Jeżeli nie udało się otworzyć pliku
+    if(!file.is_open()) {
+        // Wyświetl informacje o błędzie
+        std::cout << "Blad podczas otwierania pliku: " << fileName << std::endl;
+        // Zakończ działanie metody
+        return;
+    }
+
+    // Dla każdego kursu w wektorze kursów
+    for(const auto& course : courses) {
+        // Pobierz dane kursu do zapisu do pliku
+        const std::string& courseName = course->getName();  // Nazwa kursu
+        const std::string& lecturerFirstName = course->getLecturer()->getFirstName();  // Imię prowadzącego
+        const std::string& lecturerLastName = course->getLecturer()->getLastName();  // Nazwisko prowadzącego
+        // Zapisz dane kursu do pliku w formacie CSV
+        file << courseName << "," << lecturerFirstName << " " << lecturerLastName << "," << 0 << ",\n";
+    }
+
+    // Zamknij plik
+    file.close();
+}
+
 // Metoda uruchamiająca system
 void System::boot() {
-    loadUsersFromCSV("P:\\Zadania\\C++\\Inzynieria-Oprogramowania-Projekt\\Projekt\\users.csv");  // Wczytaj użytkowników z pliku CSV
-    loadCoursesFromCSV("P:\\Zadania\\C++\\Inzynieria-Oprogramowania-Projekt\\Projekt\\courses.csv");  // Wczytaj kursy z pliku CSV
+    // Wczytaj dane z plików CSV
+    loadUsersFromCSV(usersFilePath);  // Wczytaj użytkowników
+    loadCoursesFromCSV(coursesFilePath);  // Wczytaj kursy
 
-    // Wyświetl nagłówek systemu
-    displayHeader(getName());
+    // Wyświetl logo systemu
+    std::cout << "============================================================================================\n";
+    std::cout << "============================================================================================\n";
+    std::cout << "============================================================================================\n";
+    std::cout << logo << "\n";
+    std::cout << "============================================================================================\n";
+    std::cout << "============================================================================================\n";
+    std::cout << "============================================================================================\n";
 }
 
 // Metoda uruchamiająca system w wersji studenckiej
@@ -374,6 +456,8 @@ void System::studentCourseMenu(Student * student) {
             }
         // Jeżeli użytkownik wybrał opcję 2
         } else if(userInput == "2") {
+            // TODO W TYM MIEJSCU ZROBIC ZE UZYTKOWNIKOWI WYSWIETLAJA SIE TYLKO KURSY KTORYCH NIE MA DODANYCH
+
             // Wyświetl wszystkie kursy
             printCourses();
             // Wyświetl opcję powrotu
@@ -503,6 +587,8 @@ void System::lecturerCourseMenu(Lecturer * lecturer) {
             addCourse(newCourse);
             // Dodaj kurs do listy kursów wykładowcy
             lecturer->addCourse(newCourse);
+            // Zapisz kurs do pliku kursów w formacie CSV
+            saveCoursesToCSV(coursesFilePath);
 
             // Wyświetl komunikat o utworzeniu kursu
             std::cout << "Kurs zostal utworzony!" << "\n";
@@ -511,7 +597,7 @@ void System::lecturerCourseMenu(Lecturer * lecturer) {
             // Wyświetl kursy wykładowcy
             lecturer->printCourses();
             // Wyświetl opcję powrotu
-            std::cout << lecturer->getCoursesSize() - 1 << ". Wroc" << "\n";
+            std::cout << lecturer->getCoursesSize() + 1 << ". Wroc" << "\n";
 
             // Wyświetl komunikat o wyborze kursu
             std::cout << "Wybierz kurs: ";
@@ -530,7 +616,7 @@ void System::lecturerCourseMenu(Lecturer * lecturer) {
                         std::cout << "Kurs zostal zamkniety!" << "\n";
                     }
                 }  // Jeżeli użytkownik wybrał opcję powrotu
-            } else if(std::stoi(userInput) - 1 < lecturer->getCoursesSize()) {
+            } else if(std::stoi(userInput) - 1 == lecturer->getCoursesSize()) {
                 // Nic nie wyświetlaj, ponieważ użytkownik wraca do menu kursów
             } else {
                 // Wyświetl komunikat o niepoprawnym wyborze
