@@ -233,16 +233,10 @@ void System::saveUsersToCSV(const std::string& fileName) {
         return;
     }
 
-    // Dla każdego kursu w wektorze studentów
+    // Dla każdego użytkownika w wektorze użytkowników
     for(const auto& user : users) {
-        // Pobierz dane studenta do zapisu do pliku
-        const std::string& userFirstName = user->getFirstName();  // Imię studenta
-        const std::string& userLastName = user->getLastName();  // Nazwisko studenta
-        const std::string& userLogin = user->getLogin();  // Login studenta
-        const std::string& userPassword = user->getPassword();  // Hasło studenta
-        const std::string& userEmail = user->getEmail();  // Email studenta
-        // Zapisz dane kursu do pliku w formacie CSV
-        file << userFirstName << " " << userLastName << "," << userLogin << "," << userPassword << "," << userEmail << ",\n";
+        // Zapisz dane użytkownika do pliku w formacie CSV
+        file << user->getFirstName() << " " << user->getLastName() << "," << user->getLogin() << "," << user->getPassword() << "," << user->getEmail() << ",\n";
     }
 
     // Zamknij plik
@@ -295,12 +289,8 @@ void System::saveCoursesToCSV(const std::string& fileName) {
 
     // Dla każdego kursu w wektorze kursów
     for(const auto& course : courses) {
-        // Pobierz dane kursu do zapisu do pliku
-        const std::string& courseName = course->getName();  // Nazwa kursu
-        const std::string& lecturerFirstName = course->getLecturer()->getFirstName();  // Imię prowadzącego
-        const std::string& lecturerLastName = course->getLecturer()->getLastName();  // Nazwisko prowadzącego
         // Zapisz dane kursu do pliku w formacie CSV
-        file << courseName << "," << lecturerFirstName << " " << lecturerLastName << "," << 0 << ",\n";
+        file << course->getName() << "," << course->getLecturer()->getFirstName() << " " << course->getLecturer()->getLastName() << "," << 0 << ",\n";
     }
 
     // Zamknij plik
