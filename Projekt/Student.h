@@ -26,12 +26,12 @@ class Student : public User {
     using User::User;  // Dziedziczenie konstruktorów klasy User
 public:
 	void addCourse(Course * course);  // Metoda dodająca kurs do wektora kursów
+    void deleteCourse(std::string courseName);  // Metoda usuwająca kurs z wektora kursów
     int getCoursesSize();  // Akcesor rozmiaru wektora kursów
-	void deleteCourse(std::string courseName);  // Metoda usuwająca kurs z wektora kursów
     Course * getCourseAtIndex(int courseIndex);  // Metoda zwracająca wskaźnik na kurs o podanym indeksie
     void printCourses();  // Metoda wyświetlająca courses
 private:
-	std::vector <Course *> courses;  // Wektor kursów
+    std::vector <Course *> courses;  // Wektor kursów
 };
 
 #endif  //_STUDENT_H

@@ -18,12 +18,6 @@ void Lecturer::addCourse(Course * course) {
     courses.push_back(course);
 }
 
-// Akcesor rozmiaru wektora kursów
-int Lecturer::getCoursesSize() {
-    // Zwróć rozmiar wektora kursów
-    return courses.size();
-}
-
 // Metoda usuwająca kurs z wektora kursów
 void Lecturer::deleteCourse(std::string courseName) {
     // Przeszukaj wektor kursów
@@ -34,6 +28,12 @@ void Lecturer::deleteCourse(std::string courseName) {
             courses.erase(courses.begin() + i);
         }
     }
+}
+
+// Akcesor rozmiaru wektora kursów
+int Lecturer::getCoursesSize() {
+    // Zwróć rozmiar wektora kursów
+    return courses.size();
 }
 
 // Metoda zwracająca kurs o podanej nazwie
