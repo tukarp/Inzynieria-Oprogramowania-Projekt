@@ -25,10 +25,10 @@ const std::string logo = R"(
 )";
 
 // Ścieżka do pliku z kursami
-const std::string coursesFilePath = "P:\\Zadania\\C++\\Inzynieria-Oprogramowania-Projekt\\Projekt\\courses.csv"; /*"courses.txt";*/
+const std::string coursesFilePath = "courses.txt";
 
 // Ścieżka do pliku z użytkownikami
-const std::string usersFilePath = "P:\\Zadania\\C++\\Inzynieria-Oprogramowania-Projekt\\Projekt\\users.csv"; /*"users.txt";*/
+const std::string usersFilePath = "users.txt";
 
 // Konstruktor klasy System
 System::System(std::string name) {
