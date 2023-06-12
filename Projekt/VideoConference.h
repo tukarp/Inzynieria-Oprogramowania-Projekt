@@ -32,9 +32,9 @@ public:
 	void openStudentVideoConferenceMenu(Student * student);  // Metoda otwierająca menu wideokonferencji dla studenta
 	void openLecturerVideoConferenceMenu(Lecturer * lecturer);  // Metoda otwierająca menu wideokonferencji dla wykładowcy
 private:
-	std::string name;  // Nazwa konferencji
-	Lecturer * lecturer;  // Wykładowca prowadzący konferencję
-	std::vector <Student *> students;  // Wektor studentów uczestniczących w konferencji
+	std::string name;  // Nazwa wideokonferencji
+	Lecturer * lecturer;  // Wykładowca prowadzący wideokonferencję
+	std::vector <Student *> students;  // Wektor studentów uczestniczących w wideokonferencji
 };
 
 #endif  //_VIDEOCONFERENCE_H
