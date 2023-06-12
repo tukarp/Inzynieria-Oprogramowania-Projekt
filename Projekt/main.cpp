@@ -1,6 +1,6 @@
 //
 //
-//  @ Project : Inżynieria Oprogramowania - Projekt
+//  @ Project : System Obsługi Studiów
 //  @ File Name : main.cpp
 //  @ Date : 10.06.2023
 //  @ Author : Tomasz Wnuk, Bartosz Szynkaruk, Mikołaj Hasiec
