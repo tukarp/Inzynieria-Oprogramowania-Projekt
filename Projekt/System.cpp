@@ -25,10 +25,10 @@ const std::string logo = R"(
 )";
 
 // Ścieżka do pliku z kursami
-const std::string coursesFilePath = "courses.txt";
+const std::string coursesFilePath = "P:\\Zadania\\C++\\Inzynieria-Oprogramowania-Projekt\\Projekt\\courses.csv"; /*"courses.txt";*/
 
 // Ścieżka do pliku z użytkownikami
-const std::string usersFilePath = "users.txt";
+const std::string usersFilePath = "P:\\Zadania\\C++\\Inzynieria-Oprogramowania-Projekt\\Projekt\\users.csv"; /*"users.txt";*/
 
 // Konstruktor klasy System
 System::System(std::string name) {
@@ -41,14 +41,14 @@ std::string System::getName() {
 }
 
 // Metoda wyświetlająca nagłówek
-void System::displayHeader(const std::string& name) {
+void System::displayHeader(const std::string& headerName) {
     const int totalWidth = 90;  // Szerokość całego wyświetlanego napisu
     const int nameWidth = name.length();  // Szerokość nazwy kursu
     const int paddingWidth = (totalWidth - nameWidth) / 2;  // Szerokość wypełnienia
     // Wyświetl nagłówek
-    std::cout << "==========================================================================================\n";
-    std::cout << std::string(paddingWidth, ' ') << name << "\n";
-    std::cout << "==========================================================================================\n";
+    std::cout << "[========================================================================================]\n";
+    std::cout << "|" << std::string(paddingWidth, '~') << headerName << std::string(paddingWidth - 1, '~') << "|\n";
+    std::cout << "[========================================================================================]\n";
 }
 
 // Metoda autoryzująca użytkownika
@@ -79,7 +79,9 @@ void System::login(User * user) {
     std::string hasloUzytkownika;
 
     // Wyświetl nagłówek logowania
-    displayHeader("Logowanie");
+    std::cout << "[========================================================================================]\n";
+    std::cout << "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Logowanie~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|\n";
+    std::cout << "[========================================================================================]\n";
 
     // Zaloguj użytkownika
     std::cout << "Login: ";         // Wyświetl informacje o podaniu loginu
@@ -91,7 +93,9 @@ void System::login(User * user) {
     // Jeżeli autoryzacja użytkownika przebiegła pomyślnie
     if(authentication(user, loginUzytkownika, hasloUzytkownika)) {
         // Wyświetl nagłówek o zalogowaniu
-        displayHeader("Zalogowano");
+        std::cout << "[========================================================================================]\n";
+        std::cout << "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Zalogowano~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|\n";
+        std::cout << "[========================================================================================]\n";
         // Zakończ działanie metody logowania
         return;
     // W przeciwnym wypadku
@@ -109,7 +113,9 @@ void System::registerUser(User * user) {
     std::string userInput;
 
     // Wyświetl nagłówek rejestracji
-    displayHeader("Rejestracja");
+    std::cout << "[========================================================================================]\n";
+    std::cout << "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Rejestracja~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|\n";
+    std::cout << "[========================================================================================]\n";
 
     // Zarejestruj użytkownika
     std::cout << "Login: ";         // Wyświetl informacje o podaniu loginu
@@ -153,12 +159,14 @@ int System::getCoursesSize() {
 // Metoda wyświetlająca kursy
 void System::printCourses() {
     // Wyświetl nazwy kursów
-    displayHeader("Kursy");
+    std::cout << "[========================================================================================]\n";
+    std::cout << "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Kursy~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|\n";
+    std::cout << "[========================================================================================]\n";
 
     // Dla każdego kursu w wektorze kursów
     for(int i = 0; i < courses.size(); i++) {
         // Wyświetl numer kursu i nazwę kursu
-        std::cout << i + 1 << ". " << courses[i]->getName() << "\n";
+        std::cout << "| " << i + 1 << ". " << courses[i]->getName() << "\n";
     }
 }
 
@@ -246,8 +254,10 @@ void System::saveUsersToCSV(const std::string& fileName) {
 // Metoda wczytująca kursy z pliku CSV
 void System::loadCoursesFromCSV(const std::string& fileName) {
     // Utwórz zmienne do odczytu danych z pliku
-    std::ifstream file(fileName);   // Utwórz strumień plikowy
-    std::string line;                  // Utwórz zmienną przechowującą linię z pliku
+    std::vector<std::string> participants;  // Utwórz wektor uczestników kursu
+    std::ifstream file(fileName);  // Utwórz strumień plikowy
+    Course * newCourse;  // Utwórz wskaźnik na nowy kurs
+    std::string line;  // Utwórz zmienną przechowującą linię z pliku
 
     // Jeżeli nie udało się otworzyć pliku
     if(!file.is_open()) {
@@ -265,9 +275,25 @@ void System::loadCoursesFromCSV(const std::string& fileName) {
         std::stringstream ss(line);
         // Jeżeli udało się pobrać dane kursu z podanym formatowaniem
         if(std::getline(ss, courseName, ',') && std::getline(ss, lecturerFirstName, ' ') &&
-            std::getline(ss, lecturerLastName, ',') && std::getline(ss, isVideoConferenceCreated, ',')) {
-                // Dodaj kurs do wektora kursów
-                courses.push_back(new Course(courseName, new Lecturer(lecturerFirstName, lecturerLastName), isVideoConferenceCreated));
+                std::getline(ss, lecturerLastName, ',') && std::getline(ss, isVideoConferenceCreated, ',')) {
+            // Utwórz nowy kurs
+            newCourse = new Course(courseName, new Lecturer(lecturerFirstName, lecturerLastName), isVideoConferenceCreated);
+            // Dodaj kurs do wektora kursów
+            courses.push_back(newCourse);
+
+            // Odczytaj uczestników kursu
+            std::string participant;
+            while(std::getline(ss, participant, ',')) {// Usuń początkową i końcową spację z imienia i nazwiska uczestnika
+                participant = participant.substr(0, participant.length());
+
+                // Podziel imię i nazwisko uczestnika
+                std::istringstream participantISS(participant);
+                std::string participantFirstName, participantLastName;
+                if(std::getline(participantISS, participantFirstName, ' ') &&
+                        std::getline(participantISS, participantLastName, ',')) {
+                    newCourse->addStudent(new Student(participantFirstName, participantLastName));
+                }
+            }
         }
     }
     // Zamknij plik
@@ -288,9 +314,13 @@ void System::saveCoursesToCSV(const std::string& fileName) {
     }
 
     // Dla każdego kursu w wektorze kursów
-    for(const auto& course : courses) {
+    for(int i = 0; i < courses.size(); i++) {
         // Zapisz dane kursu do pliku w formacie CSV
-        file << course->getName() << "," << course->getLecturer()->getFirstName() << " " << course->getLecturer()->getLastName() << "," << 0 << ",\n";
+        file << courses[i]->getName() << "," << courses[i]->getLecturer()->getFirstName() << " " << courses[i]->getLecturer()->getLastName() << "," << 0 << ",";
+        for(int j = 0; j < courses[i]->getStudentsSize(); j++) {
+            file << courses[i]->getStudentAtIndex(j)->getFirstName() << " " << courses[i]->getStudentAtIndex(j)->getLastName() << ",";
+        }
+        file << "\n";
     }
 
     // Zamknij plik
@@ -326,14 +356,14 @@ void System::studentSystem() {
 
     // Pętla do wyboru opcji systemu studenta
     while(true) {
-        // Wyświetl nagłówek strony głównej systemu studenta
-        displayHeader("Strona glowna");
-
-        // Wyświetl opcje
-        std::cout << "Wybierz opcje:" << "\n";
-        std::cout << "1. Kursy" << "\n";
-        std::cout << "2. Wyswietl swoj profil" << "\n";
-        std::cout << "3. Wyloguj sie" << "\n";
+        // Wyświetl stronę główną systemu studenta
+        std::cout << "[========================================================================================]\n";
+        std::cout << "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Strona glowna~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|\n";
+        std::cout << "|========================================================================================|\n";
+        std::cout << "| 1. Kursy                                                                               |\n";
+        std::cout << "| 2. Wyswietl swoj profil                                                                |\n";
+        std::cout << "| 3. Wyloguj sie                                                                         |\n";
+        std::cout << "[========================================================================================]\n";
 
         // Pobierz wybór użytkownika
         std::cin >> userInput;
@@ -370,16 +400,16 @@ void System::lecturerSystem() {
     // Wywołaj metodę logowania
     login(lecturer);
 
-    // Pętla do wyboru opcji systemu studenta
+    // Pętla do wyboru opcji systemu wykładowcy
     while(true) {
-        // Wyświetl nagłówek strony głównej systemu wykładowcy
-        displayHeader("Strona glowna");
-
-        // Wyświetl opcje
-        std::cout << "Wybierz opcje:" << "\n";
-        std::cout << "1. Kursy" << "\n";
-        std::cout << "2. Wyswietl swoj profil" << "\n";
-        std::cout << "3. Wyloguj sie" << "\n";
+        // Wyświetl stronę główną systemu wykładowcy
+        std::cout << "[========================================================================================]\n";
+        std::cout << "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Strona glowna~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|\n";
+        std::cout << "|========================================================================================|\n";
+        std::cout << "| 1. Kursy                                                                               |\n";
+        std::cout << "| 2. Wyswietl swoj profil                                                                |\n";
+        std::cout << "| 3. Wyloguj sie                                                                         |\n";
+        std::cout << "[========================================================================================]\n";
 
         // Pobierz wybór użytkownika
         std::cin >> userInput;
@@ -412,17 +442,17 @@ void System::studentCourseMenu(Student * student) {
 
     // Pętla do wyboru opcji systemu studenta
     while(true) {
-        // Wyświetl nagłówek menu kursów
-        displayHeader("Menu Kursow");
-
-        // Wyświetl opcje
-        std:: cout << "Wybierz opcje:" << "\n";
-        std:: cout << "1. Wybierz ze swoich kursow" << "\n";
-        std:: cout << "2. Zapisz sie do kursu" << "\n";
-        std:: cout << "3. Wypisz sie z kursu" << "\n";
-        std:: cout << "4. Wyswietl swoje kursy" << "\n";
-        std:: cout << "5. Wyswietl wszystkie kursy" << "\n";
-        std:: cout << "6. Wroc" << "\n";
+        // Wyświetl menu kursów studenta
+        std::cout << "[========================================================================================]\n";
+        std::cout << "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Menu Kursow~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|\n";
+        std::cout << "|========================================================================================|\n";
+        std::cout << "| 1. Wybierz ze swoich kursow                                                            |\n";
+        std::cout << "| 2. Zapisz sie do kursu                                                                 |\n";
+        std::cout << "| 3. Wypisz sie z kursu                                                                  |\n";
+        std::cout << "| 4. Wyswietl swoje kursy                                                                |\n";
+        std::cout << "| 5. Wyswietl wszystkie kursy                                                            |\n";
+        std::cout << "| 6. Wroc                                                                                |\n";
+        std::cout << "[========================================================================================]\n";
 
         // Pobierz wybór użytkownika
         std::cin >> userInput;
@@ -433,7 +463,8 @@ void System::studentCourseMenu(Student * student) {
             // Wyświetl kursy studenta
             student->printCourses();
             // Wyświetl opcję powrotu
-            std::cout << student->getCoursesSize() + 1 << ". Wroc" << "\n";
+            std::cout << "| " << student->getCoursesSize() + 1 << ". Wroc" << "\n";
+            std::cout << "[========================================================================================]\n";
 
             std::cout << "Wybierz kurs: ";  // Wyświetl komunikat o wyborze kursu
             std::cin >> userInput;  // Pobierz wybór użytkownika
@@ -445,7 +476,7 @@ void System::studentCourseMenu(Student * student) {
             // W przeciwnym wypadku
             } else if(std::stoi(userInput) - 1  == student->getCoursesSize()) {
                 // Wyświetl komunikat o opuszczeniu menu kursów
-                std::cout << "Wyszedles z menu kursow" << "\n";
+                std::cout << "Wyszedles z menu kursow!" << "\n";
             // W przeciwnym wypadku
             } else {
                 // Wyświetl komunikat o niepoprawnym wyborze
@@ -453,12 +484,11 @@ void System::studentCourseMenu(Student * student) {
             }
         // Jeżeli użytkownik wybrał opcję 2
         } else if(userInput == "2") {
-            // TODO W TYM MIEJSCU ZROBIC ZE UZYTKOWNIKOWI WYSWIETLAJA SIE TYLKO KURSY KTORYCH NIE MA DODANYCH
-
             // Wyświetl wszystkie kursy
             printCourses();
             // Wyświetl opcję powrotu
-            std::cout << getCoursesSize() + 1 << ". Wroc" << "\n";
+            std::cout << "| " << getCoursesSize() + 1 << ". Wroc" << "\n";
+            std::cout << "[========================================================================================]\n";
 
             // Wyświetl komunikat o wyborze kursu
             std::cout << "Wybierz kurs: ";
@@ -480,7 +510,9 @@ void System::studentCourseMenu(Student * student) {
                 // Dodaj kurs do kursów studenta
                 student->addCourse(courses[std::stoi(userInput) - 1]);
                 // Dodaj studenta do uczestników kursu
-                courses[std::stoi(userInput) - 1]->addUser(student);
+                courses[std::stoi(userInput) - 1]->addStudent(student);
+                // Zapisz studenta do pliku kursów w formacie CSV
+                saveCoursesToCSV(coursesFilePath);
             // Jeżeli użytkownik wybrał opcję powrotu
             } else if(std::stoi(userInput) - 1 == getCoursesSize()) {
                 // Wyświetl komunikat o opuszczeniu menu kursów
@@ -498,7 +530,8 @@ void System::studentCourseMenu(Student * student) {
             // Wyświetl kursy studenta
             student->printCourses();
             // Wyświetl opcję powrotu
-            std::cout << student->getCoursesSize() + 1 << ". Wroc" << "\n";
+            std::cout << "| " << student->getCoursesSize() + 1 << ". Wroc" << "\n";
+            std::cout << "[========================================================================================]\n";
 
             // Wyświetl komunikat o wyborze kursu
             std::cout << "Wybierz kurs: ";
@@ -518,9 +551,9 @@ void System::studentCourseMenu(Student * student) {
                             // Jeżeli nazwa kursu o podanym indeksie jest taka sama jak nazwa kursu do usunięcia
                             if(courses[j]->getName() == courseToDeleteName) {
                                 // Usuń studenta z listy uczestników kursu
-                                courses[j]->deleteUser(student->getLogin());
+                                courses[j]->removeStudent(student->getLogin());
                                 // Usuń kurs z listy kursów studenta
-                                student->deleteCourse(courseToDeleteName);
+                                student->removeCourse(courseToDeleteName);
                                 // Wyświetl komunikat wyjścia z kursu
                                 std::cout << "Wyszedles z kursu!" << courses[j]->getName() << "\n";
                             }
@@ -547,6 +580,8 @@ void System::studentCourseMenu(Student * student) {
         } else if(userInput == "6") {
             // Wyświetl komunikat o opuszczeniu menu kursów
             std::cout << "Wyszedles z menu kursow!" << "\n";
+            // Zakończ pętlę
+            break;
         // W przeciwnym wypadku
         } else {
             // Wyświetl komunikat o niepoprawnym wyborze
@@ -562,17 +597,17 @@ void System::lecturerCourseMenu(Lecturer * lecturer) {
 
     // Pętla do wyboru opcji systemu wykładowcy
     while(true) {
-        // Wyświetl nagłówek menu kursów
-        displayHeader("Menu Kursow");
-
-        // Wyświetl opcje
-        std:: cout << "Wybierz opcje:" << "\n";
-        std:: cout << "1. Wybierz ze swoich kursow" << "\n";
-        std:: cout << "2. Utworz kurs" << "\n";
-        std:: cout << "3. Zamknij kurs" << "\n";
-        std:: cout << "4. Wyswietl swoje kursy" << "\n";
-        std:: cout << "5. Wyswietl wszystkie kursy" << "\n";
-        std:: cout << "6. Wroc" << "\n";
+        // Wyświetl menu kursów wykładowcy
+        std::cout << "[========================================================================================]\n";
+        std::cout << "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Menu Kursow~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|\n";
+        std::cout << "|========================================================================================|\n";
+        std::cout << "| 1. Wybierz ze swoich kursow                                                            |\n";
+        std::cout << "| 2. Utworz kurs                                                                         |\n";
+        std::cout << "| 3. Zamknij kurs                                                                        |\n";
+        std::cout << "| 4. Wyswietl swoje kursy                                                                |\n";
+        std::cout << "| 5. Wyswietl wszystkie kursy                                                            |\n";
+        std::cout << "| 6. Wroc                                                                                |\n";
+        std::cout << "[========================================================================================]\n";
 
         // Pobierz wybór użytkownika
         std::cin >> userInput;
@@ -583,7 +618,8 @@ void System::lecturerCourseMenu(Lecturer * lecturer) {
             // Wyświetl kursy wykładowcy
             lecturer->printCourses();
             // Wyświetl opcję powrotu
-            std::cout << lecturer->getCoursesSize() + 1 << ". Wroc" << "\n";
+            std::cout << "| " << lecturer->getCoursesSize() + 1 << ". Wroc" << "\n";
+            std::cout << "[========================================================================================]\n";
 
             std::cout << "Wybierz kurs: ";  // Wyświetl komunikat o wyborze kursu
             std::cin >> userInput;  // Pobierz wybór użytkownika
@@ -636,7 +672,8 @@ void System::lecturerCourseMenu(Lecturer * lecturer) {
             // Wyświetl kursy wykładowcy
             lecturer->printCourses();
             // Wyświetl opcję powrotu
-            std::cout << lecturer->getCoursesSize() + 1 << ". Wroc" << "\n";
+            std::cout << "| " << lecturer->getCoursesSize() + 1 << ". Wroc" << "\n";
+            std::cout << "[========================================================================================]\n";
 
             // Wyświetl komunikat o wyborze kursu
             std::cout << "Wybierz kurs: ";
@@ -658,7 +695,7 @@ void System::lecturerCourseMenu(Lecturer * lecturer) {
                                 // Usuń kurs z listy kursów systemu
                                 courses.erase(courses.begin() + j);
                                 // Usuń kurs z listy kursów wykładowcy
-                                lecturer->deleteCourse(courseToDeleteName);
+                                lecturer->removeCourse(courseToDeleteName);
                                 // Wyświetl komunikat o usunięciu kursu
                                 std::cout << "Kurs zostal zamkniety!" << "\n";
                             }
@@ -685,6 +722,8 @@ void System::lecturerCourseMenu(Lecturer * lecturer) {
         } else if(userInput == "6") {
             // Wyświetl komunikat o opuszczeniu menu kursów
             std::cout << "Wyszedles z menu kursow!" << "\n";
+            // Wyjdź z pętli
+            break;
         // W przeciwnym wypadku
         } else {
             // Wyświetl komunikat o niepoprawnym wyborze

@@ -51,13 +51,13 @@ void Course::setLecturer(Lecturer * lecturer) {
 }
 
 // Metoda dodająca studenta do wektora kursu
-void Course::addUser(Student *student) {
+void Course::addStudent(Student *student) {
     // Dodanie studenta do wektora students
 	students.push_back(student);
 }
 
 // Metoda usuwająca studenta z wektora kursu
-void Course::deleteUser(std::string login) {
+void Course::removeStudent(std::string login) {
     // Przeszukaj wektor students
 	for(int i = 0; i < students.size(); i++) {
         // Jeżeli login studenta jest równy loginowi podanemu w argumencie
@@ -66,6 +66,18 @@ void Course::deleteUser(std::string login) {
 			students.erase(students.begin() + i);
 		}
 	}
+}
+
+// Akcesor rozmiaru wektora studentów kursu
+int Course::getStudentsSize(){
+    // Zwróć rozmiar wektora students
+    return students.size();
+}
+
+// Metoda zwracająca studenta z kursu o podanym indeksie
+Student * Course::getStudentAtIndex(int studentIndex) {
+    // Zwróć studenta o podanym indeksie
+    return students[studentIndex];
 }
 
 // Metoda dodająca materiał do wektora kursu
@@ -98,21 +110,21 @@ void Course::endVideoConference() {
 	std::cout << "Zakonczono wideokonferencje!" << "\n";
     // Usuń studentów z wideokonferencji
     for(int i = 0; i < students.size(); i++) {
-        videoConference->deleteStudent(students[i]->getLogin());
+        videoConference->removeStudent(students[i]->getLogin());
     }
     // Usuń wskaźnik na wideokonferencję
     videoConference = nullptr;
 }
 
 // Metoda wyświetlająca nagłówek
-void Course::displayHeader(const std::string& name) {
+void Course::displayHeader(const std::string& headerName) {
     const int totalWidth = 90;  // Szerokość całego wyświetlanego napisu
     const int nameWidth = name.length();  // Szerokość nazwy kursu
     const int paddingWidth = (totalWidth - nameWidth) / 2;  // Szerokość wypełnienia
     // Wyświetl nagłówek
-    std::cout << "==========================================================================================\n";
-    std::cout << std::string(paddingWidth, ' ') << name << "\n";
-    std::cout << "==========================================================================================\n";
+    std::cout << "[========================================================================================]\n";
+    std::cout << "|" << std::string(paddingWidth, '~') << headerName << std::string(paddingWidth - 1, '~') << "|\n";
+    std::cout << "[========================================================================================]\n";
 }
 
 // Metoda wyświetlająca stronę kursu
@@ -121,14 +133,14 @@ void Course::viewCoursePage() {
     displayHeader(getName());
 
     // Wyświetl wykładowcę
-	std::cout << "Lecturer: " << lecturer->getFirstName() << " " << lecturer->getLastName() << "\n";
+	std::cout << "| Wykladowca: " << lecturer->getFirstName() << " " << lecturer->getLastName() << "\n";
 
     // Wyświetl studentów
-	std::cout << "Uczestnicy: \n";
+	std::cout << "| Uczestnicy: \n";
     // Przeszukaj wektor students
 	for(int i = 0; i < students.size(); i++) {
         // Wyświetl numer studenta, imię i nazwisko
-		std::cout << i + 1 << ". " << students[i]->getFirstName() << " " << students[i]->getLastName() << "\n";
+		std::cout << "| " << i + 1 << ". " << students[i]->getFirstName() << " " << students[i]->getLastName() << "\n";
 	}
 }
 
@@ -142,12 +154,12 @@ void Course::openStudentCourseMenu(Student * student) {
         // Wyświetl nagłówek strony głównej kursu
         displayHeader(getName());
 
-        // Wyświetl opcje
-        std::cout << "Wybierz opcje:"  << "\n";
-        std::cout << "1. Wyswietl strone kursu" << "\n";
-        std::cout << "2. Otworz materialy" << "\n";
-        std::cout << "3. Dolacz do wideokonferencji" << "\n";
-        std::cout << "4. Wroc" << "\n";
+        // Wyświetl menu kursu dla studenta
+        std::cout << "| 1. Wyswietl strone kursu                                                               |\n";
+        std::cout << "| 2. Otworz materialy                                                                    |\n";
+        std::cout << "| 3. Dolacz do wideokonferencji                                                          |\n";
+        std::cout << "| 4. Wroc                                                                                |\n";
+        std::cout << "[========================================================================================]\n";
 
         // Pobierz wybór użytkownika
         std::cin >> userInput;
@@ -198,12 +210,12 @@ void Course::openLecturerCourseMenu(Lecturer * lecturer) {
         // Wyświetl nagłówek strony głównej kursu
         displayHeader(getName());
 
-        // Wyświetl opcje
-        std::cout << "Wybierz opcje:" << "\n";
-        std::cout << "1. Wyswietl strone kursu" << "\n";
-        std::cout << "2. Otworz materialy" << "\n";
-        std::cout << "3. Utworz wideokonferencje" << "\n";
-        std::cout << "4. Wroc"  << "\n";
+        // Wyświetl menu kursu dla studenta
+        std::cout << "| 1. Wyswietl strone kursu                                                               |\n";
+        std::cout << "| 2. Otworz materialy                                                                    |\n";
+        std::cout << "| 3. Dolacz do wideokonferencji                                                          |\n";
+        std::cout << "| 4. Wroc                                                                                |\n";
+        std::cout << "[========================================================================================]\n";
 
         // Pobierz wybór użytkownika
         std::cin >> userInput;
@@ -256,19 +268,15 @@ void Course::openMaterialsMenu(User * user) {
     // Pętla menu materiałów kursu
     while(true) {
         // Wyświetl nagłówek menu materiałów kursu
-        displayHeader("Materialy kursu " + getName());
+        std::cout << "[========================================================================================]\n";
+        std::cout << "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Materialy kursu~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|\n";
+        std::cout << "[========================================================================================]\n";
 
-        // Dla każdego materiału
-        for(int i = 0; i < materials.size(); i++) {
-            // Wyświetl numer i nazwę materiału
-            std::cout << i + 1 << ". " << materials.at(i)->getName() << "\n";
-        }
-
-        // Wyświetl opcje
-        std::cout << "Wybierz opcje:" << "\n";
-        std::cout << "1. Otworz materialy" << "\n";
-        std::cout << "2. Dodaj materialy"  << "\n";
-        std::cout << "3. Wroc" << "\n";
+        // Wyświetl menu materiałów kursu
+        std::cout << "| 1. Otworz materialy                                                                    |\n";
+        std::cout << "| 2. Dodaj materialy                                                                     |\n";
+        std::cout << "| 3. Wroc                                                                                |\n";
+        std::cout << "[========================================================================================]\n";
 
         // Pobierz wybór użytkownika
         std::cin >> userInput;
@@ -279,16 +287,19 @@ void Course::openMaterialsMenu(User * user) {
             // Jeżeli materiały kursu nie są puste
             if(!materials.empty()) {
                 // Wyświetl nagłówek menu materiałów kursu
-                displayHeader("Materialy kursu " + getName());
+                std::cout << "[========================================================================================]\n";
+                std::cout << "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Materialy Kursu~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|\n";
+                std::cout << "|========================================================================================|\n";
 
                 // Przeszuakj wektor materiałów
                 for(int i = 0; i < materials.size(); i++) {
                     // Wyświetl numer i nazwę materiału
-                    std::cout << i + 1 << ". " << materials.at(i)->getName() << "\n";
+                    std::cout << "| " << i + 1 << ". " << materials.at(i)->getName() << "\n";
                 }
 
                 // Wyświetl opcję powrotu
-                std::cout << materials.size() + 1 << ". Wroc" << "\n";
+                std::cout << "| " << materials.size() + 1 << ". Wroc" << "\n";
+                std::cout << "[========================================================================================]\n";
 
                 // Pobierz wybór użytkownika
                 std::cin >> userInput;

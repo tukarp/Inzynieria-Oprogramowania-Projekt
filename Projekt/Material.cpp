@@ -69,25 +69,18 @@ void Material::setAddedBy(User * addedBy) {
     this->addedBy = addedBy;
 }
 
-// Metoda wyświetlająca nagłówek
-void Material::displayHeader(const std::string& name) {
-    const int totalWidth = 90;  // Szerokość całego wyświetlanego napisu
-    const int nameWidth = name.length();  // Szerokość nazwy kursu
-    const int paddingWidth = (totalWidth - nameWidth) / 2;  // Szerokość wypełnienia
-    // Wyświetl nagłówek
-    std::cout << "==========================================================================================\n";
-    std::cout << std::string(paddingWidth, ' ') << name << "\n";;
-    std::cout << "==========================================================================================\n";
-}
-
 // Metoda wyswietlajaca dane materialu
 void Material::printMaterial() {
     // Wyswietl dane materialu
-    displayHeader("Material " + getName());  // Nazwa materiału
-    std::cout << "Opis: " << this->description << "\n";  // Opis materiału
-    std::cout << "Nazwa pliku: " << this->fileName << "\n";  // Nazwa pliku
-    std::cout << "Rozmiar pliku: " << this->fileSize << " MB\n";  // Rozmiar pliku
-    std::cout << "Dodany przez: " << this->addedBy->getFirstName() << " " << this->addedBy->getLastName() << "\n";  // Dodany przez
+    std::cout << "[========================================================================================]\n";
+    std::cout << "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Dane Materialu~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|\n";
+    std::cout << "|========================================================================================|\n";
+    std::cout << "| Nazwa: " << this->name << "\n";  // Nazwa materiału
+    std::cout << "| Opis: " << this->description << "\n";  // Opis materiału
+    std::cout << "| Nazwa pliku: " << this->fileName << "\n";  // Nazwa pliku
+    std::cout << "| Rozmiar pliku: " << this->fileSize << "\n";  // Rozmiar pliku
+    std::cout << "| Dodany przez: " << this->addedBy->getFirstName() << "\n";  // Dodany przez
+    std::cout << "[========================================================================================]\n";
 }
 
 // Metoda wyswietlajaca menu materiału
@@ -97,17 +90,17 @@ void Material::materialsMenu() {
 
     // Petla wyświetlająca menu materiału
 	while(true) {
-        // Wyswietl nagłówek
-        displayHeader("Material " + getName());
-
-		// Wyswietl opcje
-		std::cout << "Wybierz opcje:" << "\n";
-		std::cout << "1. Wyswietl dane" << "\n";
-		std::cout << "2. Pobierz plik" << "\n";
-		std::cout << "3. Wroc" << "\n";
+        // Wyswietl menu materiału
+        std::cout << "[========================================================================================]\n";
+        std::cout << "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Menu Materialu~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|\n";
+        std::cout << "[========================================================================================]\n";
+        std::cout << "| 1. Wyswietl dane                                                                       |\n";
+        std::cout << "| 2. Pobierz plik                                                                        |\n";
+        std::cout << "| 3. Wroc                                                                                |\n";
+        std::cout << "[========================================================================================]\n";
 
         // Pobierz wybór użytkownika
-		std::cin >> userInput;
+        std::cin >> userInput;
 
         // Sprawdź wybór użytkownika
         // Jeżeli wybór to 1
@@ -133,7 +126,7 @@ void Material::materialsMenu() {
 // Metoda symulująca pobieranie pliku
 void Material::downloadFile() {
     // Utwórz zmienne przechowujące dane paska postępu
-	int barWidth = 70;  // Szerokość paska postępu
+	int barWidth = 88;  // Szerokość paska postępu
 	int duration = 100;  // Czas trwania symulacji pobierania pliku
 	int total = 10;  // Całkowita ilość iteracji pętli
 

@@ -34,13 +34,15 @@ public:
     void setName(std::string name);  // Mutator pola name
     Lecturer * getLecturer();  // Akcesor pola lecturer
     void setLecturer(Lecturer * lecturer);  // Mutator pola lecturer
-    void addUser(Student * student);  // Metoda dodająca studenta do kursu
-    void deleteUser(std::string login);  // Metoda usuwająca studenta z kursu
+    void addStudent(Student * student);  // Metoda dodająca studenta do kursu
+    void removeStudent(std::string login);  // Metoda usuwająca studenta z kursu
+    int getStudentsSize();  // Akcesor rozmiaru wektora studentów kursu
+    Student * getStudentAtIndex(int studentIndex);  // Metoda zwracająca studenta z kursu o podanym indeksie
 	void addMaterial(Material * material);  // Metoda dodająca materiał do kursu
     void deleteMaterial(std::string name);  // Metoda usuwająca materiał z kursu
 	void createVideoConference(std::string name);  // Metoda tworząca wideokonferencję
 	void endVideoConference();  // Metoda kończąca wideokonferencję
-    void displayHeader(const std::string& name);  // Metoda wyświetlająca nagłówek
+    void displayHeader(const std::string& headerName);  // Metoda wyświetlająca nagłówek
 	void viewCoursePage();  // Metoda wyświetlająca stronę kursu
     void openStudentCourseMenu(Student * student);  // Metoda otwierająca menu kursu dla studenta
     void openLecturerCourseMenu(Lecturer * lecturer);  // Metoda otwierająca menu kursu dla wykładowcy

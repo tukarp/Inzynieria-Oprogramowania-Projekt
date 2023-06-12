@@ -12,14 +12,14 @@
 // Deklaracja zależności i bibliotek
 #include "Student.h"
 
-// Metoda dodająca kurs do wektora kursów
+// Metoda dodająca kurs do wektora kursów studenta
 void Student::addCourse(Course * course) {
     // Dodanie kursu do wektora kursów
 	courses.push_back(course);
 }
 
-// Metoda usuwająca kurs z wektora kursów
-void Student::deleteCourse(std::string courseName) {
+// Metoda usuwająca kurs z wektora kursów studenta
+void Student::removeCourse(std::string courseName) {
     // Przeszukajwektor kursów
 	for(int i = 0; i < courses.size(); i++) {
         // Jeśli name kursu jest równa podanej nazwie
@@ -30,13 +30,13 @@ void Student::deleteCourse(std::string courseName) {
 	}
 }
 
-// Akcesor rozmiaru wektora kursów
+// Akcesor rozmiaru wektora kursów studenta
 int Student::getCoursesSize() {
     // Zwróć rozmiar wektora kursów
     return courses.size();
 }
 
-// Metoda zwracająca wskaźnik na kurs o podanym indeksie
+// Metoda zwracająca kurs z wektora kursów studenta o podanym indeksie
 Course * Student::getCourseAtIndex(int courseIndex) {
     // Zwróć kurs o podanym indeksie
     return courses[courseIndex];
@@ -44,18 +44,13 @@ Course * Student::getCourseAtIndex(int courseIndex) {
 
 // Metoda wyświetlająca kursy studenta
 void Student::printCourses() {
-    const std::string headerName = "Twoje Kursy";
-    const int totalWidth = 90;  // Szerokość całego wyświetlanego napisu
-    const int nameWidth = headerName.length();  // Szerokość nazwy kursu
-    const int paddingWidth = (totalWidth - nameWidth) / 2;  // Szerokość wypełnienia
-
-    // Wyświetl nagłówek
-    std::cout << "==========================================================================================\n";
-    std::cout << std::string(paddingWidth, ' ') << headerName << "\n";;
-    std::cout << "==========================================================================================\n";
+    // Wyświetl nagłówek kursów studenta
+    std::cout << "[========================================================================================]\n";
+    std::cout << "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Twoje Kursy~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|\n";
+    std::cout << "[========================================================================================]\n";
     // Przeszukaj wektor kursów
     for(int i = 0; i < courses.size(); i++) {
         // Wyświetl nazwę kursu
-        std::cout << i + 1 << ". " << courses[i]->getName() << "\n";
+        std::cout << "| " << i + 1 << ". " << courses[i]->getName() << "\n";
     }
 }

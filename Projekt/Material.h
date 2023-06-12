@@ -33,7 +33,6 @@ public:
     void setFileSize(int fileSize);  // Mutator pola fileSize
     User * getAddedBy();  // Akcesor pola addedBy
     void setAddedBy(User * addedBy);  // Mutator pola addedBy
-    void displayHeader(const std::string& name);  // Metoda wyświetlająca nagłówek
 	void printMaterial();  // Metoda wypisująca informacje o materiale
 	void materialsMenu();  // Metoda otwierająca menu materiału
 	void downloadFile();  // Metoda symulująca pobieranie pliku

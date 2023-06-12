@@ -23,7 +23,7 @@ class System {
 public:
 	System(std::string name);  // Konstruktor klasy System
     std::string getName();  // Akcesor pola name
-    void displayHeader(const std::string& name);  // Metoda wyświetlająca nagłówek
+    void displayHeader(const std::string& headerName);  // Metoda wyświetlająca nagłówek
     bool authentication(User * user, std::string login, std::string password);  // Metoda autoryzująca użytkownika
 	void login(User * user);  // Metoda logująca użytkownika
 	void registerUser(User * user);  // Metoda rejestrująca użytkownika
