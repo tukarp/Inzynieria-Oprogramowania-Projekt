@@ -7,7 +7,7 @@
 //  @ Date : 10.06.2023
 //  @ Author : Tomasz Wnuk, Bartosz Szynkaruk, Mikołaj Hasiec
 //
-//
+// 
 
 #if !defined(_LECTURER_H)
 #define _LECTURER_H
