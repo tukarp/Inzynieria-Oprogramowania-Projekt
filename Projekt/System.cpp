@@ -73,10 +73,10 @@ void System::login(User * user) {
     std::cout << "[========================================================================================]\n";
 
     // Zaloguj użytkownika
-    std::cout << "Login: ";         // Wyświetl informacje o podaniu loginu
+    std::cout << "| Login: ";         // Wyświetl informacje o podaniu loginu
     std::cin >> loginUzytkownika;   // Pobierz login od użytkownika
 
-    std::cout << "Haslo: ";         // Wyświetl informacje o podaniu hasła
+    std::cout << "| Haslo: ";         // Wyświetl informacje o podaniu hasła
     std::cin >> hasloUzytkownika;   // Pobierz hasło od użytkownika
 
     // Jeżeli autoryzacja użytkownika przebiegła pomyślnie
@@ -107,23 +107,23 @@ void System::registerUser(User * user) {
     std::cout << "[========================================================================================]\n";
 
     // Zarejestruj użytkownika
-    std::cout << "Login: ";         // Wyświetl informacje o podaniu loginu
+    std::cout << "| Login: ";         // Wyświetl informacje o podaniu loginu
     std::cin >> userInput;          // Pobierz login od użytkownika
     user->setLogin(userInput);      // Ustaw login użytkownika
 
-    std::cout << "Haslo: ";         // Wyświetl informacje o podaniu hasła
+    std::cout << "| Haslo: ";         // Wyświetl informacje o podaniu hasła
     std::cin >> userInput;          // Pobierz hasło od użytkownika
     user->setPassword(userInput);   // Ustaw hasło użytkownika
 
-    std::cout << "Imie: ";          // Wyświetl informacje o podaniu imienia
+    std::cout << "| Imie: ";          // Wyświetl informacje o podaniu imienia
     std::cin >> userInput;          // Pobierz imię od użytkownika
     user->setFirstName(userInput);  // Ustaw imię użytkownika
 
-    std::cout << "Nazwisko: ";      // Wyświetl informacje o podaniu nazwiska
+    std::cout << "| Nazwisko: ";      // Wyświetl informacje o podaniu nazwiska
     std::cin >> userInput;          // Pobierz nazwisko od użytkownika
     user->setLastName(userInput);   // Ustaw nazwisko użytkownika
 
-    std::cout << "Email: ";         // Wyświetl informacje o podaniu emaila
+    std::cout << "| Email: ";         // Wyświetl informacje o podaniu emaila
     std::cin >> userInput;          // Pobierz email od użytkownika
     user->setEmail(userInput);      // Ustaw email użytkownika
 
@@ -549,7 +549,7 @@ void System::studentCourseMenu(Student * student) {
                                 // Usuń kurs z listy kursów studenta
                                 student->removeCourse(courseToDeleteName);
                                 // Wyświetl komunikat wyjścia z kursu
-                                std::cout << "Wyszedles z kursu!" << courses[j]->getName() << "\n";
+                                std::cout << "Wyszedles z kursu " << courses[j]->getName() << "!" << "\n";
                             }
                         }
                     }
@@ -633,10 +633,22 @@ void System::lecturerCourseMenu(Lecturer * lecturer) {
             }
         // Jeżeli użytkownik wybrał opcję 2
         } else if(userInput == "2") {
+            // Utwórz zmienną przechowującą linie tekstu
+            std::string inputLine;
+            // Zresetuj zmienną przechowującą dane użytkownika
+            userInput = "";
+
             // Wyświetl komunikat o podaniu nazwy kursu
             std::cout << "Podaj nazwe kursu: ";
             // Pobierz nazwę kursu
-            std::cin >> userInput;
+            while(std::getline(std::cin, inputLine)) {
+                // Dodaj linię tekstu do zmiennej przechowującej dane użytkownika
+                userInput += inputLine;
+                if(inputLine.find(' ') != std::string::npos) {
+                    // Jeżeli w linii tekstu znajduje się spacja, zakończ pobieranie
+                    break;
+                }
+            }
 
             // Przejdź przez wszystkie kursy
             for(int i = 0; i < courses.size(); i++) {
@@ -690,10 +702,12 @@ void System::lecturerCourseMenu(Lecturer * lecturer) {
                             if(courses[j]->getName() == courseToDeleteName) {
                                 // Usuń kurs z listy kursów systemu
                                 courses.erase(courses.begin() + j);
+                                // Zapisz kursy do pliku kursów w formacie CSV
+                                saveCoursesToCSV(coursesFilePath);
                                 // Usuń kurs z listy kursów wykładowcy
                                 lecturer->removeCourse(courseToDeleteName);
                                 // Wyświetl komunikat o usunięciu kursu
-                                std::cout << "Kurs zostal zamkniety!" << "\n";
+                                std::cout << "Kurs " << courseToDeleteName << " zostal zamkniety!" << "\n";
                             }
                         }
                     }
