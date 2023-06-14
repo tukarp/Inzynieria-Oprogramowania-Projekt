@@ -15,6 +15,8 @@
 // Konstruktor klasy Material
 Material::Material(std::string name, std::string description, std::string fileName, int fileSize, User *addedBy) {
 	this->name = name;
+	this->description = description;
+	this->fileName = fileName;
 	this->fileSize = fileSize;
 	this->addedBy = addedBy;
 }
