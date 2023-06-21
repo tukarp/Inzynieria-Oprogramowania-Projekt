@@ -4287,7 +4287,7 @@
 </XPD:OBJ>
 <XPD:ATTR name="#Behaviors" type="integer">9</XPD:ATTR>
 <XPD:OBJ name="Behaviors[0]" type="UMLActivityGraph" guid="ionO73eudkCmhQWi5GaC5wAA">
-<XPD:ATTR name="Name" type="string">Logowanie</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Logowanie do systemu</XPD:ATTR>
 <XPD:REF name="Context">31GrVq+gMkGF5jS/pI3fMwAA</XPD:REF>
 <XPD:OBJ name="Top" type="UMLCompositeState" guid="/o4OQELA9EW7/arqyBWCJgAA">
 <XPD:ATTR name="Name" type="string">TOP</XPD:ATTR>
@@ -4368,7 +4368,7 @@
 </XPD:OBJ>
 <XPD:ATTR name="#OwnedDiagrams" type="integer">1</XPD:ATTR>
 <XPD:OBJ name="OwnedDiagrams[0]" type="UMLActivityDiagram" guid="ewXjMzR/JUiSZtxtS8OJdwAA">
-<XPD:ATTR name="Name" type="string">Logowanie</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Logowanie do systemu</XPD:ATTR>
 <XPD:REF name="DiagramOwner">ionO73eudkCmhQWi5GaC5wAA</XPD:REF>
 <XPD:OBJ name="DiagramView" type="UMLActivityDiagramView" guid="hqLXxtvmzEeVUN1dwGI3uQAA">
 <XPD:REF name="Diagram">ewXjMzR/JUiSZtxtS8OJdwAA</XPD:REF>
@@ -5817,7 +5817,7 @@
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="Behaviors[3]" type="UMLActivityGraph" guid="QARDJjkVHkSXZP7xrJCEaQAA">
-<XPD:ATTR name="Name" type="string">Stworz wideokonferencje</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Utworz wideokonferencje</XPD:ATTR>
 <XPD:REF name="Context">31GrVq+gMkGF5jS/pI3fMwAA</XPD:REF>
 <XPD:OBJ name="Top" type="UMLCompositeState" guid="vgjUSAN0hUmoV2MYPTy+tgAA">
 <XPD:ATTR name="Name" type="string">TOP</XPD:ATTR>
@@ -5903,7 +5903,7 @@
 </XPD:OBJ>
 <XPD:ATTR name="#OwnedDiagrams" type="integer">1</XPD:ATTR>
 <XPD:OBJ name="OwnedDiagrams[0]" type="UMLActivityDiagram" guid="Sh1LMtoqpk65f10MigcGQgAA">
-<XPD:ATTR name="Name" type="string">Stworz wideokonferencje</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Utworz wideokonferencje</XPD:ATTR>
 <XPD:REF name="DiagramOwner">QARDJjkVHkSXZP7xrJCEaQAA</XPD:REF>
 <XPD:OBJ name="DiagramView" type="UMLActivityDiagramView" guid="g33r6HOb6ki98XKSHlN3IgAA">
 <XPD:REF name="Diagram">Sh1LMtoqpk65f10MigcGQgAA</XPD:REF>
