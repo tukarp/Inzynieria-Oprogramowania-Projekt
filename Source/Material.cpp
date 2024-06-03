@@ -9,10 +9,8 @@
 //
 //
 
-// Deklaracja zależności i bibliotek
 #include "Material.h"
 
-// Konstruktor klasy Material
 Material::Material(std::string name, std::string description, std::string fileName, int fileSize, User *addedBy) {
 	this->name = name;
 	this->description = description;
@@ -21,78 +19,62 @@ Material::Material(std::string name, std::string description, std::string fileNa
 	this->addedBy = addedBy;
 }
 
-// Akcesor pola name
 std::string Material::getName() {
 	return name;
 }
 
-// Mutator pola name
 void Material::setName(std::string name) {
     this->name = name;
 }
 
-// Akcesor pola description
 std::string Material::getDescription() {
     return description;
 }
 
-// Mutator pola description
 void Material::setDescription(std::string description) {
     this->description = description;
 }
 
-// Akcesor pola fileName
 std::string Material::getFileName() {
     return fileName;
 }
 
-// Mutator pola fileName
 void Material::setFileName(std::string fileName) {
     this->fileName = fileName;
 }
 
-// Akcesor pola fileSize
 int Material::getFileSize() {
     return fileSize;
 }
 
-// Mutator pola fileSize
 void Material::setFileSize(int fileSize) {
     this->fileSize = fileSize;
 }
 
-// Akcesor pola addedBy
 User * Material::getAddedBy() {
     return addedBy;
 }
 
-// Mutator pola addedBy
 void Material::setAddedBy(User * addedBy) {
     this->addedBy = addedBy;
 }
 
-// Metoda wyswietlajaca dane materialu
 void Material::printMaterial() {
-    // Wyswietl dane materialu
     std::cout << "[========================================================================================]\n";
     std::cout << "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Dane Materialu~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|\n";
     std::cout << "|========================================================================================|\n";
-    std::cout << "| Nazwa: " << this->name << "\n";  // Nazwa materiału
-    std::cout << "| Opis: " << this->description << "\n";  // Opis materiału
-    std::cout << "| Nazwa pliku: " << this->fileName << "\n";  // Nazwa pliku
-    std::cout << "| Rozmiar pliku: " << this->fileSize << "\n";  // Rozmiar pliku
-    std::cout << "| Dodany przez: " << this->addedBy->getFirstName() << "\n";  // Dodany przez
+    std::cout << "| Nazwa: " << this->name << "\n";
+    std::cout << "| Opis: " << this->description << "\n";
+    std::cout << "| Nazwa pliku: " << this->fileName << "\n";
+    std::cout << "| Rozmiar pliku: " << this->fileSize << "\n";
+    std::cout << "| Dodany przez: " << this->addedBy->getFirstName() << "\n";
     std::cout << "[========================================================================================]\n";
 }
 
-// Metoda wyswietlajaca menu materiału
 void Material::materialsMenu() {
-    // Utwórz zmienną przechowującą wybór użytkownika
     std::string userInput;
 
-    // Petla wyświetlająca menu materiału
-	while(true) {
-        // Wyswietl menu materiału
+	while (true) {
         std::cout << "[========================================================================================]\n";
         std::cout << "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Menu Materialu~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|\n";
         std::cout << "[========================================================================================]\n";
@@ -101,76 +83,49 @@ void Material::materialsMenu() {
         std::cout << "| 3. Wroc                                                                                |\n";
         std::cout << "[========================================================================================]\n";
 
-        // Pobierz wybór użytkownika
         std::cin >> userInput;
-
-        // Sprawdź wybór użytkownika
-        // Jeżeli wybór to 1
-		if(userInput == "1") {
-            // Wyświetl dane materiału
-            printMaterial();
-        // Jeżeli wybór to 2
-		} else if(userInput == "2") {
-            // Pobierz plik
-			downloadFile();
-        // Jeżeli wybór to 3
-		} else if (userInput == "3") {
-            // Zakończ pętlę
-            break;
-        // W przeciwnym wypadku
-		} else {
-            // Wyswietl komunikat o błędzie
-			std::cout << "Niepoprawna opcja!" << "\n";
-		}
+        switch (std::stoi(userInput)) {
+            case 1:
+                printMaterial();
+                break;
+            case 2:
+                downloadFile();
+                break;
+            case 3:
+                return;
+            default:
+                std::cout << "Niepoprawna opcja!" << "\n";
+                break;
+        }
 	}
 }
 
-// Metoda symulująca pobieranie pliku
 void Material::downloadFile() {
-    // Utwórz zmienne przechowujące dane paska postępu
-	int barWidth = 88;  // Szerokość paska postępu
-	int duration = 100;  // Czas trwania symulacji pobierania pliku
-	int total = 10;  // Całkowita ilość iteracji pętli
+	int barWidth = 88;
+	int duration = 100;
+	int total = 10;
 
-    // Pętla symulująca pobieranie pliku
-    // Iteruj od 0 do total
-	for(int i = 0; i < total; ++i) {
-        // Wyswietl początek paska postępu
+	for (int i = 0; i < total; i++) {
 		std::cout << "[";
-        // Oblicz postęp
 		int progress = (barWidth * i) / total;
-        // Iteruj od 0 do barWidth
-		for(int j = 0; j < barWidth; ++j) {
-            // Jeżeli j jest mniejsze od postępu
-			if(j < progress) {
-                // Wyswietl "="
+		for (int j = 0; j < barWidth; j++) {
+			if (j < progress) {
 				std::cout << "=";
-            // Jeżeli j jest równe postępowi
-			} else if(j == progress) {
-                // Wyswietl ">"
+			} else if (j == progress) {
 				std::cout << ">";
-            // W przeciwnym wypadku
 			} else {
-                // Wyswietl spacje
 				std::cout << " ";
 			}
 		}
-        // Wyswietl koniec paska postępu
 		std::cout << "] " << int((float(i) / total) * 100.0) << "%\r";
-        // Wymuś wypisanie danych na ekran
 		std::cout.flush();
-        // Uśpij wątek na czas zmiennej duration w milisekundach
 		std::this_thread::sleep_for(std::chrono::milliseconds(duration));
 	}
-    // Wyswietl koniec paska postępu
+
     std::cout << "[";
-    // Iteruj od 0 do barWidth
     for (int j = 0; j < barWidth; ++j) {
-        // Wyswietl zank paska postępu
         std::cout << "=";
     }
-    // Wyswietl koniec paska postępu
     std::cout << "] 100%" << std::endl;
-    // Wyswietl komunikat o pobraniu pliku
     std::cout << "Pobrano plik!" << std::endl;
 }

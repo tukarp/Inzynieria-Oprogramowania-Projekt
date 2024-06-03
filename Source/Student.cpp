@@ -9,48 +9,33 @@
 //
 //
 
-// Deklaracja zależności i bibliotek
 #include "Student.h"
 
-// Metoda dodająca kurs do wektora kursów studenta
 void Student::addCourse(Course * course) {
-    // Dodanie kursu do wektora kursów
 	courses.push_back(course);
 }
 
-// Metoda usuwająca kurs z wektora kursów studenta
 void Student::removeCourse(std::string courseName) {
-    // Przeszukajwektor kursów
-	for(int i = 0; i < courses.size(); i++) {
-        // Jeśli name kursu jest równa podanej nazwie
-		if(courses[i]->getName() == courseName) {
-            // Usuń kurs z wektora kursów
+	for (int i = 0; i < courses.size(); i++) {
+		if (courses[i]->getName() == courseName) {
 			courses.erase(courses.begin() + i);
 		}
 	}
 }
 
-// Akcesor rozmiaru wektora kursów studenta
 int Student::getCoursesSize() {
-    // Zwróć rozmiar wektora kursów
     return courses.size();
 }
 
-// Metoda zwracająca kurs z wektora kursów studenta o podanym indeksie
 Course * Student::getCourseAtIndex(int courseIndex) {
-    // Zwróć kurs o podanym indeksie
     return courses[courseIndex];
 }
 
-// Metoda wyświetlająca kursy studenta
 void Student::printCourses() {
-    // Wyświetl nagłówek kursów studenta
     std::cout << "[========================================================================================]\n";
     std::cout << "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Twoje Kursy~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|\n";
     std::cout << "[========================================================================================]\n";
-    // Przeszukaj wektor kursów
-    for(int i = 0; i < courses.size(); i++) {
-        // Wyświetl nazwę kursu
+    for (int i = 0; i < courses.size(); i++) {
         std::cout << "| " << i + 1 << ". " << courses[i]->getName() << "\n";
     }
 }
